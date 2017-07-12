@@ -23,17 +23,21 @@ class GeoFireClient {
         geoFire.setLocation(location, forKey: "\(eventID)")
     }
     
-    func getEvents(at location: CLLocation, completionHandler: @escaping (String?, CLLocation?) -> Void) {
+    typealias GeoFireData = (String, CLLocation)
+    
+    func getEvents(at location: CLLocation, completionHandler: @escaping (GeoFireData?, GeoFireError?) -> Void) {
         let query = geoFire.query(at: location, withRadius: 10)
         
         query?.observe(.keyEntered, with: { (key, location) in
             guard let key = key, let location = location else {
-                completionHandler(nil, nil)
+                completionHandler(nil, GeoFireError.observeFunctionFailed)
                 
                 return
             }
             
-            completionHandler(key, location)
+            let data = GeoFireData(key, location)
+            
+            completionHandler(data, nil)
         })
     }
 }
