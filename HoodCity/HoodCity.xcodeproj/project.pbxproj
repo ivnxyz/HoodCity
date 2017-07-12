@@ -19,6 +19,7 @@
 		A6E2B99A1F15AE3F006C4C85 /* GFGeoHash.m in Sources */ = {isa = PBXBuildFile; fileRef = A6E2B9931F15AE3F006C4C85 /* GFGeoHash.m */; };
 		A6E2B99B1F15AE3F006C4C85 /* GFGeoHashQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = A6E2B9951F15AE3F006C4C85 /* GFGeoHashQuery.m */; };
 		A6E2B99C1F15AE3F006C4C85 /* GFQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = A6E2B9971F15AE3F006C4C85 /* GFQuery.m */; };
+		A6E2B9AA1F15BB6B006C4C85 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E2B9A91F15BB6B006C4C85 /* LocationManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		A6E2B9961F15AE3F006C4C85 /* GFQuery+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GFQuery+Private.h"; sourceTree = "<group>"; };
 		A6E2B9971F15AE3F006C4C85 /* GFQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFQuery.m; sourceTree = "<group>"; };
 		A6E2B9A51F15AF6A006C4C85 /* HoodCity-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HoodCity-Bridging-Header.h"; sourceTree = "<group>"; };
+		A6E2B9A91F15BB6B006C4C85 /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		AC7C1191C2AFC5B024B9BD42 /* Pods-HoodCity.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HoodCity.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HoodCity/Pods-HoodCity.debug.xcconfig"; sourceTree = "<group>"; };
 		D2DF91BDB09F9D37C0A87EC0 /* Pods-HoodCity.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HoodCity.release.xcconfig"; path = "Pods/Target Support Files/Pods-HoodCity/Pods-HoodCity.release.xcconfig"; sourceTree = "<group>"; };
 		E528CCB43C36F541315C31EB /* Pods_HoodCity.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HoodCity.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -93,6 +95,7 @@
 			isa = PBXGroup;
 			children = (
 				A6E2B9861F15AE3F006C4C85 /* GeoFire */,
+				A6E2B9A81F15BB50006C4C85 /* Location */,
 				A6E2B9A61F15B894006C4C85 /* Controllers */,
 				A6E2B9721F15A564006C4C85 /* AppDelegate.swift */,
 				A6E2B9761F15A564006C4C85 /* Main.storyboard */,
@@ -149,6 +152,14 @@
 				A6E2B9741F15A564006C4C85 /* HomeController.swift */,
 			);
 			name = Controllers;
+			sourceTree = "<group>";
+		};
+		A6E2B9A81F15BB50006C4C85 /* Location */ = {
+			isa = PBXGroup;
+			children = (
+				A6E2B9A91F15BB6B006C4C85 /* LocationManager.swift */,
+			);
+			name = Location;
 			sourceTree = "<group>";
 		};
 		D4068376510922F38AC73B12 /* Pods */ = {
@@ -289,6 +300,7 @@
 				A6E2B9751F15A564006C4C85 /* HomeController.swift in Sources */,
 				A6E2B99A1F15AE3F006C4C85 /* GFGeoHash.m in Sources */,
 				A6E2B9731F15A564006C4C85 /* AppDelegate.swift in Sources */,
+				A6E2B9AA1F15BB6B006C4C85 /* LocationManager.swift in Sources */,
 				A6E2B9981F15AE3F006C4C85 /* GeoFire.m in Sources */,
 				A6E2B99B1F15AE3F006C4C85 /* GFGeoHashQuery.m in Sources */,
 				A6E2B99C1F15AE3F006C4C85 /* GFQuery.m in Sources */,
