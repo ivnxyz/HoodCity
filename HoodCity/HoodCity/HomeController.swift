@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  HomeController.swift
 //  HoodCity
 //
 //  Created by Iván Martínez on 11/07/17.
@@ -7,9 +7,12 @@
 //
 
 import UIKit
+import MapKit
 
-class ViewController: UIViewController {
+class HomeController: UIViewController {
 
+    @IBOutlet weak var mapView: MKMapView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -20,6 +23,8 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    @IBAction func newEvent(_ sender: UIButton) {
+    }
 
 }
 
