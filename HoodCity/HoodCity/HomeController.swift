@@ -17,6 +17,10 @@ class HomeController: UIViewController {
         return LocationManager(mapView: self.mapView)
     }()
     
+    lazy var geoFireClient: GeoFireClient = {
+        return GeoFireClient()
+    }()
+    
     var mapHasCenteredOnce = false
     
     override func viewDidLoad() {
@@ -24,6 +28,10 @@ class HomeController: UIViewController {
         
         mapView.delegate = self
         mapView.userTrackingMode = .follow
+        
+        let location = CLLocation(latitude: mapView.centerCoordinate.latitude, longitude: mapView.centerCoordinate.longitude)
+        
+        showEvents(with: location)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -31,7 +39,27 @@ class HomeController: UIViewController {
     }
 
     @IBAction func newEvent(_ sender: UIButton) {
+        let location = CLLocation(latitude: mapView.centerCoordinate.latitude, longitude: mapView.centerCoordinate.longitude)
         
+        geoFireClient.createSighting(for: location, with: "eventID")
+    }
+    
+    // Show events on the map
+    
+    func showEvents(with location: CLLocation) {
+        geoFireClient.showEvents(at: location) { (geoFireData, error) in
+            guard error == nil else {
+                print(error!)
+                return
+            }
+            
+            // let key = geoFireData!.0
+            let location = geoFireData!.1
+            
+            let annotation = EventAnnotation(coordinate: location.coordinate)
+            
+            self.mapView.addAnnotation(annotation)
+        }
     }
 
 }
@@ -49,4 +77,14 @@ extension HomeController: MKMapViewDelegate {
         }
     }
     
+    func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
+        let location = CLLocation(latitude: mapView.centerCoordinate.latitude, longitude: mapView.centerCoordinate.longitude)
+        
+        showEvents(with: location)
+    }
+    
 }
+
+
+
+

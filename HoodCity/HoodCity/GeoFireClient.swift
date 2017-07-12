@@ -25,7 +25,7 @@ class GeoFireClient {
     
     typealias GeoFireData = (String, CLLocation)
     
-    func getEvents(at location: CLLocation, completionHandler: @escaping (GeoFireData?, GeoFireError?) -> Void) {
+    func showEvents(at location: CLLocation, completionHandler: @escaping (GeoFireData?, GeoFireError?) -> Void) {
         let query = geoFire.query(at: location, withRadius: 10)
         
         query?.observe(.keyEntered, with: { (key, location) in
