@@ -41,7 +41,9 @@ class HomeController: UIViewController {
     @IBAction func newEvent(_ sender: UIButton) {
         let location = CLLocation(latitude: mapView.centerCoordinate.latitude, longitude: mapView.centerCoordinate.longitude)
         
-        geoFireClient.createSighting(for: location, with: "eventID")
+        let id = "\(arc4random_uniform(151) + 1)"
+        
+        geoFireClient.createSighting(for: location, with: id)
     }
     
     // Show events on the map
