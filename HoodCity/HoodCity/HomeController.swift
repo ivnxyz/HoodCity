@@ -64,25 +64,22 @@ class HomeController: UIViewController {
                 return
             }
             
-            let key = geoFireData!.0
+            let eventId = geoFireData!.0
             let location = geoFireData!.1
             
             let annotation = EventAnnotation(coordinate: location.coordinate)
-            
             self.mapView.addAnnotation(annotation)
             
-            if key == "52161400224723" {
-               let annotationInfo = GeoFireAnnotationInfo(key, annotation)
-                self.remove(annotationInfo)
-            }
+            let eventInformation = EventInformation(eventId, annotation)
+            self.isEventExpired(eventInformation)
         }
     }
     
-    typealias GeoFireAnnotationInfo = (String, EventAnnotation)
+    typealias EventInformation = (String, EventAnnotation)
     
-    func remove(_ annotationInfo: GeoFireAnnotationInfo) {
-        let key = annotationInfo.0
-        let annotation = annotationInfo.1
+    func remove(_ eventInformation: EventInformation) {
+        let key = eventInformation.0
+        let annotation = eventInformation.1
         
         geoFireClient.remove(key) { (error) in
             guard error == nil else {
@@ -92,6 +89,25 @@ class HomeController: UIViewController {
             
             self.mapView.removeAnnotation(annotation)
         }
+    }
+    
+    func isEventExpired(_ eventInformation: EventInformation) {
+        let eventId = eventInformation.0
+        
+        firebaseClient.dateOf(eventID: eventId, completionHandler: { (eventDate, error) in
+            if error != nil {
+                print(error!)
+            } else {
+                let currentDate = Date()
+                let interval = currentDate.timeIntervalSince(eventDate!)
+                
+                let hoursSinceEvent = interval / 3600
+                
+                if hoursSinceEvent > 12.0 {
+                    self.remove(eventInformation)
+                }
+            }
+        })
     }
     
 }

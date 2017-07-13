@@ -21,10 +21,29 @@ class FirebaseClient {
     func addDateToEvent(eventID id: String) {
         let currentDate = Date()
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyy-MM-dd"
+        formatter.dateFormat = "dd/M/yyyy, H:mm"
         
         let dateStringRepresentation = formatter.string(from: currentDate)
         
         reference.child(id).updateChildValues(["date": dateStringRepresentation])
+    }
+    
+    func dateOf(eventID id: String, completionHandler: @escaping (Date?, FirebaseError?) -> Void) {
+        reference.child(id).child("date").observeSingleEvent(of: .value, with: { (snapshot) in
+            guard let dateStringValue = snapshot.value as? String else {
+                completionHandler(nil, FirebaseError.snapshotValueIsEmpty)
+                return
+            }
+            
+            let formatter = DateFormatter()
+            formatter.dateFormat = "dd/M/yyyy, H:mm"
+            
+            guard let date = formatter.date(from: dateStringValue) else {
+                completionHandler(nil, FirebaseError.failedToTransformStringToData)
+                return
+            }
+            
+            completionHandler(date, nil)
+        })
     }
 }
