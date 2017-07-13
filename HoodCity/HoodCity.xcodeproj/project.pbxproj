@@ -23,6 +23,7 @@
 		A6E2B9AD1F15DE06006C4C85 /* GeoFireClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E2B9AC1F15DE06006C4C85 /* GeoFireClient.swift */; };
 		A6E2B9B31F15E38E006C4C85 /* GeoFireError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E2B9B21F15E38E006C4C85 /* GeoFireError.swift */; };
 		A6E2B9B61F15E600006C4C85 /* EventAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E2B9B51F15E600006C4C85 /* EventAnnotation.swift */; };
+		A6E2B9B81F172C4F006C4C85 /* FirebaseClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E2B9B71F172C4F006C4C85 /* FirebaseClient.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +55,7 @@
 		A6E2B9AC1F15DE06006C4C85 /* GeoFireClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoFireClient.swift; sourceTree = "<group>"; };
 		A6E2B9B21F15E38E006C4C85 /* GeoFireError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoFireError.swift; sourceTree = "<group>"; };
 		A6E2B9B51F15E600006C4C85 /* EventAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventAnnotation.swift; sourceTree = "<group>"; };
+		A6E2B9B71F172C4F006C4C85 /* FirebaseClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseClient.swift; sourceTree = "<group>"; };
 		AC7C1191C2AFC5B024B9BD42 /* Pods-HoodCity.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HoodCity.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HoodCity/Pods-HoodCity.debug.xcconfig"; sourceTree = "<group>"; };
 		D2DF91BDB09F9D37C0A87EC0 /* Pods-HoodCity.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HoodCity.release.xcconfig"; path = "Pods/Target Support Files/Pods-HoodCity/Pods-HoodCity.release.xcconfig"; sourceTree = "<group>"; };
 		E528CCB43C36F541315C31EB /* Pods_HoodCity.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HoodCity.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -175,6 +177,7 @@
 			children = (
 				A6E2B9AC1F15DE06006C4C85 /* GeoFireClient.swift */,
 				A6E2B9B21F15E38E006C4C85 /* GeoFireError.swift */,
+				A6E2B9B71F172C4F006C4C85 /* FirebaseClient.swift */,
 			);
 			name = Networking;
 			sourceTree = "<group>";
@@ -332,6 +335,7 @@
 				A6E2B9981F15AE3F006C4C85 /* GeoFire.m in Sources */,
 				A6E2B99B1F15AE3F006C4C85 /* GFGeoHashQuery.m in Sources */,
 				A6E2B99C1F15AE3F006C4C85 /* GFQuery.m in Sources */,
+				A6E2B9B81F172C4F006C4C85 /* FirebaseClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -31,6 +31,10 @@ class LocationManager: NSObject {
         
         mapView.setRegion(coordinateRegion, animated: true)
     }
+
+    func currentLocation() -> CLLocation? {
+        return locationManager.location
+    }
 }
 
 extension LocationManager: CLLocationManagerDelegate {

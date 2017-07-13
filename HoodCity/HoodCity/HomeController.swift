@@ -29,9 +29,11 @@ class HomeController: UIViewController {
         mapView.delegate = self
         mapView.userTrackingMode = .follow
         
-        let location = CLLocation(latitude: mapView.centerCoordinate.latitude, longitude: mapView.centerCoordinate.longitude)
+        let location = locationManager.currentLocation()
         
-        showEvents(with: location)
+        if let location = location {
+            showEvents(at: location)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -39,7 +41,7 @@ class HomeController: UIViewController {
     }
 
     @IBAction func newEvent(_ sender: UIButton) {
-        let location = CLLocation(latitude: mapView.centerCoordinate.latitude, longitude: mapView.centerCoordinate.longitude)
+        guard let location = locationManager.currentLocation() else { return }
         
         let id = "\(arc4random_uniform(151) + 1)"
         
@@ -48,14 +50,16 @@ class HomeController: UIViewController {
     
     // Show events on the map
     
-    func showEvents(with location: CLLocation) {
+    func showEvents(at location: CLLocation) {
+        
         geoFireClient.showEvents(at: location) { (geoFireData, error) in
             guard error == nil else {
                 print(error!)
                 return
             }
             
-            // let key = geoFireData!.0
+            let key = geoFireData!.0
+            print("KEY: \(key)")
             let location = geoFireData!.1
             
             let annotation = EventAnnotation(coordinate: location.coordinate)
@@ -80,9 +84,17 @@ extension HomeController: MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
-        let location = CLLocation(latitude: mapView.centerCoordinate.latitude, longitude: mapView.centerCoordinate.longitude)
+        let location = locationManager.currentLocation()
         
-        showEvents(with: location)
+        if let location = location {
+            showEvents(at: location)
+        }
+    }
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "Event")
+        
+        return annotationView
     }
     
 }
