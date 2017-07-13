@@ -52,6 +52,7 @@ class HomeController: UIViewController {
         
         geoFireClient.createSighting(for: location, with: timeStamp)
         firebaseClient.addEvent(withID: timeStamp)
+        firebaseClient.addDateToEvent(eventID: timeStamp)
     }
     
     // Show events on the map
@@ -92,6 +93,7 @@ class HomeController: UIViewController {
             self.mapView.removeAnnotation(annotation)
         }
     }
+    
 }
 
 extension HomeController: MKMapViewDelegate {
