@@ -21,6 +21,10 @@ class HomeController: UIViewController {
         return GeoFireClient()
     }()
     
+    lazy var firebaseClient: FirebaseClient = {
+        return FirebaseClient()
+    }()
+    
     var mapHasCenteredOnce = false
     
     override func viewDidLoad() {
@@ -41,17 +45,18 @@ class HomeController: UIViewController {
     }
 
     @IBAction func newEvent(_ sender: UIButton) {
+        //let location = CLLocation(latitude: mapView.centerCoordinate.latitude, longitude: mapView.centerCoordinate.longitude)
         guard let location = locationManager.currentLocation() else { return }
         
-        let id = "\(arc4random_uniform(151) + 1)"
+        let timeStamp = "\(Int(NSDate.timeIntervalSinceReferenceDate * 100000))"
         
-        geoFireClient.createSighting(for: location, with: id)
+        geoFireClient.createSighting(for: location, with: timeStamp)
+        firebaseClient.addEvent(withID: timeStamp)
     }
     
     // Show events on the map
     
     func showEvents(at location: CLLocation) {
-        
         geoFireClient.showEvents(at: location) { (geoFireData, error) in
             guard error == nil else {
                 print(error!)
@@ -59,15 +64,34 @@ class HomeController: UIViewController {
             }
             
             let key = geoFireData!.0
-            print("KEY: \(key)")
             let location = geoFireData!.1
             
             let annotation = EventAnnotation(coordinate: location.coordinate)
             
             self.mapView.addAnnotation(annotation)
+            
+            if key == "52161400224723" {
+               let annotationInfo = GeoFireAnnotationInfo(key, annotation)
+                self.remove(annotationInfo)
+            }
         }
     }
-
+    
+    typealias GeoFireAnnotationInfo = (String, EventAnnotation)
+    
+    func remove(_ annotationInfo: GeoFireAnnotationInfo) {
+        let key = annotationInfo.0
+        let annotation = annotationInfo.1
+        
+        geoFireClient.remove(key) { (error) in
+            guard error == nil else {
+                print(error!)
+                return
+            }
+            
+            self.mapView.removeAnnotation(annotation)
+        }
+    }
 }
 
 extension HomeController: MKMapViewDelegate {
@@ -83,17 +107,9 @@ extension HomeController: MKMapViewDelegate {
         }
     }
     
-    func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
-        let location = locationManager.currentLocation()
-        
-        if let location = location {
-            showEvents(at: location)
-        }
-    }
-    
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "Event")
-        
+        print("called")
         return annotationView
     }
     

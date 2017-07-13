@@ -102,8 +102,8 @@
 		A6E2B9711F15A564006C4C85 /* HoodCity */ = {
 			isa = PBXGroup;
 			children = (
-				A6E2B9B41F15E5EA006C4C85 /* Model */,
 				A6E2B9861F15AE3F006C4C85 /* GeoFire */,
+				A6E2B9B41F15E5EA006C4C85 /* Model */,
 				A6E2B9AB1F15DDE2006C4C85 /* Networking */,
 				A6E2B9A81F15BB50006C4C85 /* Location */,
 				A6E2B9A61F15B894006C4C85 /* Controllers */,

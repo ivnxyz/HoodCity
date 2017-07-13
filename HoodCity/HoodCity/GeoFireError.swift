@@ -10,4 +10,6 @@ import Foundation
 
 enum GeoFireError: Error {
     case observeFunctionFailed
+    case observeExitedKeysFailed
+    case keyWasNotRemoved
 }
