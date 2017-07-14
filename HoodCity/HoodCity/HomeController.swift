@@ -72,32 +72,29 @@ class HomeController: UIViewController {
             let eventId = geoFireData!.0
             let location = geoFireData!.1
             
-            let annotation = EventAnnotation(coordinate: location.coordinate)
-            self.mapView.addAnnotation(annotation)
+            let eventInformation = EventInformation(eventId, location)
             
-            let eventInformation = EventInformation(eventId, annotation)
+            print("EVENT: \(eventId)")
             self.isEventExpired(eventInformation)
         }
     }
     
-    typealias EventInformation = (String, EventAnnotation)
+    typealias EventInformation = (String, CLLocation)
     
     func remove(_ eventInformation: EventInformation) {
         let key = eventInformation.0
-        let annotation = eventInformation.1
         
         geoFireClient.remove(key) { (error) in
             guard error == nil else {
                 print(error!)
                 return
             }
-            
-            self.mapView.removeAnnotation(annotation)
         }
     }
     
     func isEventExpired(_ eventInformation: EventInformation) {
         let eventId = eventInformation.0
+        let location = eventInformation.1
         
         firebaseClient.getDate(from: eventId, completionHandler: { (eventDate, error) in
             if error != nil {
@@ -112,7 +109,9 @@ class HomeController: UIViewController {
                     self.remove(eventInformation)
                 } else {
                     self.firebaseClient.getType(from: eventId, completionHandler: { (event) in
-                        print(event.title)
+                        let annotation = EventAnnotation(coordinate: location.coordinate, eventType: event)
+                        print("ANNOTATION: \(annotation)")
+                        self.mapView.addAnnotation(annotation)
                     })
                 }
             }
