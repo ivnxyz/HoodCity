@@ -14,28 +14,30 @@ class FirebaseClient {
     let reference = Database.database().reference()
     let userReference = Database.database().reference().child("users/ivnxyz")
     
-    func addEvent(withID id: String) {
-        userReference.updateChildValues(["\(id)": true])
+    func addEventToCurrentUser(_ eventId: String) {
+        userReference.updateChildValues(["\(eventId)": true])
     }
     
-    func addDateToEvent(eventID id: String) {
+    func addDateToExistingEvent(_ eventId: String) {
         let currentDate = Date()
         let formatter = DateFormatter()
         formatter.dateFormat = "dd/M/yyyy, H:mm"
         
         let dateStringRepresentation = formatter.string(from: currentDate)
         
-        reference.child(id).updateChildValues(["date": dateStringRepresentation])
+        reference.child(eventId).updateChildValues(["date": dateStringRepresentation])
     }
     
-    func add(eventType: Event, toEvent id: String) {
+    func addEventType(_ eventType: Event, to eventId: String) {
         let eventType = eventType.title
         
-        reference.child(id).updateChildValues(["type": eventType])
+        reference.child(eventId).updateChildValues(["type": eventType])
     }
     
-    func dateOf(eventID id: String, completionHandler: @escaping (Date?, FirebaseError?) -> Void) {
-        reference.child(id).child("date").observeSingleEvent(of: .value, with: { (snapshot) in
+    // Get information from event id
+    
+    func getDate(from eventId: String, completionHandler: @escaping (Date?, FirebaseError?) -> Void) {
+        reference.child(eventId).child("date").observeSingleEvent(of: .value, with: { (snapshot) in
             guard let dateStringValue = snapshot.value as? String else {
                 completionHandler(nil, FirebaseError.snapshotValueIsEmpty)
                 return
@@ -50,6 +52,16 @@ class FirebaseClient {
             }
             
             completionHandler(date, nil)
+        })
+    }
+    
+    func getType(from eventId: String, completionHandler: @escaping (Event) -> Void) {
+        reference.child(eventId).child("type").observeSingleEvent(of: .value, with: { (snapshot) in
+            guard let eventType = snapshot.value as? String else { return }
+            
+            guard let event = Event(type: eventType) else { return }
+            
+            completionHandler(event)
         })
     }
 }

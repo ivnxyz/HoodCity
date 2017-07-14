@@ -15,6 +15,21 @@ enum Event {
 }
 
 extension Event {
+    init?(type: String) {
+        switch type {
+        case "Traffic":
+            self = .traffic
+        case "Protest":
+            self = .protest
+        case "Party":
+            self = .party
+        default:
+            return nil
+        }
+    }
+}
+
+extension Event {
     var title: String {
         switch self {
         case .traffic:

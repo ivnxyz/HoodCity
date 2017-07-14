@@ -55,9 +55,9 @@ class HomeController: UIViewController {
     
     func createEvent(at location: CLLocation, with eventId: String) {
         geoFireClient.createSighting(for: location, with: eventId)
-        firebaseClient.addEvent(withID: eventId)
-        firebaseClient.addDateToEvent(eventID: eventId)
-        firebaseClient.add(eventType: Event.protest, toEvent: eventId)
+        firebaseClient.addEventToCurrentUser(eventId)
+        firebaseClient.addDateToExistingEvent(eventId)
+        firebaseClient.addEventType(.protest, to: eventId)
     }
     
     // Show events on the map
@@ -99,7 +99,7 @@ class HomeController: UIViewController {
     func isEventExpired(_ eventInformation: EventInformation) {
         let eventId = eventInformation.0
         
-        firebaseClient.dateOf(eventID: eventId, completionHandler: { (eventDate, error) in
+        firebaseClient.getDate(from: eventId, completionHandler: { (eventDate, error) in
             if error != nil {
                 print(error!)
             } else {
@@ -110,6 +110,10 @@ class HomeController: UIViewController {
                 
                 if hoursSinceEvent > 12.0 {
                     self.remove(eventInformation)
+                } else {
+                    self.firebaseClient.getType(from: eventId, completionHandler: { (event) in
+                        print(event.title)
+                    })
                 }
             }
         })
