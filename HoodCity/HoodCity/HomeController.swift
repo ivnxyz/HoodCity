@@ -50,9 +50,14 @@ class HomeController: UIViewController {
         
         let timeStamp = "\(Int(NSDate.timeIntervalSinceReferenceDate * 100000))"
         
-        geoFireClient.createSighting(for: location, with: timeStamp)
-        firebaseClient.addEvent(withID: timeStamp)
-        firebaseClient.addDateToEvent(eventID: timeStamp)
+        createEvent(at: location, with: timeStamp)
+    }
+    
+    func createEvent(at location: CLLocation, with eventId: String) {
+        geoFireClient.createSighting(for: location, with: eventId)
+        firebaseClient.addEvent(withID: eventId)
+        firebaseClient.addDateToEvent(eventID: eventId)
+        firebaseClient.add(eventType: Event.protest, toEvent: eventId)
     }
     
     // Show events on the map

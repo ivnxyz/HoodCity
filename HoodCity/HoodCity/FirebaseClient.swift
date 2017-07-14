@@ -28,6 +28,12 @@ class FirebaseClient {
         reference.child(id).updateChildValues(["date": dateStringRepresentation])
     }
     
+    func add(eventType: Event, toEvent id: String) {
+        let eventType = eventType.title
+        
+        reference.child(id).updateChildValues(["type": eventType])
+    }
+    
     func dateOf(eventID id: String, completionHandler: @escaping (Date?, FirebaseError?) -> Void) {
         reference.child(id).child("date").observeSingleEvent(of: .value, with: { (snapshot) in
             guard let dateStringValue = snapshot.value as? String else {
