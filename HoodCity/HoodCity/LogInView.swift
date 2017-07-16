@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class LogInView: UIView {
+class LogInView: UIView, Menu {
     
     lazy var backgroundView: UIView = {
         let view = UIView()

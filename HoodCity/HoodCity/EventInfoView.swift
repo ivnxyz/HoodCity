@@ -1,5 +1,5 @@
 //
-//  ProductInfoView.swift
+//  EventInfoView.swift
 //  HoodCity
 //
 //  Created by Iván Martínez on 16/07/17.
@@ -9,11 +9,11 @@
 import Foundation
 import UIKit
 
-protocol ProductInfoDelegate: class {
+protocol EventInfoDelegate: class {
     func eventSelected(event: Event)
 }
 
-class ProductInfoView: UIView {
+class EventInfoView: UIView, Menu {
     
     lazy var backgroundView: UIView = {
         guard let window = UIApplication.shared.keyWindow else { return UIView() }
@@ -44,12 +44,12 @@ class ProductInfoView: UIView {
         button.setTitleColor(.blue, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         
-        button.addTarget(self, action: #selector(ProductInfoView.addEvent), for: .touchUpInside)
+        button.addTarget(self, action: #selector(EventInfoView.addEvent), for: .touchUpInside)
         
         return button
     }()
     
-    weak var delegate: ProductInfoDelegate?
+    weak var delegate: EventInfoDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -105,7 +105,7 @@ class ProductInfoView: UIView {
     }
 }
 
-extension ProductInfoView: UIPickerViewDelegate {
+extension EventInfoView: UIPickerViewDelegate {
     
     // MARK: - UIPickerViewDelegate
     
@@ -116,7 +116,7 @@ extension ProductInfoView: UIPickerViewDelegate {
 
 }
 
-extension ProductInfoView: UIPickerViewDataSource {
+extension EventInfoView: UIPickerViewDataSource {
     
     // MARK: - UIPickerViewDataSource
     
