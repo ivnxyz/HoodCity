@@ -46,11 +46,21 @@ class HomeController: UIViewController {
 
     @IBAction func newEvent(_ sender: UIButton) {
         //let location = CLLocation(latitude: mapView.centerCoordinate.latitude, longitude: mapView.centerCoordinate.longitude)
-        guard let location = locationManager.currentLocation() else { return }
+//        guard let location = locationManager.currentLocation() else { return }
+//        
+//        let timeStamp = "\(Int(NSDate.timeIntervalSinceReferenceDate * 100000))"
+//        
+//        createEvent(at: location, with: timeStamp)
         
-        let timeStamp = "\(Int(NSDate.timeIntervalSinceReferenceDate * 100000))"
+        let frame = CGRect(x: 0, y: 0, width: 100, height: 200)
         
-        createEvent(at: location, with: timeStamp)
+//        let logInView = LogInView(frame: frame)
+//        logInView.show()
+
+        let controller = EventController()
+        controller.modalPresentationStyle = .overCurrentContext
+        
+        present(controller, animated: false, completion: nil)
     }
     
     func createEvent(at location: CLLocation, with eventId: String) {

@@ -8,8 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		898B42EECF5D8DC32F509CD1 /* Pods_HoodCity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E528CCB43C36F541315C31EB /* Pods_HoodCity.framework */; };
+		A639667C1F1958A80068B3D4 /* EventController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A639667B1F1958A80068B3D4 /* EventController.swift */; };
 		A6D1DAAC1F17D8A200DF2D13 /* FirebaseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6D1DAAB1F17D8A200DF2D13 /* FirebaseError.swift */; };
 		A6D1DAAE1F18567400DF2D13 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6D1DAAD1F18567400DF2D13 /* Event.swift */; };
+		A6D1DAB01F192D9900DF2D13 /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6D1DAAF1F192D9900DF2D13 /* LogInView.swift */; };
 		A6E2B9731F15A564006C4C85 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E2B9721F15A564006C4C85 /* AppDelegate.swift */; };
 		A6E2B9751F15A564006C4C85 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E2B9741F15A564006C4C85 /* HomeController.swift */; };
 		A6E2B9781F15A564006C4C85 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A6E2B9761F15A564006C4C85 /* Main.storyboard */; };
@@ -29,8 +31,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A639667B1F1958A80068B3D4 /* EventController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventController.swift; sourceTree = "<group>"; };
 		A6D1DAAB1F17D8A200DF2D13 /* FirebaseError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseError.swift; sourceTree = "<group>"; };
 		A6D1DAAD1F18567400DF2D13 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		A6D1DAAF1F192D9900DF2D13 /* LogInView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
 		A6E2B96F1F15A564006C4C85 /* HoodCity.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HoodCity.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6E2B9721F15A564006C4C85 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A6E2B9741F15A564006C4C85 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
@@ -85,6 +89,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		A639667D1F1958C00068B3D4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A6D1DAAF1F192D9900DF2D13 /* LogInView.swift */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
 		A6E2B9661F15A563006C4C85 = {
 			isa = PBXGroup;
 			children = (
@@ -107,8 +119,9 @@
 			isa = PBXGroup;
 			children = (
 				A6E2B9861F15AE3F006C4C85 /* GeoFire */,
-				A6E2B9B41F15E5EA006C4C85 /* Model */,
 				A6E2B9AB1F15DDE2006C4C85 /* Networking */,
+				A639667D1F1958C00068B3D4 /* View */,
+				A6E2B9B41F15E5EA006C4C85 /* Model */,
 				A6E2B9A81F15BB50006C4C85 /* Location */,
 				A6E2B9A61F15B894006C4C85 /* Controllers */,
 				A6E2B9721F15A564006C4C85 /* AppDelegate.swift */,
@@ -164,6 +177,7 @@
 			isa = PBXGroup;
 			children = (
 				A6E2B9741F15A564006C4C85 /* HomeController.swift */,
+				A639667B1F1958A80068B3D4 /* EventController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -330,11 +344,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A6D1DAB01F192D9900DF2D13 /* LogInView.swift in Sources */,
 				A6D1DAAC1F17D8A200DF2D13 /* FirebaseError.swift in Sources */,
 				A6E2B9991F15AE3F006C4C85 /* GFBase32Utils.m in Sources */,
 				A6E2B9751F15A564006C4C85 /* HomeController.swift in Sources */,
 				A6E2B9B31F15E38E006C4C85 /* GeoFireError.swift in Sources */,
 				A6E2B99A1F15AE3F006C4C85 /* GFGeoHash.m in Sources */,
+				A639667C1F1958A80068B3D4 /* EventController.swift in Sources */,
 				A6E2B9B61F15E600006C4C85 /* EventAnnotation.swift in Sources */,
 				A6E2B9731F15A564006C4C85 /* AppDelegate.swift in Sources */,
 				A6E2B9AA1F15BB6B006C4C85 /* LocationManager.swift in Sources */,
