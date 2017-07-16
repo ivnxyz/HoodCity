@@ -9,6 +9,10 @@
 import Foundation
 import UIKit
 
+protocol ProductInfoDelegate: class {
+    func eventSelected(event: Event)
+}
+
 class ProductInfoView: UIView {
     
     lazy var backgroundView: UIView = {
@@ -40,8 +44,12 @@ class ProductInfoView: UIView {
         button.setTitleColor(.blue, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         
+        button.addTarget(self, action: #selector(ProductInfoView.addEvent), for: .touchUpInside)
+        
         return button
     }()
+    
+    weak var delegate: ProductInfoDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -88,7 +96,13 @@ class ProductInfoView: UIView {
         
         self.removeFromSuperview()
     }
-
+    
+    func addEvent() {
+        let selectedEventIndex = eventPicker.selectedRow(inComponent: 0)
+        guard let event = Event(index: selectedEventIndex) else { return }
+        
+        delegate?.eventSelected(event: event)
+    }
 }
 
 extension ProductInfoView: UIPickerViewDelegate {
@@ -99,10 +113,7 @@ extension ProductInfoView: UIPickerViewDelegate {
         let event = Event(index: row)
         return event!.title
     }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        print("selected")
-    }
+
 }
 
 extension ProductInfoView: UIPickerViewDataSource {
