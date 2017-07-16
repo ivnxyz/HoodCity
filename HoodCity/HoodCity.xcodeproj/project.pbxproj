@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		898B42EECF5D8DC32F509CD1 /* Pods_HoodCity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E528CCB43C36F541315C31EB /* Pods_HoodCity.framework */; };
 		A639667C1F1958A80068B3D4 /* EventController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A639667B1F1958A80068B3D4 /* EventController.swift */; };
+		A639667F1F1B4D000068B3D4 /* ProductInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A639667E1F1B4D000068B3D4 /* ProductInfoView.swift */; };
 		A6D1DAAC1F17D8A200DF2D13 /* FirebaseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6D1DAAB1F17D8A200DF2D13 /* FirebaseError.swift */; };
 		A6D1DAAE1F18567400DF2D13 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6D1DAAD1F18567400DF2D13 /* Event.swift */; };
 		A6D1DAB01F192D9900DF2D13 /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6D1DAAF1F192D9900DF2D13 /* LogInView.swift */; };
@@ -32,6 +33,7 @@
 
 /* Begin PBXFileReference section */
 		A639667B1F1958A80068B3D4 /* EventController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventController.swift; sourceTree = "<group>"; };
+		A639667E1F1B4D000068B3D4 /* ProductInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductInfoView.swift; sourceTree = "<group>"; };
 		A6D1DAAB1F17D8A200DF2D13 /* FirebaseError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseError.swift; sourceTree = "<group>"; };
 		A6D1DAAD1F18567400DF2D13 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		A6D1DAAF1F192D9900DF2D13 /* LogInView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 			isa = PBXGroup;
 			children = (
 				A6D1DAAF1F192D9900DF2D13 /* LogInView.swift */,
+				A639667E1F1B4D000068B3D4 /* ProductInfoView.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -353,6 +356,7 @@
 				A639667C1F1958A80068B3D4 /* EventController.swift in Sources */,
 				A6E2B9B61F15E600006C4C85 /* EventAnnotation.swift in Sources */,
 				A6E2B9731F15A564006C4C85 /* AppDelegate.swift in Sources */,
+				A639667F1F1B4D000068B3D4 /* ProductInfoView.swift in Sources */,
 				A6E2B9AA1F15BB6B006C4C85 /* LocationManager.swift in Sources */,
 				A6E2B9AD1F15DE06006C4C85 /* GeoFireClient.swift in Sources */,
 				A6E2B9981F15AE3F006C4C85 /* GeoFire.m in Sources */,

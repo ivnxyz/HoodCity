@@ -12,6 +12,8 @@ enum Event {
     case traffic
     case protest
     case party
+    
+    static var count: Int { return Event.party.hashValue + 1}
 }
 
 extension Event {
@@ -22,6 +24,21 @@ extension Event {
         case "Protest":
             self = .protest
         case "Party":
+            self = .party
+        default:
+            return nil
+        }
+    }
+}
+
+extension Event {
+    init?(index: Int) {
+        switch index {
+        case 0:
+            self = .traffic
+        case 1:
+            self = .protest
+        case 2:
             self = .party
         default:
             return nil

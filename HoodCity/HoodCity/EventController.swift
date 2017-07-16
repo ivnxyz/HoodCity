@@ -26,6 +26,12 @@ class EventController: UIViewController {
         return view
     }()
     
+    lazy var productInfoView: ProductInfoView = {
+        let view = ProductInfoView()
+        
+        return view
+    }()
+    
     override func viewDidAppear(_ animated: Bool) {
         
         UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
@@ -45,11 +51,11 @@ class EventController: UIViewController {
     }
     
     func showMenu() {
-        logInView.show()
+        productInfoView.show()
     }
 
     func dismissMenu() {
-        logInView.dismiss()
+        productInfoView.dismiss()
         
         UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: { 
             self.view.alpha = 0
