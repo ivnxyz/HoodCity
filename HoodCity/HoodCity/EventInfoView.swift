@@ -82,7 +82,9 @@ class EventInfoView: UIView, Menu {
         
         UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
             
-            self.backgroundView.frame = CGRect(x: 0, y: self.backgroundView.frame.height / 2, width: self.backgroundView.frame.width, height: self.backgroundView.frame.height)
+            let backgroundViewY = window.frame.height - self.backgroundView.frame.height
+            
+            self.backgroundView.frame = CGRect(x: 0, y: backgroundViewY, width: self.backgroundView.frame.width, height: self.backgroundView.frame.height)
             
         }, completion: nil)
     }

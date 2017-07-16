@@ -57,7 +57,6 @@ class EventController: UIViewController {
     
     func create(_ event: Event, at location: CLLocation, with eventId: String) {
         geoFireClient.createSighting(for: location, with: eventId)
-        firebaseClient.addEventToCurrentUser(eventId)
         firebaseClient.addDateToExistingEvent(eventId)
         firebaseClient.addEventType(event, to: eventId)
     }
@@ -68,6 +67,8 @@ class EventController: UIViewController {
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(EventController.handleDismiss))
         view.addGestureRecognizer(gestureRecognizer)
     }
+    
+    // MARK: - Handle Menu
     
     func showMenu(menu: Menu) {
         menu.show()
@@ -89,12 +90,15 @@ class EventController: UIViewController {
 }
 
 extension EventController: EventInfoDelegate {
+    
+    //MARK: - EventInfoDelegate
+    
     func eventSelected(event: Event) {
 
         guard let location = locationManager.currentLocation() else { return }
-        let timeStamp = "\(Int(NSDate.timeIntervalSinceReferenceDate * 100000))"
+        let timeStampId = "\(Int(NSDate.timeIntervalSinceReferenceDate * 100000))"
         
-        create(event, at: location, with: timeStamp)
+        create(event, at: location, with: timeStampId)
         
         handleDismiss()
     }

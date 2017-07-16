@@ -12,11 +12,6 @@ import FirebaseDatabase
 class FirebaseClient {
     
     let reference = Database.database().reference()
-    let userReference = Database.database().reference().child("users/ivnxyz")
-    
-    func addEventToCurrentUser(_ eventId: String) {
-        userReference.updateChildValues(["\(eventId)": true])
-    }
     
     func addDateToExistingEvent(_ eventId: String) {
         let currentDate = Date()
