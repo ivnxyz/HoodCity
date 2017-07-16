@@ -38,6 +38,9 @@ class EventController: UIViewController {
         return eventInfo
     }()
     
+    let geoFireClient = GeoFireClient()
+    let firebaseClient = FirebaseClient()
+    let locationManager = LocationManager(mapView: nil)
     
     override func viewDidAppear(_ animated: Bool) {
         
@@ -48,6 +51,15 @@ class EventController: UIViewController {
         }, completion: nil)
         
         showMenu(menu: eventInfoView)
+    }
+    
+    // MARK: - Add events to Firebase
+    
+    func create(_ event: Event, at location: CLLocation, with eventId: String) {
+        geoFireClient.createSighting(for: location, with: eventId)
+        firebaseClient.addEventToCurrentUser(eventId)
+        firebaseClient.addDateToExistingEvent(eventId)
+        firebaseClient.addEventType(event, to: eventId)
     }
 
     override func viewDidLoad() {
@@ -78,7 +90,20 @@ class EventController: UIViewController {
 
 extension EventController: EventInfoDelegate {
     func eventSelected(event: Event) {
-        print(event.title)
+
+        guard let location = locationManager.currentLocation() else { return }
+        let timeStamp = "\(Int(NSDate.timeIntervalSinceReferenceDate * 100000))"
+        
+        create(event, at: location, with: timeStamp)
+        
         handleDismiss()
     }
 }
+
+
+
+
+
+
+
+

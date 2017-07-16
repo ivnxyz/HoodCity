@@ -45,29 +45,10 @@ class HomeController: UIViewController {
     }
 
     @IBAction func newEvent(_ sender: UIButton) {
-        //let location = CLLocation(latitude: mapView.centerCoordinate.latitude, longitude: mapView.centerCoordinate.longitude)
-//        guard let location = locationManager.currentLocation() else { return }
-//        
-//        let timeStamp = "\(Int(NSDate.timeIntervalSinceReferenceDate * 100000))"
-//        
-//        createEvent(at: location, with: timeStamp)
-        
-        let frame = CGRect(x: 0, y: 0, width: 100, height: 200)
-        
-//        let logInView = LogInView(frame: frame)
-//        logInView.show()
-
         let controller = EventController()
         controller.modalPresentationStyle = .overCurrentContext
         
         present(controller, animated: false, completion: nil)
-    }
-    
-    func createEvent(at location: CLLocation, with eventId: String) {
-        geoFireClient.createSighting(for: location, with: eventId)
-        firebaseClient.addEventToCurrentUser(eventId)
-        firebaseClient.addDateToExistingEvent(eventId)
-        firebaseClient.addEventType(.protest, to: eventId)
     }
     
     // Show events on the map
@@ -145,7 +126,7 @@ extension HomeController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "Event")
-        print("called")
+        print("Creating AnnotationView")
         return annotationView
     }
     
