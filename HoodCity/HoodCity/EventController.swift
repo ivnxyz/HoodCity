@@ -81,7 +81,7 @@ class EventController: UIViewController {
     func dismissMenu(menu: Menu) {
         menu.dismiss()
         
-        UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: { 
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
             self.view.alpha = 0
         }) { (true) in
             self.dismiss(animated: false, completion: nil)

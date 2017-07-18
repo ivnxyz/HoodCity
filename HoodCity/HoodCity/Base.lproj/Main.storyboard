@@ -25,14 +25,13 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="q7P-aC-94F">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </mapView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9F5-2U-axv">
-                                <rect key="frame" x="290" y="578" width="69" height="69"/>
-                                <color key="backgroundColor" red="0.90919741528461495" green="0.94061310279187815" blue="0.90467659350917085" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9F5-2U-axv">
+                                <rect key="frame" x="298" y="586" width="61" height="61"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="69" id="khI-m3-ZEn"/>
-                                    <constraint firstAttribute="width" constant="69" id="t76-rc-ur1"/>
+                                    <constraint firstAttribute="height" constant="61" id="khI-m3-ZEn"/>
+                                    <constraint firstAttribute="width" constant="61" id="t76-rc-ur1"/>
                                 </constraints>
-                                <state key="normal" title="New sight"/>
+                                <state key="normal" image="add-event-button"/>
                                 <connections>
                                     <action selector="newEvent:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ycF-0I-g5C"/>
                                 </connections>
@@ -57,4 +56,7 @@
             <point key="canvasLocation" x="136.80000000000001" y="138.98050974512745"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="add-event-button" width="59" height="59"/>
+    </resources>
 </document>
