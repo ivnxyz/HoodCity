@@ -51,8 +51,9 @@ class EventInfoView: UIView, Menu {
     
     lazy var addEventLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .black
+        label.textColor = UIColor(red: 63/255.0, green: 63/255.0, blue: 63/255.0, alpha: 1)
         label.text = "Add a new event"
+        label.font = UIFont.systemFont(ofSize: 21, weight: UIFontWeightSemibold)
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
@@ -60,8 +61,9 @@ class EventInfoView: UIView, Menu {
     
     lazy var eventInfoLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .black
+        label.textColor = UIColor(red: 129/255.0, green: 129/255.0, blue: 129/255.0, alpha: 1)
         label.text = "This event will disappear in 12 hours."
+        label.font = UIFont.systemFont(ofSize: 15, weight: UIFontWeightMedium)
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
