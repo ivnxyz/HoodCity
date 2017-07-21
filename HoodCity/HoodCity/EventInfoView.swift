@@ -18,7 +18,7 @@ class EventInfoView: UIView, Menu {
     lazy var backgroundView: UIView = {
         guard let window = UIApplication.shared.keyWindow else { return UIView() }
         
-        let backgroundViewHeight = window.frame.height - 200
+        let backgroundViewHeight = CGFloat(440)
         let backgroundViewWidth = window.frame.width
         
         let view = UIView(frame: CGRect(x: 0, y: backgroundViewHeight * 2, width: backgroundViewWidth, height: backgroundViewHeight))
@@ -103,29 +103,29 @@ class EventInfoView: UIView, Menu {
         ])
         
         NSLayoutConstraint.activate([
-            addEventButton.topAnchor.constraint(equalTo: eventPicker.bottomAnchor, constant: 30),
+            adView.heightAnchor.constraint(equalToConstant: 50),
+            adView.widthAnchor.constraint(equalToConstant: 320),
+            adView.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor),
+            adView.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            eventInfoLabel.bottomAnchor.constraint(equalTo: adView.topAnchor, constant: -69),
+            eventInfoLabel.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            addEventButton.bottomAnchor.constraint(equalTo: eventInfoLabel.topAnchor, constant: 7),
             addEventButton.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor),
             addEventButton.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor),
             addEventButton.heightAnchor.constraint(equalToConstant: 50)
         ])
         
         NSLayoutConstraint.activate([
-            eventPicker.topAnchor.constraint(equalTo: addEventLabel.bottomAnchor, constant: 32),
+            eventPicker.topAnchor.constraint(equalTo: addEventLabel.bottomAnchor, constant: 25),
             eventPicker.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor),
             eventPicker.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor),
-            eventPicker.heightAnchor.constraint(equalToConstant: 200)
-        ])
-        
-        NSLayoutConstraint.activate([
-            eventInfoLabel.topAnchor.constraint(equalTo: addEventButton.bottomAnchor, constant: 7),
-            eventInfoLabel.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor)
-        ])
-        
-        NSLayoutConstraint.activate([
-            adView.heightAnchor.constraint(equalToConstant: 50),
-            adView.widthAnchor.constraint(equalToConstant: 320),
-            adView.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor),
-            adView.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor)
+            eventPicker.bottomAnchor.constraint(equalTo: addEventButton.topAnchor, constant: -25)
         ])
         
         
