@@ -39,9 +39,9 @@ class EventInfoView: UIView, Menu {
     }()
     
     lazy var addEventButton: UIButton = {
-        let button = UIButton()
+        let button = UIButton(type: .system)
         button.setTitle("Add event", for: .normal)
-        button.setTitleColor(.blue, for: .normal)
+        button.titleLabel?.font = button.titleLabel?.font.withSize(21)
         button.translatesAutoresizingMaskIntoConstraints = false
         
         button.addTarget(self, action: #selector(EventInfoView.addEvent), for: .touchUpInside)
