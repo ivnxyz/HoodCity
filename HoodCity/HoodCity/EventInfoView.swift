@@ -49,6 +49,32 @@ class EventInfoView: UIView, Menu {
         return button
     }()
     
+    lazy var addEventLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .black
+        label.text = "Add a new event"
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        return label
+    }()
+    
+    lazy var eventInfoLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .black
+        label.text = "This event will disappear in 12 hours."
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        return label
+    }()
+    
+    lazy var adView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .gray
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        return view
+    }()
+    
     weak var delegate: EventInfoDelegate?
     
     override init(frame: CGRect) {
@@ -63,8 +89,16 @@ class EventInfoView: UIView, Menu {
         guard let window = UIApplication.shared.keyWindow else { return }
         
         window.addSubview(backgroundView)
+        backgroundView.addSubview(addEventLabel)
         backgroundView.addSubview(eventPicker)
         backgroundView.addSubview(addEventButton)
+        backgroundView.addSubview(eventInfoLabel)
+        backgroundView.addSubview(adView)
+        
+        NSLayoutConstraint.activate([
+            addEventLabel.topAnchor.constraint(equalTo: backgroundView.topAnchor, constant: 16),
+            addEventLabel.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor)
+        ])
         
         NSLayoutConstraint.activate([
             addEventButton.topAnchor.constraint(equalTo: eventPicker.bottomAnchor, constant: 30),
@@ -74,11 +108,24 @@ class EventInfoView: UIView, Menu {
         ])
         
         NSLayoutConstraint.activate([
-            eventPicker.topAnchor.constraint(equalTo: backgroundView.topAnchor),
+            eventPicker.topAnchor.constraint(equalTo: addEventLabel.bottomAnchor, constant: 32),
             eventPicker.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor),
             eventPicker.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor),
             eventPicker.heightAnchor.constraint(equalToConstant: 200)
         ])
+        
+        NSLayoutConstraint.activate([
+            eventInfoLabel.topAnchor.constraint(equalTo: addEventButton.bottomAnchor, constant: 7),
+            eventInfoLabel.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            adView.heightAnchor.constraint(equalToConstant: 50),
+            adView.widthAnchor.constraint(equalToConstant: 320),
+            adView.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor),
+            adView.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor)
+        ])
+        
         
         UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
             
