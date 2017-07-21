@@ -24,7 +24,7 @@ class FirebaseClient {
     }
     
     func addEventType(_ eventType: Event, to eventId: String) {
-        let eventType = eventType.title
+        let eventType = eventType.type
         
         reference.child(eventId).updateChildValues(["type": eventType])
     }
