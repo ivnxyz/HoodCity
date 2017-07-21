@@ -125,9 +125,34 @@ extension HomeController: MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "Event")
+        
+        guard !(annotation is MKUserLocation) else {
+            return nil
+        }
+        
+        guard let eventAnnotation = annotation as? EventAnnotation else { return nil }
+        
+        var annotationView: EventAnnotationView?
+        
+        if let dequeuedAnnotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "EventAnnotation") as? EventAnnotationView {
+            annotationView = dequeuedAnnotationView
+            annotationView?.annotation = annotation
+        } else {
+            annotationView = EventAnnotationView(eventAnnotation: eventAnnotation, reuseIdentifier: "EventAnnotation")
+            annotationView?.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+        }
+        
         print("Creating AnnotationView")
         return annotationView
     }
     
 }
+
+
+
+
+
+
+
+
+

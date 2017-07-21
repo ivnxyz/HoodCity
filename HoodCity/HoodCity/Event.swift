@@ -113,6 +113,27 @@ extension Event {
             return "pride"
         }
     }
+    
+    var icon: UIImage {
+        switch self {
+        case .traffic:
+            return #imageLiteral(resourceName: "traffic")
+        case .protest:
+            return #imageLiteral(resourceName: "protest")
+        case .party:
+            return #imageLiteral(resourceName: "party")
+        case .sportEvent:
+            return #imageLiteral(resourceName: "sportEvent")
+        case .meetup:
+            return #imageLiteral(resourceName: "meetup")
+        case .art:
+            return #imageLiteral(resourceName: "artEvent")
+        case .rain:
+            return #imageLiteral(resourceName: "rain")
+        case .pride:
+            return #imageLiteral(resourceName: "pride")
+        }
+    }
 }
 
 
