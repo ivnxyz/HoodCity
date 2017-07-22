@@ -1,6 +1,0 @@
-framework module Pods_HoodCity {
-  umbrella header "Pods-HoodCity-umbrella.h"
-
-  export *
-  module * { export * }
-}
