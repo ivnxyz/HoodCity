@@ -8,12 +8,13 @@
 
 import Foundation
 import UIKit
+import GoogleMobileAds
 
 protocol EventInfoDelegate: class {
     func eventSelected(event: Event)
 }
 
-class EventInfoView: UIView, Menu {
+class EventInfoView: UIView, Menu, GADBannerViewDelegate {
     
     lazy var backgroundView: UIView = {
         guard let window = UIApplication.shared.keyWindow else { return UIView() }
@@ -69,12 +70,19 @@ class EventInfoView: UIView, Menu {
         return label
     }()
     
-    lazy var adView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .gray
-        view.translatesAutoresizingMaskIntoConstraints = false
+    lazy var adView: GADBannerView = {
+        let bannerView = GADBannerView(adSize: kGADAdSizeBanner)
         
-        return view
+        let request = GADRequest()
+        request.testDevices = [kGADSimulatorID]
+        bannerView.delegate = self
+        bannerView.adUnitID = eventInfoBannerViewId
+        bannerView.rootViewController = EventController()
+        bannerView.load(request)
+        
+        bannerView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return bannerView
     }()
     
     weak var delegate: EventInfoDelegate?
