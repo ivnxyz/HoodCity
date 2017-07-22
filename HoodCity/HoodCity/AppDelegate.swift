@@ -20,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         FirebaseApp.configure()
+        GADMobileAds.configure(withApplicationID: addMobAppId)
         
         return true
     }
