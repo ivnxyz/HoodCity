@@ -13,16 +13,7 @@ class EventAnnotationView: MKAnnotationView {
     init(eventAnnotation: EventAnnotation, reuseIdentifier: String?) {
         super.init(annotation: eventAnnotation, reuseIdentifier: reuseIdentifier)
         
-        let pinImage = eventAnnotation.event.icon
-        let size = CGSize(width: 50, height: 50)
-        
-        UIGraphicsBeginImageContext(size)
-        pinImage.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
-        
-        let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        self.image = resizedImage
+        self.image = eventAnnotation.event.icon
         self.canShowCallout = true
     }
     
