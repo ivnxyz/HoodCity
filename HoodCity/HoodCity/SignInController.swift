@@ -8,6 +8,11 @@
 
 import UIKit
 import FBSDKLoginKit
+import Firebase
+
+protocol SignInControllerDelegate: class {
+    func userDidSignIn()
+}
 
 class SignInController: UIViewController {
     
@@ -55,6 +60,8 @@ class SignInController: UIViewController {
         view.backgroundColor = UIColor(white: 0, alpha: 0.5)
         view.alpha = 0
     }
+    
+    weak var delegate: SignInControllerDelegate?
     
     //MARK: - ViewDidLoad
     
@@ -116,6 +123,9 @@ class SignInController: UIViewController {
 }
 
 extension SignInController: FBSDKLoginButtonDelegate {
+    
+    //MARK: - FBSDKLogInButtonDelegate
+    
     func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
         print("User loged out")
     }
@@ -125,8 +135,20 @@ extension SignInController: FBSDKLoginButtonDelegate {
             print(error)
             return
         }
+        let accessToken = FBSDKAccessToken.current()
+        guard let accessTokenString = accessToken?.tokenString else { return }
+        let credentials = FacebookAuthProvider.credential(withAccessToken: accessTokenString)
         
-        print(result.token.tokenString)
+        Auth.auth().signIn(with: credentials) { (user, error) in
+            if error != nil {
+                print("Something went wrong with Facebook user: ", error!)
+                return
+            }
+            
+            self.delegate?.userDidSignIn()
+            self.handleDismiss()
+            print("Logged in with our user:", user!)
+        }
         
         FBSDKGraphRequest(graphPath: "/me", parameters: ["fields": "id, name, email"]).start { (connection, result, err) in
             if error != nil {
