@@ -36,6 +36,7 @@
 /* Begin PBXFileReference section */
 		A602DF8E1F23AFB000890744 /* EventController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventController.swift; sourceTree = "<group>"; };
 		A634BAF51F23369300927724 /* AppId.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppId.swift; sourceTree = "<group>"; };
+		A65BB9621F248D2600F40CE6 /* HoodCity.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HoodCity.entitlements; sourceTree = "<group>"; };
 		A676B9B61F246CA30028FED8 /* SignInController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInController.swift; sourceTree = "<group>"; };
 		A6A49FAD1F228606002BA67C /* EventAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventAnnotationView.swift; sourceTree = "<group>"; };
 		A6D1DAAB1F17D8A200DF2D13 /* FirebaseError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseError.swift; sourceTree = "<group>"; };
@@ -124,6 +125,7 @@
 		A6E2B9711F15A564006C4C85 /* HoodCity */ = {
 			isa = PBXGroup;
 			children = (
+				A65BB9621F248D2600F40CE6 /* HoodCity.entitlements */,
 				A6E2B9861F15AE3F006C4C85 /* GeoFire */,
 				A6E2B9AB1F15DDE2006C4C85 /* Networking */,
 				A639667D1F1958C00068B3D4 /* View */,
@@ -265,6 +267,11 @@
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = W288ESV4DF;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -495,6 +502,7 @@
 			baseConfigurationReference = AC7C1191C2AFC5B024B9BD42 /* Pods-HoodCity.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = HoodCity/HoodCity.entitlements;
 				DEVELOPMENT_TEAM = W288ESV4DF;
 				INFOPLIST_FILE = HoodCity/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -510,6 +518,7 @@
 			baseConfigurationReference = D2DF91BDB09F9D37C0A87EC0 /* Pods-HoodCity.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = HoodCity/HoodCity.entitlements;
 				DEVELOPMENT_TEAM = W288ESV4DF;
 				INFOPLIST_FILE = HoodCity/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

@@ -22,6 +22,7 @@ class SignInController: UIViewController {
     
     lazy var loginButton: FBSDKLoginButton = {
         let button = FBSDKLoginButton()
+        button.delegate = self
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
@@ -57,7 +58,7 @@ class SignInController: UIViewController {
         
         NSLayoutConstraint.activate([
             loginButton.topAnchor.constraint(equalTo: backgroundView.topAnchor, constant: 16),
-            loginButton.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor)
+            loginButton.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor),
         ])
         
         UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
@@ -89,3 +90,16 @@ class SignInController: UIViewController {
         }
     }
 }
+
+extension SignInController: FBSDKLoginButtonDelegate {
+    func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
+        print("User loged out")
+    }
+    
+    func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
+        print(result)
+    }
+}
+
+
+
