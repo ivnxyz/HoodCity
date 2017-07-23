@@ -20,6 +20,13 @@ class SignInController: UIViewController {
         return view
     }()
     
+    lazy var loginButton: FBSDKLoginButton = {
+        let button = FBSDKLoginButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        return button
+    }()
+    
     //MARK: - Init
     
     required init?(coder aDecoder: NSCoder) {
@@ -46,6 +53,12 @@ class SignInController: UIViewController {
         backgroundView.frame = CGRect(x: 0, y: backgroundViewHeight * 3, width: backgroundViewWidth, height: backgroundViewHeight)
         
         window.addSubview(backgroundView)
+        backgroundView.addSubview(loginButton)
+        
+        NSLayoutConstraint.activate([
+            loginButton.topAnchor.constraint(equalTo: backgroundView.topAnchor, constant: 16),
+            loginButton.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor)
+        ])
         
         UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
             
