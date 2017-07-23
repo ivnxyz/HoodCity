@@ -45,7 +45,7 @@ class HomeController: UIViewController {
     }
 
     @IBAction func newEvent(_ sender: UIButton) {
-        let controller = EventController()
+        let controller = SignInController()
         controller.modalPresentationStyle = .overCurrentContext
         
         present(controller, animated: false, completion: nil)

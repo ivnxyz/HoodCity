@@ -10,6 +10,7 @@
 		898B42EECF5D8DC32F509CD1 /* Pods_HoodCity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E528CCB43C36F541315C31EB /* Pods_HoodCity.framework */; };
 		A602DF8F1F23AFB000890744 /* EventController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A602DF8E1F23AFB000890744 /* EventController.swift */; };
 		A634BAF61F23369300927724 /* AppId.swift in Sources */ = {isa = PBXBuildFile; fileRef = A634BAF51F23369300927724 /* AppId.swift */; };
+		A676B9B71F246CA30028FED8 /* SignInController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A676B9B61F246CA30028FED8 /* SignInController.swift */; };
 		A6A49FAE1F228606002BA67C /* EventAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6A49FAD1F228606002BA67C /* EventAnnotationView.swift */; };
 		A6D1DAAC1F17D8A200DF2D13 /* FirebaseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6D1DAAB1F17D8A200DF2D13 /* FirebaseError.swift */; };
 		A6D1DAAE1F18567400DF2D13 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6D1DAAD1F18567400DF2D13 /* Event.swift */; };
@@ -35,6 +36,7 @@
 /* Begin PBXFileReference section */
 		A602DF8E1F23AFB000890744 /* EventController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventController.swift; sourceTree = "<group>"; };
 		A634BAF51F23369300927724 /* AppId.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppId.swift; sourceTree = "<group>"; };
+		A676B9B61F246CA30028FED8 /* SignInController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInController.swift; sourceTree = "<group>"; };
 		A6A49FAD1F228606002BA67C /* EventAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventAnnotationView.swift; sourceTree = "<group>"; };
 		A6D1DAAB1F17D8A200DF2D13 /* FirebaseError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseError.swift; sourceTree = "<group>"; };
 		A6D1DAAD1F18567400DF2D13 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
@@ -183,6 +185,7 @@
 			children = (
 				A6E2B9741F15A564006C4C85 /* HomeController.swift */,
 				A602DF8E1F23AFB000890744 /* EventController.swift */,
+				A676B9B61F246CA30028FED8 /* SignInController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -367,6 +370,7 @@
 				A6E2B99B1F15AE3F006C4C85 /* GFGeoHashQuery.m in Sources */,
 				A6E2B99C1F15AE3F006C4C85 /* GFQuery.m in Sources */,
 				A6D1DAAE1F18567400DF2D13 /* Event.swift in Sources */,
+				A676B9B71F246CA30028FED8 /* SignInController.swift in Sources */,
 				A6E2B9B81F172C4F006C4C85 /* FirebaseClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
