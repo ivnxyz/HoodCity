@@ -14,7 +14,12 @@ class SignInController: UIViewController {
     //MARK: - UI Elements
     
     lazy var backgroundView: UIView = {
-        let view = UIView()
+        guard let window = UIApplication.shared.keyWindow else { return UIView() }
+        
+        let backgroundViewHeight = CGFloat(440)
+        let backgroundViewWidth = window.frame.width
+        
+        let view = UIView(frame: CGRect(x: 0, y: backgroundViewHeight * 2, width: backgroundViewWidth, height: backgroundViewHeight))
         view.backgroundColor = .white
         
         return view
@@ -23,9 +28,20 @@ class SignInController: UIViewController {
     lazy var loginButton: FBSDKLoginButton = {
         let button = FBSDKLoginButton()
         button.delegate = self
+        button.readPermissions = ["email"]
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
+    }()
+    
+    lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = UIColor(red: 63/255.0, green: 63/255.0, blue: 63/255.0, alpha: 1)
+        label.text = "Sign in to add a new event"
+        label.font = UIFont.systemFont(ofSize: 21, weight: UIFontWeightSemibold)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        return label
     }()
     
     //MARK: - Init
@@ -55,15 +71,23 @@ class SignInController: UIViewController {
         
         window.addSubview(backgroundView)
         backgroundView.addSubview(loginButton)
+        backgroundView.addSubview(titleLabel)
         
         NSLayoutConstraint.activate([
-            loginButton.topAnchor.constraint(equalTo: backgroundView.topAnchor, constant: 16),
-            loginButton.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor),
+            titleLabel.topAnchor.constraint(equalTo: backgroundView.topAnchor, constant: 16),
+            titleLabel.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            loginButton.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 32),
+            loginButton.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 30),
+            loginButton.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -30)
         ])
         
         UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
             
-            self.backgroundView.frame = CGRect(x: 0, y: backgroundViewHeight, width: backgroundViewWidth, height: backgroundViewHeight)
+            let backgroundViewY = window.frame.height - self.backgroundView.frame.height
+            self.backgroundView.frame = CGRect(x: 0, y: backgroundViewY, width: self.backgroundView.frame.width, height: self.backgroundView.frame.height)
             
         }, completion: nil)
     }
@@ -97,7 +121,21 @@ extension SignInController: FBSDKLoginButtonDelegate {
     }
     
     func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
-        print(result)
+        if error != nil {
+            print(error)
+            return
+        }
+        
+        print(result.token.tokenString)
+        
+        FBSDKGraphRequest(graphPath: "/me", parameters: ["fields": "id, name, email"]).start { (connection, result, err) in
+            if error != nil {
+                print("Failed to start graph request:", err!)
+                return
+            }
+            
+            print(result!)
+        }
     }
 }
 
