@@ -150,7 +150,6 @@ extension HomeController: MKMapViewDelegate {
             annotationView?.annotation = annotation
         } else {
             annotationView = EventAnnotationView(eventAnnotation: eventAnnotation, reuseIdentifier: "EventAnnotation")
-            annotationView?.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
         }
         
         annotationView?.frame.size = CGSize(width: 30.0, height: 30.0)

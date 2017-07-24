@@ -30,13 +30,18 @@ class SignInController: UIViewController {
         return view
     }()
     
-    lazy var loginButton: FBSDKLoginButton = {
-        let button = FBSDKLoginButton()
-        button.delegate = self
-        button.readPermissions = ["email"]
-        button.translatesAutoresizingMaskIntoConstraints = false
+    lazy var loginButton: UIButton = {
+        let customFacebookButton = UIButton(type: .system)
+        customFacebookButton.backgroundColor = UIColor(red: 59/255.0, green: 89/255.0, blue: 152/255.0, alpha: 1)
+        customFacebookButton.setTitle("Facebook", for: .normal)
+        customFacebookButton.titleLabel?.font = .boldSystemFont(ofSize: 18)
+        customFacebookButton.setTitleColor(.white, for: .normal)
+        customFacebookButton.addTarget(self, action: #selector(SignInController.loginWithFacebook), for: .touchUpInside)
+        customFacebookButton.layer.cornerRadius = 8
         
-        return button
+        customFacebookButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        return customFacebookButton
     }()
     
     lazy var titleLabel: UILabel = {
@@ -87,8 +92,9 @@ class SignInController: UIViewController {
         
         NSLayoutConstraint.activate([
             loginButton.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 32),
-            loginButton.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 30),
-            loginButton.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -30)
+            loginButton.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor),
+            loginButton.widthAnchor.constraint(equalTo: backgroundView.widthAnchor, constant: -30),
+            loginButton.heightAnchor.constraint(equalToConstant: 40)
         ])
         
         UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
@@ -131,32 +137,56 @@ extension SignInController: FBSDKLoginButtonDelegate {
     }
     
     func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
-        if error != nil {
-            print(error)
-            return
-        }
-        let accessToken = FBSDKAccessToken.current()
-        guard let accessTokenString = accessToken?.tokenString else { return }
-        let credentials = FacebookAuthProvider.credential(withAccessToken: accessTokenString)
-        
-        Auth.auth().signIn(with: credentials) { (user, error) in
+//        if error != nil {
+//            print(error)
+//            return
+//        }
+//        let accessToken = FBSDKAccessToken.current()
+//        guard let accessTokenString = accessToken?.tokenString else { return }
+//        let credentials = FacebookAuthProvider.credential(withAccessToken: accessTokenString)
+//        
+//        Auth.auth().signIn(with: credentials) { (user, error) in
+//            if error != nil {
+//                print("Something went wrong with Facebook user: ", error!)
+//                return
+//            }
+//            
+//            self.delegate?.userDidSignIn()
+//            self.handleDismiss()
+//            print("Logged in with our user:", user!)
+//        }
+//        
+//        FBSDKGraphRequest(graphPath: "/me", parameters: ["fields": "id, name, email"]).start { (connection, result, err) in
+//            if error != nil {
+//                print("Failed to start graph request:", err!)
+//                return
+//            }
+//            
+//            print(result!)
+//        }
+    }
+    
+    func loginWithFacebook() {
+        FBSDKLoginManager().logIn(withReadPermissions:  ["email", "public_profile"], from: self) { (result, error) in
             if error != nil {
-                print("Something went wrong with Facebook user: ", error!)
+                print(error!)
                 return
             }
             
-            self.delegate?.userDidSignIn()
-            self.handleDismiss()
-            print("Logged in with our user:", user!)
-        }
-        
-        FBSDKGraphRequest(graphPath: "/me", parameters: ["fields": "id, name, email"]).start { (connection, result, err) in
-            if error != nil {
-                print("Failed to start graph request:", err!)
-                return
-            }
+            let accessToken = FBSDKAccessToken.current()
+            guard let accessTokenString = accessToken?.tokenString else { return }
+            let credentials = FacebookAuthProvider.credential(withAccessToken: accessTokenString)
             
-            print(result!)
+            Auth.auth().signIn(with: credentials) { (user, error) in
+                if error != nil {
+                    print("Something went wrong with Facebook user: ", error!)
+                    return
+                }
+                
+                self.delegate?.userDidSignIn()
+                self.handleDismiss()
+                print("Logged in with our user:", user!)
+            }
         }
     }
 }
