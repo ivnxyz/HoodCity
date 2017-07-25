@@ -15,7 +15,7 @@ class GeoFireClient {
     let geoFire: GeoFire
     
     init() {
-        self.firebaseDatabaseReference = Database.database().reference()
+        self.firebaseDatabaseReference = Database.database().reference().child("events")
         self.geoFire = GeoFire(firebaseRef: firebaseDatabaseReference)
     }
     

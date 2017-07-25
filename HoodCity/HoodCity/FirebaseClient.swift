@@ -12,6 +12,7 @@ import FirebaseDatabase
 class FirebaseClient {
     
     let reference = Database.database().reference()
+    let eventsReference = Database.database().reference().child("events")
     
     func addDateToExistingEvent(_ eventId: String) {
         let currentDate = Date()
@@ -20,19 +21,19 @@ class FirebaseClient {
         
         let dateStringRepresentation = formatter.string(from: currentDate)
         
-        reference.child(eventId).updateChildValues(["date": dateStringRepresentation])
+        eventsReference.child(eventId).updateChildValues(["date": dateStringRepresentation])
     }
     
     func addEventType(_ eventType: Event, to eventId: String) {
         let eventType = eventType.type
         
-        reference.child(eventId).updateChildValues(["type": eventType])
+        eventsReference.child(eventId).updateChildValues(["type": eventType])
     }
     
     // Get information from event id
     
     func getDate(from eventId: String, completionHandler: @escaping (Date?, FirebaseError?) -> Void) {
-        reference.child(eventId).child("date").observeSingleEvent(of: .value, with: { (snapshot) in
+        eventsReference.child(eventId).child("date").observeSingleEvent(of: .value, with: { (snapshot) in
             guard let dateStringValue = snapshot.value as? String else {
                 completionHandler(nil, FirebaseError.snapshotValueIsEmpty)
                 return
@@ -51,7 +52,7 @@ class FirebaseClient {
     }
     
     func getType(from eventId: String, completionHandler: @escaping (Event) -> Void) {
-        reference.child(eventId).child("type").observeSingleEvent(of: .value, with: { (snapshot) in
+        eventsReference.child(eventId).child("type").observeSingleEvent(of: .value, with: { (snapshot) in
             guard let eventType = snapshot.value as? String else { return }
             
             guard let event = Event(type: eventType) else { return }
