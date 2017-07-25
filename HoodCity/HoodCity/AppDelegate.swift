@@ -20,10 +20,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
+        // Configure Firebase
         FirebaseApp.configure()
         GADMobileAds.configure(withApplicationID: adMobAppId)
         
+        // Configure FacebookSDK
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+        
+        // Customize NavigationBar
+        let navigationAppearance = UINavigationBar.appearance()
+        navigationAppearance.tintColor = .white
+        navigationAppearance.barTintColor = UIColor(red: 37/255.0, green: 183/255.0, blue: 97/255.0, alpha: 1)
+        navigationAppearance.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+        
+        // White statusBar
+        UIApplication.shared.statusBarStyle = .lightContent
         
         return true
     }

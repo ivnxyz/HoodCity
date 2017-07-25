@@ -72,16 +72,3 @@ class GeoFireClient {
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-

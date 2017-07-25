@@ -47,16 +47,7 @@ class HomeController: UIViewController {
 
     @IBAction func newEvent(_ sender: UIButton) {
         
-        let controller: UIViewController!
-        
-        if Auth.auth().currentUser != nil {
-            controller = EventController()
-        } else {
-            let signInController = SignInController()
-            signInController.delegate = self
-            controller = signInController
-        }
-        
+        let controller = EventController()
         controller.modalPresentationStyle = .overCurrentContext
         
         present(controller, animated: false, completion: nil)
@@ -159,19 +150,3 @@ extension HomeController: MKMapViewDelegate {
     }
     
 }
-
-extension HomeController: SignInControllerDelegate {
-    
-    //MARK: - SignInControllerDelegate
-    
-    func userDidSignIn() {
-        newEvent(UIButton())
-    }
-}
-
-
-
-
-
-
-
