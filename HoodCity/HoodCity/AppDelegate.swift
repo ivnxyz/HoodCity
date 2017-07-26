@@ -36,6 +36,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // White statusBar
         UIApplication.shared.statusBarStyle = .lightContent
         
+        // Initial ViewController
+        
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.makeKeyAndVisible()
+        
+        let mainViewController = SignUpController()
+        window?.rootViewController = mainViewController
+        
         return true
     }
     

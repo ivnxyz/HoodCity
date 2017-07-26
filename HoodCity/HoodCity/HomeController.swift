@@ -31,6 +31,8 @@ class HomeController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        print("view did load")
+        
         mapView.delegate = self
         mapView.userTrackingMode = .follow
         
