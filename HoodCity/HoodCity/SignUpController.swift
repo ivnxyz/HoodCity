@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Firebase
+import FBSDKLoginKit
 
 class SignUpController: UIViewController {
     
@@ -38,8 +40,6 @@ class SignUpController: UIViewController {
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         
-        
-        
         return label
     }()
     
@@ -59,6 +59,13 @@ class SignUpController: UIViewController {
         button.addTarget(self, action: #selector(SignUpController.showHomeScreen), for: .touchUpInside)
         
         return button
+    }()
+    
+    lazy var signUpView: SignUpView = {
+        let signUpView = SignUpView(frame: self.view.bounds)
+        signUpView.delegate = self
+        
+        return signUpView
     }()
     
     //MARK: - ViewDidLoad
@@ -102,9 +109,44 @@ class SignUpController: UIViewController {
     //MARK: - HomeController
     
     func showHomeScreen() {
-        let mapController = MapController()
-        let navigationController = UINavigationController(rootViewController: mapController)
-        present(navigationController, animated: false, completion: nil)
+        view.addSubview(signUpView)
+        signUpView.show()
+        
+//        let mapController = MapController()
+//        let navigationController = UINavigationController(rootViewController: mapController)
+//        present(navigationController, animated: false, completion: nil)
     }
     
 }
+
+extension SignUpController: SignUpViewDelegate {
+    
+    //MARK: - SignUpViewDelegate
+    
+    func loginWithFacebook() {
+        FBSDKLoginManager().logIn(withReadPermissions:  ["email", "public_profile"], from: self) { (result, error) in
+            if error != nil {
+                print(error!)
+                return
+            }
+            
+            let accessToken = FBSDKAccessToken.current()
+            guard let accessTokenString = accessToken?.tokenString else { return }
+            let credentials = FacebookAuthProvider.credential(withAccessToken: accessTokenString)
+            
+            Auth.auth().signIn(with: credentials) { (user, error) in
+                if error != nil {
+                    print("Something went wrong with Facebook user: ", error!)
+                    return
+                }
+                
+                self.signUpView.dismiss()
+                print("Logged in with our user:", user!)
+            }
+        }
+    }
+    
+}
+
+
+
