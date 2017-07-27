@@ -10,13 +10,13 @@
 		898B42EECF5D8DC32F509CD1 /* Pods_HoodCity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E528CCB43C36F541315C31EB /* Pods_HoodCity.framework */; };
 		A602DF8F1F23AFB000890744 /* EventController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A602DF8E1F23AFB000890744 /* EventController.swift */; };
 		A617F5911F2827E600391723 /* SignUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A617F5901F2827E600391723 /* SignUpController.swift */; };
+		A617F5951F296EC400391723 /* MapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A617F5941F296EC400391723 /* MapController.swift */; };
 		A634BAF61F23369300927724 /* AppId.swift in Sources */ = {isa = PBXBuildFile; fileRef = A634BAF51F23369300927724 /* AppId.swift */; };
 		A676B9B71F246CA30028FED8 /* SignInController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A676B9B61F246CA30028FED8 /* SignInController.swift */; };
 		A6A49FAE1F228606002BA67C /* EventAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6A49FAD1F228606002BA67C /* EventAnnotationView.swift */; };
 		A6D1DAAC1F17D8A200DF2D13 /* FirebaseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6D1DAAB1F17D8A200DF2D13 /* FirebaseError.swift */; };
 		A6D1DAAE1F18567400DF2D13 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6D1DAAD1F18567400DF2D13 /* Event.swift */; };
 		A6E2B9731F15A564006C4C85 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E2B9721F15A564006C4C85 /* AppDelegate.swift */; };
-		A6E2B9751F15A564006C4C85 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E2B9741F15A564006C4C85 /* HomeController.swift */; };
 		A6E2B9781F15A564006C4C85 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A6E2B9761F15A564006C4C85 /* Main.storyboard */; };
 		A6E2B97A1F15A564006C4C85 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A6E2B9791F15A564006C4C85 /* Assets.xcassets */; };
 		A6E2B97D1F15A564006C4C85 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A6E2B97B1F15A564006C4C85 /* LaunchScreen.storyboard */; };
@@ -36,6 +36,7 @@
 /* Begin PBXFileReference section */
 		A602DF8E1F23AFB000890744 /* EventController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventController.swift; sourceTree = "<group>"; };
 		A617F5901F2827E600391723 /* SignUpController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpController.swift; sourceTree = "<group>"; };
+		A617F5941F296EC400391723 /* MapController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapController.swift; sourceTree = "<group>"; };
 		A634BAF51F23369300927724 /* AppId.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppId.swift; sourceTree = "<group>"; };
 		A65BB9621F248D2600F40CE6 /* HoodCity.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HoodCity.entitlements; sourceTree = "<group>"; };
 		A676B9B61F246CA30028FED8 /* SignInController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInController.swift; sourceTree = "<group>"; };
@@ -44,7 +45,6 @@
 		A6D1DAAD1F18567400DF2D13 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		A6E2B96F1F15A564006C4C85 /* HoodCity.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HoodCity.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6E2B9721F15A564006C4C85 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		A6E2B9741F15A564006C4C85 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		A6E2B9771F15A564006C4C85 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A6E2B9791F15A564006C4C85 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A6E2B97C1F15A564006C4C85 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -184,7 +184,7 @@
 		A6E2B9A61F15B894006C4C85 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				A6E2B9741F15A564006C4C85 /* HomeController.swift */,
+				A617F5941F296EC400391723 /* MapController.swift */,
 				A602DF8E1F23AFB000890744 /* EventController.swift */,
 				A676B9B61F246CA30028FED8 /* SignInController.swift */,
 				A617F5901F2827E600391723 /* SignUpController.swift */,
@@ -361,9 +361,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				A617F5911F2827E600391723 /* SignUpController.swift in Sources */,
+				A617F5951F296EC400391723 /* MapController.swift in Sources */,
 				A6D1DAAC1F17D8A200DF2D13 /* FirebaseError.swift in Sources */,
 				A6E2B9991F15AE3F006C4C85 /* GFBase32Utils.m in Sources */,
-				A6E2B9751F15A564006C4C85 /* HomeController.swift in Sources */,
 				A6A49FAE1F228606002BA67C /* EventAnnotationView.swift in Sources */,
 				A634BAF61F23369300927724 /* AppId.swift in Sources */,
 				A6E2B9B31F15E38E006C4C85 /* GeoFireError.swift in Sources */,

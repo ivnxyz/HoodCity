@@ -1,18 +1,34 @@
 //
-//  HomeController.swift
+//  MapController.swift
 //  HoodCity
 //
-//  Created by Iván Martínez on 11/07/17.
+//  Created by Iván Martínez on 26/07/17.
 //  Copyright © 2017 Iván Martínez. All rights reserved.
 //
 
 import UIKit
-import MapKit
-import Firebase
 
-class HomeController: UIViewController {
-
-    @IBOutlet weak var mapView: MKMapView!
+class MapController: UIViewController {
+    
+    //MARK: - UI Elements
+    
+    lazy var mapView: MKMapView = {
+        let mapView = MKMapView()
+        mapView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return mapView
+    }()
+    
+    lazy var addEventButton: UIButton = {
+        let button = UIButton()
+        button.setImage(#imageLiteral(resourceName: "add-event-button"), for: .normal)
+        button.addTarget(self, action: #selector(MapController.addNewEvent), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        return button
+    }()
+    
+    //MARK: - Dependencies
     
     lazy var locationManager: LocationManager = {
         return LocationManager(mapView: self.mapView)
@@ -28,10 +44,30 @@ class HomeController: UIViewController {
     
     var mapHasCenteredOnce = false
     
+    //MARK: - ViewDidLoad
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("view did load")
+        self.title = "Near You"
+        
+        view.addSubview(mapView)
+        view.addSubview(addEventButton)
+        
+        NSLayoutConstraint.activate([
+            mapView.topAnchor.constraint(equalTo: view.topAnchor),
+            mapView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            mapView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            mapView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            addEventButton.heightAnchor.constraint(equalToConstant: 61),
+            addEventButton.widthAnchor.constraint(equalToConstant: 61),
+            addEventButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
+            addEventButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
+        ])
+        
         
         mapView.delegate = self
         mapView.userTrackingMode = .follow
@@ -46,8 +82,10 @@ class HomeController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         locationManager.getAuthStatus()
     }
-
-    @IBAction func newEvent(_ sender: UIButton) {
+    
+    //Add new event
+    
+    func addNewEvent() {
         
         let controller = EventController()
         controller.modalPresentationStyle = .overCurrentContext
@@ -55,7 +93,7 @@ class HomeController: UIViewController {
         present(controller, animated: false, completion: nil)
     }
     
-    // Show events on the map
+    //MARK: - Show Events
     
     func showEvents(at location: CLLocation) {
         geoFireClient.showEvents(at: location) { (geoFireData, error) in
@@ -115,7 +153,7 @@ class HomeController: UIViewController {
     
 }
 
-extension HomeController: MKMapViewDelegate {
+extension MapController: MKMapViewDelegate {
     
     // MARK: - MKMapViewDelegate
     
@@ -152,3 +190,4 @@ extension HomeController: MKMapViewDelegate {
     }
     
 }
+

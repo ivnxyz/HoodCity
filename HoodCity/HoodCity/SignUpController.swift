@@ -102,8 +102,9 @@ class SignUpController: UIViewController {
     //MARK: - HomeController
     
     func showHomeScreen() {
-        let homeController = HomeController()
-        present(homeController, animated: false, completion: nil)
+        let mapController = MapController()
+        let navigationController = UINavigationController(rootViewController: mapController)
+        present(navigationController, animated: false, completion: nil)
     }
     
 }
