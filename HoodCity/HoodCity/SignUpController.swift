@@ -111,10 +111,6 @@ class SignUpController: UIViewController {
     func showHomeScreen() {
         view.addSubview(signUpView)
         signUpView.show()
-        
-//        let mapController = MapController()
-//        let navigationController = UINavigationController(rootViewController: mapController)
-//        present(navigationController, animated: false, completion: nil)
     }
     
 }
@@ -140,8 +136,13 @@ extension SignUpController: SignUpViewDelegate {
                     return
                 }
                 
-                self.signUpView.dismiss()
                 print("Logged in with our user:", user!)
+                
+                self.signUpView.dismiss()
+                
+                let mapController = MapController()
+                let navigationController = UINavigationController(rootViewController: mapController)
+                self.present(navigationController, animated: false, completion: nil)
             }
         }
     }

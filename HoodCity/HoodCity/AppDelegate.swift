@@ -41,7 +41,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
         
-        let mainViewController = SignUpController()
+        let mainViewController: UIViewController!
+        
+        let currentUser = Auth.auth().currentUser
+        
+        if currentUser != nil {
+            let mapController = MapController()
+            let navigationController = UINavigationController(rootViewController: mapController)
+            mainViewController = navigationController
+        } else {
+            let signUpController = SignUpController()
+            mainViewController = signUpController
+        }
+        
         window?.rootViewController = mainViewController
         
         return true
