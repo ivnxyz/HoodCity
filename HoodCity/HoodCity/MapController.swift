@@ -9,6 +9,7 @@
 import UIKit
 import FBSDKLoginKit
 import FBSDKCoreKit
+import Firebase
 
 class MapController: UIViewController {
     
@@ -28,6 +29,16 @@ class MapController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
+    }()
+    
+    lazy var userProfileButton: UIBarButtonItem = {
+        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+        button.setImage(#imageLiteral(resourceName: "avatar"), for: .normal)
+        button.addTarget(self, action: #selector(MapController.showUserProfile), for: .touchUpInside)
+        
+        let barButtonItem = UIBarButtonItem(customView: button)
+        
+        return barButtonItem
     }()
     
     //MARK: - Dependencies
@@ -50,6 +61,8 @@ class MapController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationItem.rightBarButtonItem = userProfileButton
         
         self.title = "Near You"
         
@@ -156,7 +169,7 @@ class MapController: UIViewController {
         })
     }
     
-    func getUserData() {        
+    func getUserData() {
         let request = FBSDKGraphRequest(graphPath: "me", parameters:  ["fields": "id, name, email, picture.type(large)"])
         
         _ = request?.start(completionHandler: { (connection, result, error) in
@@ -170,10 +183,16 @@ class MapController: UIViewController {
                 return
             }
             
-            let email = result["email"]
+            let email = result["email"] as! String
+            let name = result["name"] as! String
             
-            print(email)
+            
+            print(email, name)
         })
+    }
+    
+    func showUserProfile() {
+        print("123")
     }
     
 }
