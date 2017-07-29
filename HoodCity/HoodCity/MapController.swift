@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import FBSDKLoginKit
+import FBSDKCoreKit
 
 class MapController: UIViewController {
     
@@ -72,6 +74,8 @@ class MapController: UIViewController {
         mapView.delegate = self
         mapView.userTrackingMode = .follow
         
+        getUserData()
+        
         let location = locationManager.currentLocation()
         
         if let location = location {
@@ -106,6 +110,7 @@ class MapController: UIViewController {
             let location = geoFireData!.1
             
             let eventInformation = EventInformation(eventId, location)
+            
             
             print("EVENT: \(eventId)")
             self.isEventExpired(eventInformation)
@@ -151,6 +156,26 @@ class MapController: UIViewController {
         })
     }
     
+    func getUserData() {        
+        let request = FBSDKGraphRequest(graphPath: "me", parameters:  ["fields": "id, name, email, picture.type(large)"])
+        
+        _ = request?.start(completionHandler: { (connection, result, error) in
+            guard error == nil else {
+                print("Error at getting users's data:", error!)
+                return
+            }
+            
+            guard let result = result as? [String: AnyObject] else {
+                print("Error: Cannot convert result to dictionary")
+                return
+            }
+            
+            let email = result["email"]
+            
+            print(email)
+        })
+    }
+    
 }
 
 extension MapController: MKMapViewDelegate {
@@ -175,12 +200,13 @@ extension MapController: MKMapViewDelegate {
         guard let eventAnnotation = annotation as? EventAnnotation else { return nil }
         
         var annotationView: EventAnnotationView?
+        let identifier = eventAnnotation.event.type
         
-        if let dequeuedAnnotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "EventAnnotation") as? EventAnnotationView {
+        if let dequeuedAnnotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? EventAnnotationView {
             annotationView = dequeuedAnnotationView
             annotationView?.annotation = annotation
         } else {
-            annotationView = EventAnnotationView(eventAnnotation: eventAnnotation, reuseIdentifier: "EventAnnotation")
+            annotationView = EventAnnotationView(eventAnnotation: eventAnnotation, reuseIdentifier: identifier)
         }
         
         annotationView?.frame.size = CGSize(width: 30.0, height: 30.0)
