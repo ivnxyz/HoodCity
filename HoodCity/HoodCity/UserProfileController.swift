@@ -21,14 +21,40 @@ class UserProfileController: UIViewController {
         
         return tabBarButtonItem
     }()
+    
+    lazy var profilePicture: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = FacebookUser.shared.profilePicture
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return imageView
+    }()
+    
+    //MARK: ViewDidLoad
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        guard let navigationBerHeight = self.navigationController?.navigationBar.bounds.height else { return }
 
         view.backgroundColor = .white
         title = "You"
         
         navigationItem.rightBarButtonItem = cancelButton
+        
+        view.addSubview(profilePicture)
+        
+        let profilePictureHeight = view.bounds.height * 0.1604
+        
+        NSLayoutConstraint.activate([
+            profilePicture.heightAnchor.constraint(equalToConstant: profilePictureHeight),
+            profilePicture.widthAnchor.constraint(equalToConstant: profilePictureHeight),
+            profilePicture.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            profilePicture.topAnchor.constraint(equalTo: view.topAnchor, constant: navigationBerHeight * 2)
+        ])
+        
+        profilePicture.layer.cornerRadius = profilePictureHeight/2
+        profilePicture.layer.masksToBounds = true
     }
     
     func cancel() {
