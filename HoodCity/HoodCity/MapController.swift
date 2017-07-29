@@ -35,6 +35,8 @@ class MapController: UIViewController {
         let button = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
         button.setImage(#imageLiteral(resourceName: "avatar"), for: .normal)
         button.addTarget(self, action: #selector(MapController.showUserProfile), for: .touchUpInside)
+        button.layer.masksToBounds = true
+        button.layer.cornerRadius = button.layer.frame.height / 2
         
         let barButtonItem = UIBarButtonItem(customView: button)
         
@@ -62,9 +64,9 @@ class MapController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.rightBarButtonItem = userProfileButton
-        
         self.title = "Near You"
+        
+        navigationItem.rightBarButtonItem = userProfileButton
         
         view.addSubview(mapView)
         view.addSubview(addEventButton)
@@ -183,11 +185,34 @@ class MapController: UIViewController {
                 return
             }
             
-            let email = result["email"] as! String
-            let name = result["name"] as! String
+            guard let pictureData = result["picture"]?["data"] as? [String: AnyObject] else {
+                print("Error: Cannot picture data")
+                return
+            }
             
+            guard let pictureUrlString = pictureData["url"] as? String else {
+                print("Error: Cannot find profile picture url")
+                return
+            }
             
-            print(email, name)
+            let pictureUrl = URL(string: pictureUrlString)!
+            
+            URLSession.shared.dataTask(with: pictureUrl, completionHandler: { (data, response, error) in
+                guard error == nil else {
+                    print("Error: ", error!)
+                    return
+                }
+
+                guard let profilePicture = UIImage(data: data!) else {
+                    print("Error: Cannot convert to image")
+                    return
+                }
+                
+                DispatchQueue.main.async {
+                    let button = self.navigationItem.rightBarButtonItem?.customView as! UIButton
+                    button.setImage(profilePicture, for: .normal)
+                }
+            }).resume()
         })
     }
     
