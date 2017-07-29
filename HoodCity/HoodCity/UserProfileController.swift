@@ -30,6 +30,18 @@ class UserProfileController: UIViewController {
         return imageView
     }()
     
+    lazy var nameLabel: UILabel = {
+        let label = UILabel()
+        label.text = FacebookUser.shared.name
+        label.textColor = UIColor(red: 88/255, green: 88/255, blue: 88/255, alpha: 1)
+        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.numberOfLines = 0
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        return label
+    }()
+    
     //MARK: ViewDidLoad
 
     override func viewDidLoad() {
@@ -43,6 +55,7 @@ class UserProfileController: UIViewController {
         navigationItem.rightBarButtonItem = cancelButton
         
         view.addSubview(profilePicture)
+        view.addSubview(nameLabel)
         
         let profilePictureHeight = view.bounds.height * 0.1604
         
@@ -55,6 +68,11 @@ class UserProfileController: UIViewController {
         
         profilePicture.layer.cornerRadius = profilePictureHeight/2
         profilePicture.layer.masksToBounds = true
+        
+        NSLayoutConstraint.activate([
+            nameLabel.topAnchor.constraint(equalTo: profilePicture.bottomAnchor, constant: 10),
+            nameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
     }
     
     func cancel() {
