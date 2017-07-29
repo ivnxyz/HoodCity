@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class UserProfileController: UIViewController {
     
@@ -42,6 +43,16 @@ class UserProfileController: UIViewController {
         return label
     }()
     
+    lazy var signOutButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Sign Out", for: .normal)
+        button.setTitleColor(.red, for: .normal)
+        button.addTarget(self, action: #selector(UserProfileController.signOut), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        return button
+    }()
+    
     //MARK: ViewDidLoad
 
     override func viewDidLoad() {
@@ -56,6 +67,7 @@ class UserProfileController: UIViewController {
         
         view.addSubview(profilePicture)
         view.addSubview(nameLabel)
+        view.addSubview(signOutButton)
         
         let profilePictureHeight = view.bounds.height * 0.1604
         
@@ -73,10 +85,26 @@ class UserProfileController: UIViewController {
             nameLabel.topAnchor.constraint(equalTo: profilePicture.bottomAnchor, constant: 10),
             nameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
+        
+        NSLayoutConstraint.activate([
+            signOutButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            signOutButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -15)
+        ])
     }
     
     func cancel() {
         dismiss(animated: true, completion: nil)
+    }
+    
+    func signOut() {
+        do {
+            try Auth.auth().signOut()
+            let signUpController = SignUpController()
+            present(signUpController, animated: false, completion: nil)
+        } catch let error {
+            print("Error trying to sign out: ", error)
+            //Add an alert view
+        }
     }
 
 }
