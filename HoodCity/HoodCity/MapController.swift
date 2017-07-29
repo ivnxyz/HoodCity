@@ -219,7 +219,10 @@ class MapController: UIViewController {
     }
     
     func showUserProfile() {
-        print("123")
+        let userProfileController = UserProfileController()
+        let navigationController = UINavigationController(rootViewController: userProfileController)
+        
+        present(navigationController, animated: true, completion: nil)
     }
     
 }
