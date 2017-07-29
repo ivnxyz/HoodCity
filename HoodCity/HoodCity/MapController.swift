@@ -85,7 +85,6 @@ class MapController: UIViewController {
             addEventButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
         ])
         
-        
         mapView.delegate = self
         mapView.userTrackingMode = .follow
         
@@ -125,7 +124,6 @@ class MapController: UIViewController {
             let location = geoFireData!.1
             
             let eventInformation = EventInformation(eventId, location)
-            
             
             print("EVENT: \(eventId)")
             self.isEventExpired(eventInformation)
@@ -211,6 +209,10 @@ class MapController: UIViewController {
                 DispatchQueue.main.async {
                     let button = self.navigationItem.rightBarButtonItem?.customView as! UIButton
                     button.setImage(profilePicture, for: .normal)
+                    
+                    FacebookUser.shared.name = result["name"] as! String
+                    FacebookUser.shared.email = result["email"] as! String
+                    FacebookUser.shared.profilePicture = profilePicture
                 }
             }).resume()
         })
