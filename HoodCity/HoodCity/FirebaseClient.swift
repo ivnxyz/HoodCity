@@ -95,7 +95,7 @@ class FirebaseClient {
         usersReference.child(user.uid).child(name).setValue(data)
     }
     
-    func updateUserProfile(with userData: FacebookUser) {
+    func updateUserProfile(with userData: User) {
         guard let user = Auth.auth().currentUser else { return }
         
         let userInfo = [
@@ -110,5 +110,11 @@ class FirebaseClient {
             
             self.addProfilePictureToCurrentUser(userData.profilePicture)
         }
+    }
+    
+    func getProfileFor(userId: String, completionHandler: @escaping(DataSnapshot) -> Void) {
+        usersReference.child(userId).observeSingleEvent(of: .value, with: { (snapshot) in
+            completionHandler(snapshot)
+        })
     }
 }

@@ -1,5 +1,5 @@
 //
-//  FacebookUser.swift
+//  User.swift
 //  HoodCity
 //
 //  Created by Iván Martínez on 29/07/17.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class FacebookUser {
+class User {
     
     var name = ""
     var profilePicture = UIImage()

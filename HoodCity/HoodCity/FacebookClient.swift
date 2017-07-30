@@ -11,7 +11,7 @@ import FBSDKLoginKit
 
 class FacebookClient {
     
-    func getUserData(completionHandler: @escaping(FacebookUser) -> Void) {
+    func getUserData(completionHandler: @escaping(User) -> Void) {
         let request = FBSDKGraphRequest(graphPath: "me", parameters:  ["fields": "id, name, email, picture.type(large)"])
         
         _ = request?.start(completionHandler: { (connection, result, error) in
@@ -51,7 +51,7 @@ class FacebookClient {
                 let name = result["name"] as! String
                 let email = result["email"] as! String
                 
-                let user = FacebookUser(name: name, email: email, profilePicture: profilePicture)
+                let user = User(name: name, email: email, profilePicture: profilePicture)
                 
                 completionHandler(user)
             }).resume()

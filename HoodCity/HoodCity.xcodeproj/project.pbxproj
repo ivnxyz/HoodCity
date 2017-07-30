@@ -16,7 +16,7 @@
 		A6A32BAA1F2DC02F006F83FA /* FacebookClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6A32BA91F2DC02F006F83FA /* FacebookClient.swift */; };
 		A6A49FAE1F228606002BA67C /* EventAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6A49FAD1F228606002BA67C /* EventAnnotationView.swift */; };
 		A6AC1EB01F2E895C00A3BFE1 /* EventDetailsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6AC1EAF1F2E895C00A3BFE1 /* EventDetailsController.swift */; };
-		A6AC4C201F2D0E8400E96B93 /* FacebookUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6AC4C1F1F2D0E8400E96B93 /* FacebookUser.swift */; };
+		A6AC4C201F2D0E8400E96B93 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6AC4C1F1F2D0E8400E96B93 /* User.swift */; };
 		A6AC4C221F2D10AF00E96B93 /* UserProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6AC4C211F2D10AF00E96B93 /* UserProfileController.swift */; };
 		A6D1DAAC1F17D8A200DF2D13 /* FirebaseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6D1DAAB1F17D8A200DF2D13 /* FirebaseError.swift */; };
 		A6D1DAAE1F18567400DF2D13 /* EventType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6D1DAAD1F18567400DF2D13 /* EventType.swift */; };
@@ -48,7 +48,7 @@
 		A6A32BA91F2DC02F006F83FA /* FacebookClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookClient.swift; sourceTree = "<group>"; };
 		A6A49FAD1F228606002BA67C /* EventAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventAnnotationView.swift; sourceTree = "<group>"; };
 		A6AC1EAF1F2E895C00A3BFE1 /* EventDetailsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventDetailsController.swift; sourceTree = "<group>"; };
-		A6AC4C1F1F2D0E8400E96B93 /* FacebookUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookUser.swift; sourceTree = "<group>"; };
+		A6AC4C1F1F2D0E8400E96B93 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		A6AC4C211F2D10AF00E96B93 /* UserProfileController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileController.swift; sourceTree = "<group>"; };
 		A6D1DAAB1F17D8A200DF2D13 /* FirebaseError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseError.swift; sourceTree = "<group>"; };
 		A6D1DAAD1F18567400DF2D13 /* EventType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventType.swift; sourceTree = "<group>"; };
@@ -231,7 +231,7 @@
 				A6EE1C1F1F2E642400B0499F /* Event.swift */,
 				A6D1DAAD1F18567400DF2D13 /* EventType.swift */,
 				A6E2B9B51F15E600006C4C85 /* EventAnnotation.swift */,
-				A6AC4C1F1F2D0E8400E96B93 /* FacebookUser.swift */,
+				A6AC4C1F1F2D0E8400E96B93 /* User.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -391,7 +391,7 @@
 				A6E2B9AA1F15BB6B006C4C85 /* LocationManager.swift in Sources */,
 				A6E2B9AD1F15DE06006C4C85 /* GeoFireClient.swift in Sources */,
 				A6E2B9981F15AE3F006C4C85 /* GeoFire.m in Sources */,
-				A6AC4C201F2D0E8400E96B93 /* FacebookUser.swift in Sources */,
+				A6AC4C201F2D0E8400E96B93 /* User.swift in Sources */,
 				A6E2B99B1F15AE3F006C4C85 /* GFGeoHashQuery.m in Sources */,
 				A6E2B99C1F15AE3F006C4C85 /* GFQuery.m in Sources */,
 				A6AC1EB01F2E895C00A3BFE1 /* EventDetailsController.swift in Sources */,
