@@ -11,7 +11,7 @@ import FBSDKLoginKit
 import FBSDKCoreKit
 import Firebase
 
-//let userCache = NSCache<NSString, FacebookUser>()
+//let uservarhe = NSCache<NSString, FacebookUser>()
 
 class MapController: UIViewController {
     
@@ -215,7 +215,10 @@ extension MapController: MKMapViewDelegate {
         
         let event = eventAnnotation.event
         
-        print("The event is \(event.eventType.type) and was published by: \(event.userId)")
+        let eventDetailsController = EventDetailsController()
+        eventDetailsController.event = event
+        
+        navigationController?.pushViewController(eventDetailsController, animated: true)
     }
     
 }

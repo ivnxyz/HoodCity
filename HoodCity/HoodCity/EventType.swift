@@ -134,6 +134,27 @@ extension EventType {
             return #imageLiteral(resourceName: "pride")
         }
     }
+    
+    var cleanTitle: String {
+        switch self {
+        case .traffic:
+            return "Traffic"
+        case .protest:
+            return "Protest"
+        case .party:
+            return "Party"
+        case .sportEvent:
+            return "Sport event"
+        case .meetup:
+            return "Meetup"
+        case .art:
+            return "Art event"
+        case .rain:
+            return "Rain"
+        case .pride:
+            return "Pride"
+        }
+    }
 }
 
 
