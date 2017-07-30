@@ -9,13 +9,15 @@
 import Foundation
 
 class FacebookUser {
-    static let shared = FacebookUser()
     
     var name = ""
     var profilePicture = UIImage()
     var email = ""
     
-    private init() {
-        print("Facebook user initialized")
+    init(name: String, email: String, profilePicture: UIImage) {
+        self.name = name
+        self.email = email
+        self.profilePicture = profilePicture
     }
+    
 }

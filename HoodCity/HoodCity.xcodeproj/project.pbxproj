@@ -13,6 +13,7 @@
 		A617F5951F296EC400391723 /* MapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A617F5941F296EC400391723 /* MapController.swift */; };
 		A634BAF61F23369300927724 /* AppId.swift in Sources */ = {isa = PBXBuildFile; fileRef = A634BAF51F23369300927724 /* AppId.swift */; };
 		A6847FC71F2992740093E250 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6847FC61F2992740093E250 /* SignUpView.swift */; };
+		A6A32BAA1F2DC02F006F83FA /* FacebookClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6A32BA91F2DC02F006F83FA /* FacebookClient.swift */; };
 		A6A49FAE1F228606002BA67C /* EventAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6A49FAD1F228606002BA67C /* EventAnnotationView.swift */; };
 		A6AC4C201F2D0E8400E96B93 /* FacebookUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6AC4C1F1F2D0E8400E96B93 /* FacebookUser.swift */; };
 		A6AC4C221F2D10AF00E96B93 /* UserProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6AC4C211F2D10AF00E96B93 /* UserProfileController.swift */; };
@@ -42,6 +43,7 @@
 		A634BAF51F23369300927724 /* AppId.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppId.swift; sourceTree = "<group>"; };
 		A65BB9621F248D2600F40CE6 /* HoodCity.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HoodCity.entitlements; sourceTree = "<group>"; };
 		A6847FC61F2992740093E250 /* SignUpView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
+		A6A32BA91F2DC02F006F83FA /* FacebookClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookClient.swift; sourceTree = "<group>"; };
 		A6A49FAD1F228606002BA67C /* EventAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventAnnotationView.swift; sourceTree = "<group>"; };
 		A6AC4C1F1F2D0E8400E96B93 /* FacebookUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookUser.swift; sourceTree = "<group>"; };
 		A6AC4C211F2D10AF00E96B93 /* UserProfileController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileController.swift; sourceTree = "<group>"; };
@@ -212,6 +214,7 @@
 				A6E2B9B21F15E38E006C4C85 /* GeoFireError.swift */,
 				A6E2B9B71F172C4F006C4C85 /* FirebaseClient.swift */,
 				A6D1DAAB1F17D8A200DF2D13 /* FirebaseError.swift */,
+				A6A32BA91F2DC02F006F83FA /* FacebookClient.swift */,
 			);
 			name = Networking;
 			sourceTree = "<group>";
@@ -386,6 +389,7 @@
 				A6E2B99C1F15AE3F006C4C85 /* GFQuery.m in Sources */,
 				A6847FC71F2992740093E250 /* SignUpView.swift in Sources */,
 				A6D1DAAE1F18567400DF2D13 /* Event.swift in Sources */,
+				A6A32BAA1F2DC02F006F83FA /* FacebookClient.swift in Sources */,
 				A6E2B9B81F172C4F006C4C85 /* FirebaseClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

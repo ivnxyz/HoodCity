@@ -121,8 +121,9 @@ extension SignUpController: SignUpViewDelegate {
     
     func loginWithFacebook() {
         FBSDKLoginManager().logIn(withReadPermissions:  ["email", "public_profile"], from: self) { (result, error) in
-            if error != nil {
-                print(error!)
+            
+            guard error == nil else {
+                print("Error at Facebook's log in: ", error!)
                 return
             }
             
@@ -130,24 +131,29 @@ extension SignUpController: SignUpViewDelegate {
             guard let accessTokenString = accessToken?.tokenString else { return }
             let credentials = FacebookAuthProvider.credential(withAccessToken: accessTokenString)
             
-            Auth.auth().signIn(with: credentials) { (user, error) in
-                if error != nil {
+            Auth.auth().signIn(with: credentials) { (firebaseUser, error) in
+                
+                guard error == nil else {
                     print("Something went wrong with Facebook user: ", error!)
                     return
                 }
                 
-                print("Logged in with our user:", user!)
-                
-                self.signUpView.dismiss()
-                
-                let mapController = MapController()
-                let navigationController = UINavigationController(rootViewController: mapController)
-                self.present(navigationController, animated: false, completion: nil)
+                FacebookClient().getUserData(completionHandler: { (facebookUser) in
+                    
+                    FirebaseClient().updateUserProfile(facebookUser)
+                    
+                    DispatchQueue.main.async {
+                        self.signUpView.dismiss()
+                        
+                        print("UI updated")
+                        let mapController = MapController()
+                        let navigationController = UINavigationController(rootViewController: mapController)
+                        self.present(navigationController, animated: false, completion: nil)
+                    }
+                })
             }
         }
     }
     
 }
-
-
 

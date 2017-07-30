@@ -25,7 +25,7 @@ class UserProfileController: UIViewController {
     
     lazy var profilePicture: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = FacebookUser.shared.profilePicture
+        //imageView.image = FacebookUser.shared.profilePicture
         imageView.translatesAutoresizingMaskIntoConstraints = false
         
         return imageView
@@ -33,7 +33,7 @@ class UserProfileController: UIViewController {
     
     lazy var nameLabel: UILabel = {
         let label = UILabel()
-        label.text = FacebookUser.shared.name
+        //label.text = FacebookUser.shared.name
         label.textColor = UIColor(red: 88/255, green: 88/255, blue: 88/255, alpha: 1)
         label.font = UIFont.boldSystemFont(ofSize: 20)
         label.numberOfLines = 0

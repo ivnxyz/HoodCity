@@ -11,6 +11,8 @@ import FBSDKLoginKit
 import FBSDKCoreKit
 import Firebase
 
+//let userCache = NSCache<NSString, FacebookUser>()
+
 class MapController: UIViewController {
     
     //MARK: - UI Elements
@@ -67,6 +69,8 @@ class MapController: UIViewController {
         self.title = "Near You"
         
         navigationItem.rightBarButtonItem = userProfileButton
+        _ = self.navigationItem.rightBarButtonItem?.customView as! UIButton
+
         
         view.addSubview(mapView)
         view.addSubview(addEventButton)
@@ -88,7 +92,7 @@ class MapController: UIViewController {
         mapView.delegate = self
         mapView.userTrackingMode = .follow
         
-        getUserData()
+        //getUserData()
         
         let location = locationManager.currentLocation()
         
@@ -125,7 +129,6 @@ class MapController: UIViewController {
             
             let eventInformation = EventInformation(eventId, location)
             
-            print("EVENT: \(eventId)")
             self.isEventExpired(eventInformation)
         }
     }
@@ -161,60 +164,10 @@ class MapController: UIViewController {
                 } else {
                     self.firebaseClient.getType(from: eventId, completionHandler: { (event) in
                         let annotation = EventAnnotation(coordinate: location.coordinate, eventType: event)
-                        print("ANNOTATION: \(annotation)")
                         self.mapView.addAnnotation(annotation)
                     })
                 }
             }
-        })
-    }
-    
-    func getUserData() {
-        let request = FBSDKGraphRequest(graphPath: "me", parameters:  ["fields": "id, name, email, picture.type(large)"])
-        
-        _ = request?.start(completionHandler: { (connection, result, error) in
-            guard error == nil else {
-                print("Error at getting users's data:", error!)
-                return
-            }
-            
-            guard let result = result as? [String: AnyObject] else {
-                print("Error: Cannot convert result to dictionary")
-                return
-            }
-            
-            guard let pictureData = result["picture"]?["data"] as? [String: AnyObject] else {
-                print("Error: Cannot picture data")
-                return
-            }
-            
-            guard let pictureUrlString = pictureData["url"] as? String else {
-                print("Error: Cannot find profile picture url")
-                return
-            }
-            
-            let pictureUrl = URL(string: pictureUrlString)!
-            
-            URLSession.shared.dataTask(with: pictureUrl, completionHandler: { (data, response, error) in
-                guard error == nil else {
-                    print("Error: ", error!)
-                    return
-                }
-
-                guard let profilePicture = UIImage(data: data!) else {
-                    print("Error: Cannot convert to image")
-                    return
-                }
-                
-                DispatchQueue.main.async {
-                    let button = self.navigationItem.rightBarButtonItem?.customView as! UIButton
-                    button.setImage(profilePicture, for: .normal)
-                    
-                    FacebookUser.shared.name = result["name"] as! String
-                    FacebookUser.shared.email = result["email"] as! String
-                    FacebookUser.shared.profilePicture = profilePicture
-                }
-            }).resume()
         })
     }
     
