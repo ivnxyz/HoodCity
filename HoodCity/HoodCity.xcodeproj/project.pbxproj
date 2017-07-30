@@ -34,6 +34,7 @@
 		A6E2B9B31F15E38E006C4C85 /* GeoFireError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E2B9B21F15E38E006C4C85 /* GeoFireError.swift */; };
 		A6E2B9B61F15E600006C4C85 /* EventAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E2B9B51F15E600006C4C85 /* EventAnnotation.swift */; };
 		A6E2B9B81F172C4F006C4C85 /* FirebaseClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E2B9B71F172C4F006C4C85 /* FirebaseClient.swift */; };
+		A6EE1C201F2E642400B0499F /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6EE1C1F1F2E642400B0499F /* Event.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -77,6 +78,7 @@
 		A6E2B9B21F15E38E006C4C85 /* GeoFireError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoFireError.swift; sourceTree = "<group>"; };
 		A6E2B9B51F15E600006C4C85 /* EventAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventAnnotation.swift; sourceTree = "<group>"; };
 		A6E2B9B71F172C4F006C4C85 /* FirebaseClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseClient.swift; sourceTree = "<group>"; };
+		A6EE1C1F1F2E642400B0499F /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		AC7C1191C2AFC5B024B9BD42 /* Pods-HoodCity.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HoodCity.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HoodCity/Pods-HoodCity.debug.xcconfig"; sourceTree = "<group>"; };
 		D2DF91BDB09F9D37C0A87EC0 /* Pods-HoodCity.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HoodCity.release.xcconfig"; path = "Pods/Target Support Files/Pods-HoodCity/Pods-HoodCity.release.xcconfig"; sourceTree = "<group>"; };
 		E528CCB43C36F541315C31EB /* Pods_HoodCity.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HoodCity.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -106,6 +108,7 @@
 			isa = PBXGroup;
 			children = (
 				A6847FC61F2992740093E250 /* SignUpView.swift */,
+				A6A49FAD1F228606002BA67C /* EventAnnotationView.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -222,9 +225,9 @@
 		A6E2B9B41F15E5EA006C4C85 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				A6E2B9B51F15E600006C4C85 /* EventAnnotation.swift */,
+				A6EE1C1F1F2E642400B0499F /* Event.swift */,
 				A6D1DAAD1F18567400DF2D13 /* EventType.swift */,
-				A6A49FAD1F228606002BA67C /* EventAnnotationView.swift */,
+				A6E2B9B51F15E600006C4C85 /* EventAnnotation.swift */,
 				A6AC4C1F1F2D0E8400E96B93 /* FacebookUser.swift */,
 			);
 			name = Model;
@@ -377,6 +380,7 @@
 				A634BAF61F23369300927724 /* AppId.swift in Sources */,
 				A6E2B9B31F15E38E006C4C85 /* GeoFireError.swift in Sources */,
 				A6E2B99A1F15AE3F006C4C85 /* GFGeoHash.m in Sources */,
+				A6EE1C201F2E642400B0499F /* Event.swift in Sources */,
 				A6E2B9B61F15E600006C4C85 /* EventAnnotation.swift in Sources */,
 				A6E2B9731F15A564006C4C85 /* AppDelegate.swift in Sources */,
 				A602DF8F1F23AFB000890744 /* EventController.swift in Sources */,
