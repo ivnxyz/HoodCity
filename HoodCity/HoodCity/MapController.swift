@@ -125,20 +125,14 @@ class MapController: UIViewController {
             }
             
             let eventId = geoFireData!.0
-            let location = geoFireData!.1
             
-            let eventInformation = EventInformation(eventId, location)
-            
-            self.isEventExpired(eventInformation)
+            self.isEventExpired(eventId)
         }
     }
     
-    typealias EventInformation = (String, CLLocation)
-    
-    func remove(_ eventInformation: EventInformation) {
-        let key = eventInformation.0
+    func remove(_ eventId: String) {
         
-        geoFireClient.remove(key) { (error) in
+        geoFireClient.remove(eventId) { (error) in
             guard error == nil else {
                 print(error!)
                 return
@@ -146,10 +140,7 @@ class MapController: UIViewController {
         }
     }
     
-    func isEventExpired(_ eventInformation: EventInformation) {
-        let eventId = eventInformation.0
-        let location = eventInformation.1
-        
+    func isEventExpired(_ eventId: String) {
         firebaseClient.getEventData(for: eventId) { (event) in
             if let event = event {
                 let currentDate = Date()
@@ -158,9 +149,9 @@ class MapController: UIViewController {
                 let hoursSinceEvent = interval / 3600
                 
                 if hoursSinceEvent > 12.0 {
-                    self.remove(eventInformation)
+                    self.remove(eventId)
                 } else {
-                    let annotation = EventAnnotation(coordinate: location.coordinate, eventType: event.type)
+                    let annotation = EventAnnotation(coordinate: event.location.coordinate, eventType: event.type)
                     self.mapView.addAnnotation(annotation)
                 }
             } else {
