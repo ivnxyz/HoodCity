@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 import GoogleMobileAds
 
 class EventController: UIViewController, GADBannerViewDelegate {
@@ -192,10 +193,31 @@ class EventController: UIViewController, GADBannerViewDelegate {
     
     func create(_ event: EventType, at location: CLLocation, with eventId: String) {
         geoFireClient.createSighting(for: location, with: eventId)
-        firebaseClient.addDateToExistingEvent(eventId)
-        firebaseClient.addEventType(event, to: eventId)
         
-        handleDismiss()
+        guard let user = Auth.auth().currentUser else { return }
+        
+        let currentDate = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd/M/yyyy, H:mm"
+        
+        let dateStringRepresentation = formatter.string(from: currentDate)
+        
+        let data = [
+            "date": dateStringRepresentation,
+            "type": event.type,
+            "publishedBy": user.uid
+        ]
+        
+        firebaseClient.addDataToExistingEvent(event: eventId, data: data) { (error, reference) in
+            guard error == nil else {
+                print("Error trying to add data to existing event: ", error!)
+                return
+            }
+            
+            self.firebaseClient.addEventToCurrentUser(eventId: eventId)
+            
+            self.handleDismiss()
+        }
     }
     
 }

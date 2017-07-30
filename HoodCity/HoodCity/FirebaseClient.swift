@@ -15,21 +15,22 @@ class FirebaseClient {
     let storage = Storage.storage().reference()
     let eventsReference = Database.database().reference().child("events")
     let usersReference = Database.database().reference().child("users")
-    
-    func addDateToExistingEvent(_ eventId: String) {
-        let currentDate = Date()
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd/M/yyyy, H:mm"
-        
-        let dateStringRepresentation = formatter.string(from: currentDate)
-        
-        eventsReference.child(eventId).updateChildValues(["date": dateStringRepresentation])
+
+    //MARK: - Add new event
+  
+    func addDataToExistingEvent(event: String, data: [String: Any], completionHandler: @escaping(Error?, DatabaseReference?) -> Void) {
+        eventsReference.child(event).updateChildValues(data) { (error, reference) in
+            completionHandler(error, reference)
+        }
     }
     
-    func addEventType(_ eventType: EventType, to eventId: String) {
-        let eventType = eventType.type
+    func addEventToCurrentUser(eventId: String) {
         
-        eventsReference.child(eventId).updateChildValues(["type": eventType])
+        guard let user = Auth.auth().currentUser else { return }
+        
+        let eventInfo = ["\(eventId)" : true]
+        
+        usersReference.child(user.uid).child("events").updateChildValues(eventInfo)
     }
 
     //MARK: - Event data
