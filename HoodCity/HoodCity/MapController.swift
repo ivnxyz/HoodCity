@@ -130,13 +130,15 @@ class MapController: UIViewController {
         }
     }
     
-    func remove(_ eventId: String) {
+    func remove(_ event: Event) {
         
-        geoFireClient.remove(eventId) { (error) in
+        geoFireClient.remove(event.id) { (error) in
             guard error == nil else {
                 print(error!)
                 return
             }
+            
+            self.firebaseClient.removeEventFrom(userId: event.userId, eventId: event.id)
         }
     }
     
@@ -149,7 +151,7 @@ class MapController: UIViewController {
                 let hoursSinceEvent = interval / 3600
                 
                 if hoursSinceEvent > 12.0 {
-                    self.remove(eventId)
+                    self.remove(event)
                 } else {
                     let annotation = EventAnnotation(coordinate: event.location.coordinate, eventType: event.type)
                     self.mapView.addAnnotation(annotation)

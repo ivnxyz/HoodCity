@@ -12,12 +12,14 @@ struct Event {
     let date: Date
     let type: EventType
     let location: CLLocation
+    let userId: String
+    let id: String
 }
 
 extension Event {
-    init?(eventDict: [String: AnyObject]) {
+    init?(eventDict: [String: AnyObject], id: String) {
 
-        guard let dateStringValue = eventDict["date"] as? String, let type = eventDict["type"] as? String, let locationArray = eventDict["l"] as? [Double] else {
+        guard let dateStringValue = eventDict["date"] as? String, let type = eventDict["type"] as? String, let locationArray = eventDict["l"] as? [Double], let userId = eventDict["publishedBy"] as? String else {
             print("Cannot get info from event dictionary")
             return nil
         }
@@ -40,6 +42,6 @@ extension Event {
         
         let location = CLLocation(latitude: latitude, longitude: longitude)
         
-        self.init(date: date, type: eventType, location: location)
+        self.init(date: date, type: eventType, location: location, userId: userId, id: id)
     }
 }

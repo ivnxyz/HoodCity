@@ -32,11 +32,20 @@ class FirebaseClient {
         
         usersReference.child(user.uid).child("events").updateChildValues(eventInfo)
     }
+    
+    //MARK: - Remove event
+    
+    func removeEventFrom(userId: String, eventId: String) {
+        usersReference.child(userId).child("events").child(eventId).removeValue()
+    }
 
     //MARK: - Event data
     
     func getEventData(for eventId: String, completionHandler: @escaping (Event?) -> Void) {
         eventsReference.child(eventId).observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            let eventId = snapshot.key
+            
             guard let eventDictionary = snapshot.value as? [String: AnyObject] else {
                 
                 completionHandler(nil)
@@ -44,7 +53,7 @@ class FirebaseClient {
                 return
             }
             
-            let event = Event(eventDict: eventDictionary)
+            let event = Event(eventDict: eventDictionary, id: eventId)
             
             completionHandler(event)
         })
