@@ -31,33 +31,19 @@ class FirebaseClient {
         
         eventsReference.child(eventId).updateChildValues(["type": eventType])
     }
+
+    //MARK: - Event data
     
-    // Get information from event id
-    
-    func getDate(from eventId: String, completionHandler: @escaping (Date?, FirebaseError?) -> Void) {
-        eventsReference.child(eventId).child("date").observeSingleEvent(of: .value, with: { (snapshot) in
-            guard let dateStringValue = snapshot.value as? String else {
-                completionHandler(nil, FirebaseError.snapshotValueIsEmpty)
+    func getEventData(for eventId: String, completionHandler: @escaping (Event?) -> Void) {
+        eventsReference.child(eventId).observeSingleEvent(of: .value, with: { (snapshot) in
+            guard let eventDictionary = snapshot.value as? [String: AnyObject] else {
+                
+                completionHandler(nil)
+                
                 return
             }
             
-            let formatter = DateFormatter()
-            formatter.dateFormat = "dd/M/yyyy, H:mm"
-            
-            guard let date = formatter.date(from: dateStringValue) else {
-                completionHandler(nil, FirebaseError.failedToTransformStringToData)
-                return
-            }
-            
-            completionHandler(date, nil)
-        })
-    }
-    
-    func getType(from eventId: String, completionHandler: @escaping (EventType) -> Void) {
-        eventsReference.child(eventId).child("type").observeSingleEvent(of: .value, with: { (snapshot) in
-            guard let eventType = snapshot.value as? String else { return }
-            
-            guard let event = EventType(type: eventType) else { return }
+            let event = Event(eventDict: eventDictionary)
             
             completionHandler(event)
         })

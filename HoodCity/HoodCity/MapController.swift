@@ -150,25 +150,23 @@ class MapController: UIViewController {
         let eventId = eventInformation.0
         let location = eventInformation.1
         
-        firebaseClient.getDate(from: eventId, completionHandler: { (eventDate, error) in
-            if error != nil {
-                print(error!)
-            } else {
+        firebaseClient.getEventData(for: eventId) { (event) in
+            if let event = event {
                 let currentDate = Date()
-                let interval = currentDate.timeIntervalSince(eventDate!)
+                let interval = currentDate.timeIntervalSince(event.date)
                 
                 let hoursSinceEvent = interval / 3600
                 
                 if hoursSinceEvent > 12.0 {
                     self.remove(eventInformation)
                 } else {
-                    self.firebaseClient.getType(from: eventId, completionHandler: { (event) in
-                        let annotation = EventAnnotation(coordinate: location.coordinate, eventType: event)
-                        self.mapView.addAnnotation(annotation)
-                    })
+                    let annotation = EventAnnotation(coordinate: location.coordinate, eventType: event.type)
+                    self.mapView.addAnnotation(annotation)
                 }
+            } else {
+                print("Cannot get information about event")
             }
-        })
+        }
     }
     
     func showUserProfile() {
