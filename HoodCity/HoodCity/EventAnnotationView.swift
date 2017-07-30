@@ -13,7 +13,7 @@ class EventAnnotationView: MKAnnotationView {
     init(eventAnnotation: EventAnnotation, reuseIdentifier: String?) {
         super.init(annotation: eventAnnotation, reuseIdentifier: reuseIdentifier)
         
-        self.image = eventAnnotation.event.icon
+        self.image = eventAnnotation.event.eventType.icon
         self.canShowCallout = true
     }
     

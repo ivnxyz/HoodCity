@@ -10,7 +10,7 @@ import Foundation
 
 struct Event {
     let date: Date
-    let type: EventType
+    let eventType: EventType
     let location: CLLocation
     let userId: String
     let id: String
@@ -42,6 +42,6 @@ extension Event {
         
         let location = CLLocation(latitude: latitude, longitude: longitude)
         
-        self.init(date: date, type: eventType, location: location, userId: userId, id: id)
+        self.init(date: date, eventType: eventType, location: location, userId: userId, id: id)
     }
 }

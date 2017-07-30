@@ -153,7 +153,7 @@ class MapController: UIViewController {
                 if hoursSinceEvent > 12.0 {
                     self.remove(event)
                 } else {
-                    let annotation = EventAnnotation(coordinate: event.location.coordinate, eventType: event.type)
+                    let annotation = EventAnnotation(coordinate: event.location.coordinate, event: event)
                     self.mapView.addAnnotation(annotation)
                 }
             } else {
@@ -193,19 +193,29 @@ extension MapController: MKMapViewDelegate {
         guard let eventAnnotation = annotation as? EventAnnotation else { return nil }
         
         var annotationView: EventAnnotationView?
-        let identifier = eventAnnotation.event.type
+        let identifier = eventAnnotation.event.eventType.type
         
         if let dequeuedAnnotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? EventAnnotationView {
             annotationView = dequeuedAnnotationView
             annotationView?.annotation = annotation
         } else {
             annotationView = EventAnnotationView(eventAnnotation: eventAnnotation, reuseIdentifier: identifier)
+            annotationView?.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
         }
         
         annotationView?.frame.size = CGSize(width: 30.0, height: 30.0)
         
         print("Creating AnnotationView")
         return annotationView
+    }
+    
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        guard let annotationView = view as? EventAnnotationView else { return }
+        guard let eventAnnotation = annotationView.annotation as? EventAnnotation  else { return }
+        
+        let event = eventAnnotation.event
+        
+        print("The event is \(event.eventType.type) and was published by: \(event.userId)")
     }
     
 }
