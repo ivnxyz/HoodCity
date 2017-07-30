@@ -26,7 +26,7 @@ class FirebaseClient {
         eventsReference.child(eventId).updateChildValues(["date": dateStringRepresentation])
     }
     
-    func addEventType(_ eventType: Event, to eventId: String) {
+    func addEventType(_ eventType: EventType, to eventId: String) {
         let eventType = eventType.type
         
         eventsReference.child(eventId).updateChildValues(["type": eventType])
@@ -53,11 +53,11 @@ class FirebaseClient {
         })
     }
     
-    func getType(from eventId: String, completionHandler: @escaping (Event) -> Void) {
+    func getType(from eventId: String, completionHandler: @escaping (EventType) -> Void) {
         eventsReference.child(eventId).child("type").observeSingleEvent(of: .value, with: { (snapshot) in
             guard let eventType = snapshot.value as? String else { return }
             
-            guard let event = Event(type: eventType) else { return }
+            guard let event = EventType(type: eventType) else { return }
             
             completionHandler(event)
         })
@@ -99,7 +99,7 @@ class FirebaseClient {
         usersReference.child(user.uid).child(name).setValue(data)
     }
     
-    func updateUserProfile(_ userData: FacebookUser) {
+    func updateUserProfile(with userData: FacebookUser) {
         guard let user = Auth.auth().currentUser else { return }
         
         let userInfo = [

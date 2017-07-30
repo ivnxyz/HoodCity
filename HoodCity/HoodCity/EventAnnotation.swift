@@ -11,9 +11,9 @@ import Foundation
 class EventAnnotation: NSObject, MKAnnotation {
     var coordinate: CLLocationCoordinate2D
     var title: String?
-    var event: Event
+    var event: EventType
     
-    init(coordinate: CLLocationCoordinate2D, eventType: Event) {
+    init(coordinate: CLLocationCoordinate2D, eventType: EventType) {
         self.coordinate = coordinate
         self.title = eventType.title
         self.event = eventType

@@ -1,5 +1,5 @@
 //
-//  Event.swift
+//  EventType.swift
 //  HoodCity
 //
 //  Created by Iván Martínez on 13/07/17.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum Event {
+enum EventType {
     case traffic
     case protest
     case party
@@ -18,10 +18,10 @@ enum Event {
     case rain
     case pride
     
-    static var count: Int { return Event.pride.hashValue + 1}
+    static var count: Int { return EventType.pride.hashValue + 1}
 }
 
-extension Event {
+extension EventType {
     init?(type: String) {
         switch type {
         case "traffic":
@@ -46,7 +46,7 @@ extension Event {
     }
 }
 
-extension Event {
+extension EventType {
     init?(index: Int) {
         switch index {
         case 0:
@@ -71,7 +71,7 @@ extension Event {
     }
 }
 
-extension Event {
+extension EventType {
     var title: String {
         switch self {
         case .traffic:

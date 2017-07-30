@@ -68,6 +68,12 @@ class SignUpController: UIViewController {
         return signUpView
     }()
     
+    lazy var firebaseClient: FirebaseClient = {
+        let client = FirebaseClient()
+        
+        return client
+    }()
+    
     //MARK: - ViewDidLoad
 
     override func viewDidLoad() {
@@ -140,7 +146,7 @@ extension SignUpController: SignUpViewDelegate {
                 
                 FacebookClient().getUserData(completionHandler: { (facebookUser) in
                     
-                    FirebaseClient().updateUserProfile(facebookUser)
+                    self.firebaseClient.updateUserProfile(with: facebookUser)
                     
                     DispatchQueue.main.async {
                         self.signUpView.dismiss()

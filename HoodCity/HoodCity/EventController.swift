@@ -182,7 +182,7 @@ class EventController: UIViewController, GADBannerViewDelegate {
     
     func addEvent() {
         let selectedEventIndex = eventPicker.selectedRow(inComponent: 0)
-        guard let event = Event(index: selectedEventIndex) else { return }
+        guard let event = EventType(index: selectedEventIndex) else { return }
         
         guard let location = locationManager.currentLocation() else { return }
         let childNameId = "\(Int(NSDate.timeIntervalSinceReferenceDate * 100000))"
@@ -190,7 +190,7 @@ class EventController: UIViewController, GADBannerViewDelegate {
         create(event, at: location, with: childNameId)
     }
     
-    func create(_ event: Event, at location: CLLocation, with eventId: String) {
+    func create(_ event: EventType, at location: CLLocation, with eventId: String) {
         geoFireClient.createSighting(for: location, with: eventId)
         firebaseClient.addDateToExistingEvent(eventId)
         firebaseClient.addEventType(event, to: eventId)
@@ -205,7 +205,7 @@ extension EventController: UIPickerViewDelegate {
     // MARK: - UIPickerViewDelegate
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        let event = Event(index: row)
+        let event = EventType(index: row)
         return event!.title
     }
     
@@ -220,7 +220,7 @@ extension EventController: UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return Event.count
+        return EventType.count
     }
     
 }
