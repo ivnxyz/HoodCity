@@ -51,6 +51,29 @@ class SignUpView: UIView {
         return label
     }()
     
+    lazy var loadingView: UIView = {
+        let container = UIView()
+        container.backgroundColor = UIColor(white: 0, alpha: 0.5)
+        container.clipsToBounds = true
+        container.layer.cornerRadius = 10
+        container.translatesAutoresizingMaskIntoConstraints = false
+        
+        let indicator = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+        indicator.hidesWhenStopped = true
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        
+        container.addSubview(indicator)
+        
+        NSLayoutConstraint.activate([
+            indicator.centerYAnchor.constraint(equalTo: container.centerYAnchor),
+            indicator.centerXAnchor.constraint(equalTo: container.centerXAnchor)
+        ])
+        
+        indicator.startAnimating()
+        
+        return container
+    }()
+    
     weak var delegate: SignUpViewDelegate?
     
     //MARK: - Init
@@ -121,6 +144,21 @@ class SignUpView: UIView {
         }, completion: { (true) in
             self.removeFromSuperview()
         })
+    }
+    
+    func startActivityIndicator() {
+        for view in backgroundView.subviews {
+            view.removeFromSuperview()
+        }
+        
+        backgroundView.addSubview(loadingView)
+        
+        NSLayoutConstraint.activate([
+            loadingView.centerYAnchor.constraint(equalTo: backgroundView.centerYAnchor),
+            loadingView.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor),
+            loadingView.heightAnchor.constraint(equalToConstant: 80),
+            loadingView.widthAnchor.constraint(equalToConstant: 80)
+        ])
     }
     
     func facebookButtonPressed() {

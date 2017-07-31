@@ -56,7 +56,7 @@ class SignUpController: UIViewController {
     
         button.translatesAutoresizingMaskIntoConstraints = false
         
-        button.addTarget(self, action: #selector(SignUpController.showHomeScreen), for: .touchUpInside)
+        button.addTarget(self, action: #selector(SignUpController.showSignUpView), for: .touchUpInside)
         
         return button
     }()
@@ -66,6 +66,14 @@ class SignUpController: UIViewController {
         signUpView.delegate = self
         
         return signUpView
+    }()
+    
+    lazy var activityIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+        indicator.hidesWhenStopped = true
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        
+        return indicator
     }()
     
     lazy var firebaseClient: FirebaseClient = {
@@ -83,6 +91,7 @@ class SignUpController: UIViewController {
         view.addSubview(mapImage)
         view.addSubview(titleLabel)
         view.addSubview(startButton)
+        view.addSubview(activityIndicator)
         
         NSLayoutConstraint.activate([
             backgroundImage.topAnchor.constraint(equalTo: view.topAnchor),
@@ -110,11 +119,16 @@ class SignUpController: UIViewController {
             startButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: view.bounds.height * -0.08),
             startButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
+        
+        NSLayoutConstraint.activate([
+            activityIndicator.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
+            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
     }
     
-    //MARK: - HomeController
+    //MARK: - Sign Up
     
-    func showHomeScreen() {
+    func showSignUpView() {
         view.addSubview(signUpView)
         signUpView.show()
     }
@@ -126,12 +140,16 @@ extension SignUpController: SignUpViewDelegate {
     //MARK: - SignUpViewDelegate
     
     func loginWithFacebook() {
+        
         FBSDKLoginManager().logIn(withReadPermissions:  ["email", "public_profile"], from: self) { (result, error) in
             
             guard error == nil else {
                 print("Error at Facebook's log in: ", error!)
+                
                 return
             }
+            
+            self.signUpView.startActivityIndicator()
             
             let accessToken = FBSDKAccessToken.current()
             guard let accessTokenString = accessToken?.tokenString else { return }
@@ -149,6 +167,7 @@ extension SignUpController: SignUpViewDelegate {
                     self.firebaseClient.updateUserProfile(with: facebookUser)
                     
                     DispatchQueue.main.async {
+                        
                         self.signUpView.dismiss()
                         
                         print("UI updated")
