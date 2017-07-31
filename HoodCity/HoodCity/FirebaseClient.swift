@@ -112,9 +112,44 @@ class FirebaseClient {
         }
     }
     
-    func getProfileFor(userId: String, completionHandler: @escaping(DataSnapshot) -> Void) {
+    struct FirebaseUser {
+        let profilePictureUrl: String
+        let name: String
+    }
+    
+    func getProfileFor(userId: String, completionHandler: @escaping(FirebaseUser?) -> Void) {
         usersReference.child(userId).observeSingleEvent(of: .value, with: { (snapshot) in
-            completionHandler(snapshot)
+            
+            guard let userData = snapshot.value as? [String: AnyObject] else {
+                completionHandler(nil)
+                return
+            }
+            
+            guard let profilePictureData = userData["profilePicture"] as? [String: AnyObject] else {
+                completionHandler(nil)
+                return
+            }
+            
+            guard let profilePictureUrl = profilePictureData["downloadUrl"] as? String else {
+                completionHandler(nil)
+                return
+            }
+            
+            guard let name = userData["name"] as? String else {
+                completionHandler(nil)
+                return
+            }
+            
+            let firebaseUser = FirebaseUser(profilePictureUrl: profilePictureUrl, name: name)
+            
+            completionHandler(firebaseUser)
         })
     }
 }
+
+
+
+
+
+
+
