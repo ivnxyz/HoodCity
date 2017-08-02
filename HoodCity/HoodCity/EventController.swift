@@ -15,10 +15,9 @@ class EventController: UIViewController, GADBannerViewDelegate {
     //MARK: - UI elements
     
     lazy var backgroundView: UIView = {
-        guard let window = UIApplication.shared.keyWindow else { return UIView() }
         
         let backgroundViewHeight = CGFloat(440)
-        let backgroundViewWidth = window.frame.width
+        let backgroundViewWidth = self.view.frame.width
         
         let view = UIView(frame: CGRect(x: 0, y: backgroundViewHeight * 2, width: backgroundViewWidth, height: backgroundViewHeight))
         
@@ -84,6 +83,10 @@ class EventController: UIViewController, GADBannerViewDelegate {
         return bannerView
     }()
     
+    lazy var loadingView: LoadingView = {
+        return LoadingView()
+    }()
+    
     //MARK: - Dependencies
     
     let geoFireClient = GeoFireClient()
@@ -106,12 +109,10 @@ class EventController: UIViewController, GADBannerViewDelegate {
     
     override func viewDidLoad() {
 
-        guard let window = UIApplication.shared.keyWindow else { return }
-        
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(EventController.handleDismiss))
         view.addGestureRecognizer(gestureRecognizer)
         
-        window.addSubview(backgroundView)
+        view.addSubview(backgroundView)
         backgroundView.addSubview(addEventLabel)
         backgroundView.addSubview(eventPicker)
         backgroundView.addSubview(addEventButton)
@@ -150,7 +151,7 @@ class EventController: UIViewController, GADBannerViewDelegate {
         
         UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
             
-            let backgroundViewY = window.frame.height - self.backgroundView.frame.height
+            let backgroundViewY = self.view.frame.height - self.backgroundView.frame.height
             
             self.backgroundView.frame = CGRect(x: 0, y: backgroundViewY, width: self.backgroundView.frame.width, height: self.backgroundView.frame.height)
             
@@ -188,10 +189,15 @@ class EventController: UIViewController, GADBannerViewDelegate {
         guard let location = locationManager.currentLocation() else { return }
         let childNameId = "\(Int(NSDate.timeIntervalSinceReferenceDate * 100000))"
         
-        create(event, at: location, with: childNameId)
+        startActivityIndicator()
+        
+        create(event, at: location, with: childNameId) {
+            self.stopActivityIndicator()
+            self.handleDismiss()
+        }
     }
     
-    func create(_ event: EventType, at location: CLLocation, with eventId: String) {
+    func create(_ event: EventType, at location: CLLocation, with eventId: String, completionHandler: @escaping() -> Void) {
         geoFireClient.createSighting(for: location, with: eventId)
         
         guard let user = Auth.auth().currentUser else { return }
@@ -216,8 +222,37 @@ class EventController: UIViewController, GADBannerViewDelegate {
             
             self.firebaseClient.addEventToCurrentUser(eventId: eventId)
             
-            self.handleDismiss()
+            completionHandler()
         }
+    }
+    
+    //MARK: - ActivityIndicator
+    
+    func startActivityIndicator() {
+        for view in backgroundView.subviews {
+            view.removeFromSuperview()
+        }
+        
+        backgroundView.addSubview(loadingView)
+        loadingView.start()
+        
+        NSLayoutConstraint.activate([
+            loadingView.centerYAnchor.constraint(equalTo: backgroundView.centerYAnchor),
+            loadingView.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor),
+            loadingView.heightAnchor.constraint(equalToConstant: 80),
+            loadingView.widthAnchor.constraint(equalToConstant: 80)
+        ])
+    }
+    
+    func stopActivityIndicator() {
+        loadingView.stop()
+        
+        view.addSubview(backgroundView)
+        backgroundView.addSubview(addEventLabel)
+        backgroundView.addSubview(eventPicker)
+        backgroundView.addSubview(addEventButton)
+        backgroundView.addSubview(eventInfoLabel)
+        backgroundView.addSubview(bannerView)
     }
     
 }
