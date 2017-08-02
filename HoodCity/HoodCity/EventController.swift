@@ -15,9 +15,10 @@ class EventController: UIViewController, GADBannerViewDelegate {
     //MARK: - UI elements
     
     lazy var backgroundView: UIView = {
+        guard let window = UIApplication.shared.keyWindow else { return UIView() }
         
         let backgroundViewHeight = CGFloat(440)
-        let backgroundViewWidth = self.view.frame.width
+        let backgroundViewWidth = window.frame.width
         
         let view = UIView(frame: CGRect(x: 0, y: backgroundViewHeight * 2, width: backgroundViewWidth, height: backgroundViewHeight))
         
@@ -108,11 +109,13 @@ class EventController: UIViewController, GADBannerViewDelegate {
     //MARK: - ViewDidLoad
     
     override func viewDidLoad() {
+        
+        guard let window = UIApplication.shared.keyWindow else { return }
 
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(EventController.handleDismiss))
         view.addGestureRecognizer(gestureRecognizer)
         
-        view.addSubview(backgroundView)
+        window.addSubview(backgroundView)
         backgroundView.addSubview(addEventLabel)
         backgroundView.addSubview(eventPicker)
         backgroundView.addSubview(addEventButton)
@@ -148,10 +151,9 @@ class EventController: UIViewController, GADBannerViewDelegate {
             eventPicker.bottomAnchor.constraint(equalTo: addEventButton.topAnchor, constant: -25)
         ])
         
-        
-        UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-            
-            let backgroundViewY = self.view.frame.height - self.backgroundView.frame.height
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+
+            let backgroundViewY = window.frame.height - self.backgroundView.frame.height
             
             self.backgroundView.frame = CGRect(x: 0, y: backgroundViewY, width: self.backgroundView.frame.width, height: self.backgroundView.frame.height)
             
@@ -190,7 +192,6 @@ class EventController: UIViewController, GADBannerViewDelegate {
         let childNameId = "\(Int(NSDate.timeIntervalSinceReferenceDate * 100000))"
         
         startActivityIndicator()
-        
         create(event, at: location, with: childNameId) {
             self.stopActivityIndicator()
             self.handleDismiss()
