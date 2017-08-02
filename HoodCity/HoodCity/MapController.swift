@@ -48,7 +48,10 @@ class MapController: UIViewController {
     //MARK: - Dependencies
     
     lazy var locationManager: LocationManager = {
-        return LocationManager(mapView: self.mapView)
+        let manager = LocationManager(mapView: self.mapView)
+        manager.delegate = self
+        
+        return manager
     }()
     
     lazy var geoFireClient: GeoFireClient = {
@@ -57,6 +60,10 @@ class MapController: UIViewController {
     
     lazy var firebaseClient: FirebaseClient = {
         return FirebaseClient()
+    }()
+    
+    lazy var currentLocation: CLLocation? = {
+        return self.locationManager.currentLocation()
     }()
     
     var mapHasCenteredOnce = false
@@ -94,9 +101,7 @@ class MapController: UIViewController {
         
         //getUserData()
         
-        let location = locationManager.currentLocation()
-        
-        if let location = location {
+        if let location = currentLocation {
             showEvents(at: location)
         }
     }
@@ -169,6 +174,16 @@ class MapController: UIViewController {
         present(navigationController, animated: true, completion: nil)
     }
     
+}
+
+extension MapController: LocationManagerDelegate {
+    func locationManagerDidChangeAuthorization(status: CLAuthorizationStatus) {
+        if status == .authorizedWhenInUse {
+            if let location = currentLocation {
+                showEvents(at: location)
+            }
+        }
+    }
 }
 
 extension MapController: MKMapViewDelegate {

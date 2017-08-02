@@ -9,10 +9,16 @@
 import Foundation
 import MapKit
 
+protocol LocationManagerDelegate: class {
+    func locationManagerDidChangeAuthorization(status: CLAuthorizationStatus)
+}
+
 class LocationManager: NSObject {
     
     private let locationManager = CLLocationManager()
     let mapView: MKMapView?
+    
+    var delegate: LocationManagerDelegate?
     
     init(mapView: MKMapView?) {
         self.mapView = mapView
@@ -45,6 +51,8 @@ extension LocationManager: CLLocationManagerDelegate {
         if status == .authorizedWhenInUse {
             mapView?.showsUserLocation = true
         }
+        
+        delegate?.locationManagerDidChangeAuthorization(status: status)
     }
     
 }
