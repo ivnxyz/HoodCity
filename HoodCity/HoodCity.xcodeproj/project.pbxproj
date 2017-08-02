@@ -12,6 +12,7 @@
 		A617F5911F2827E600391723 /* SignUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A617F5901F2827E600391723 /* SignUpController.swift */; };
 		A617F5951F296EC400391723 /* MapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A617F5941F296EC400391723 /* MapController.swift */; };
 		A634BAF61F23369300927724 /* AppId.swift in Sources */ = {isa = PBXBuildFile; fileRef = A634BAF51F23369300927724 /* AppId.swift */; };
+		A65910471F3112A3003CC2F4 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A65910461F3112A3003CC2F4 /* LoadingView.swift */; };
 		A6847FC71F2992740093E250 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6847FC61F2992740093E250 /* SignUpView.swift */; };
 		A6A32BAA1F2DC02F006F83FA /* FacebookClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6A32BA91F2DC02F006F83FA /* FacebookClient.swift */; };
 		A6A49FAE1F228606002BA67C /* EventAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6A49FAD1F228606002BA67C /* EventAnnotationView.swift */; };
@@ -43,6 +44,7 @@
 		A617F5901F2827E600391723 /* SignUpController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpController.swift; sourceTree = "<group>"; };
 		A617F5941F296EC400391723 /* MapController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapController.swift; sourceTree = "<group>"; };
 		A634BAF51F23369300927724 /* AppId.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppId.swift; sourceTree = "<group>"; };
+		A65910461F3112A3003CC2F4 /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		A65BB9621F248D2600F40CE6 /* HoodCity.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HoodCity.entitlements; sourceTree = "<group>"; };
 		A6847FC61F2992740093E250 /* SignUpView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		A6A32BA91F2DC02F006F83FA /* FacebookClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookClient.swift; sourceTree = "<group>"; };
@@ -111,6 +113,7 @@
 			children = (
 				A6847FC61F2992740093E250 /* SignUpView.swift */,
 				A6A49FAD1F228606002BA67C /* EventAnnotationView.swift */,
+				A65910461F3112A3003CC2F4 /* LoadingView.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -393,6 +396,7 @@
 				A6E2B9981F15AE3F006C4C85 /* GeoFire.m in Sources */,
 				A6AC4C201F2D0E8400E96B93 /* User.swift in Sources */,
 				A6E2B99B1F15AE3F006C4C85 /* GFGeoHashQuery.m in Sources */,
+				A65910471F3112A3003CC2F4 /* LoadingView.swift in Sources */,
 				A6E2B99C1F15AE3F006C4C85 /* GFQuery.m in Sources */,
 				A6AC1EB01F2E895C00A3BFE1 /* EventDetailsController.swift in Sources */,
 				A6847FC71F2992740093E250 /* SignUpView.swift in Sources */,
