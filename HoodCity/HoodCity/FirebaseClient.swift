@@ -99,7 +99,7 @@ class FirebaseClient {
         guard let user = Auth.auth().currentUser else { return }
         
         let userInfo = [
-            "name": userData.name
+            "name": userData.name!
         ]
         
         usersReference.child(user.uid).updateChildValues(userInfo) { (error, reference) in
@@ -108,7 +108,7 @@ class FirebaseClient {
                 return
             }
             
-            self.addProfilePictureToCurrentUser(userData.profilePicture)
+            self.addProfilePictureToCurrentUser(userData.profilePicture!)
         }
     }
     

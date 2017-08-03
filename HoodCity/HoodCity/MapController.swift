@@ -76,8 +76,6 @@ class MapController: UIViewController {
         self.title = "Near You"
         
         navigationItem.rightBarButtonItem = userProfileButton
-        _ = self.navigationItem.rightBarButtonItem?.customView as! UIButton
-
         
         view.addSubview(mapView)
         view.addSubview(addEventButton)
@@ -99,7 +97,19 @@ class MapController: UIViewController {
         mapView.delegate = self
         mapView.userTrackingMode = .follow
         
-        //getUserData()
+        
+        let navigationButton = navigationItem.rightBarButtonItem?.customView as! UIButton
+        
+        if let profilePicture = User.shared?.profilePicture {
+            navigationButton.setImage(profilePicture, for: .normal)
+        } else {
+            print("User doesn't exist")
+            
+            getCurrentUserData(completionHandler: { (finished) in
+                guard let profilePicture = User.shared?.profilePicture else { return }
+                navigationButton.setImage(profilePicture, for: .normal)
+            })
+        }
         
         if let location = currentLocation {
             showEvents(at: location)
@@ -167,11 +177,35 @@ class MapController: UIViewController {
         }
     }
     
+    //MARK: - User
+    
     func showUserProfile() {
         let userProfileController = UserProfileController()
         let navigationController = UINavigationController(rootViewController: userProfileController)
         
         present(navigationController, animated: true, completion: nil)
+    }
+    
+    func getCurrentUserData(completionHandler: @escaping(Bool) -> Void) {
+        guard let currentUser = Auth.auth().currentUser else { return }
+        
+        firebaseClient.getProfileFor(userId: currentUser.uid) { (firebaseUser) in
+            guard let imageUrl = URL(string: firebaseUser!.profilePictureUrl) else { return }
+            
+            URLSession.shared.dataTask(with: imageUrl, completionHandler: { (data, response, error) in
+                guard error == nil else {
+                    print(error!)
+                    return
+                }
+                
+                guard let profilePicutre = UIImage(data: data!) else { return }
+                
+                User.shared?.profilePicture = profilePicutre
+                User.shared?.name = firebaseUser?.name
+                
+                completionHandler(true)
+            }).resume()
+        }
     }
     
 }

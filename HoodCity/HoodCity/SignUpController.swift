@@ -162,9 +162,9 @@ extension SignUpController: SignUpViewDelegate {
                     return
                 }
                 
-                FacebookClient().getUserData(completionHandler: { (facebookUser) in
+                FacebookClient().getUserData(completionHandler: { (user) in
                     
-                    self.firebaseClient.updateUserProfile(with: facebookUser)
+                    self.firebaseClient.updateUserProfile(with: user)
                     
                     DispatchQueue.main.async {
                         

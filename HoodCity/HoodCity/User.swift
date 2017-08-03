@@ -10,9 +10,14 @@ import Foundation
 
 class User {
     
-    var name = ""
-    var profilePicture = UIImage()
-    var email = ""
+    static let shared = User()
+    
+    var name: String?
+    var profilePicture: UIImage?
+    var email: String?
+    
+    private init?() {
+    }
     
     init(name: String, email: String, profilePicture: UIImage) {
         self.name = name
