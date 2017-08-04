@@ -91,18 +91,13 @@ class UserProfileController: UITableViewController {
         return view
     }()
     
-    //MARK: - Events
-    let firebaseClient = FirebaseClient()
-    var events = [Event]()
+    //MARK: - Dependencies
     
-    func getEventsForCurrentUser() {
-        guard let user = Auth.auth().currentUser else { return }
-        
-        firebaseClient.getEventsFor(user.uid) { (event) in
-            self.events.append(event)
-            print(event.eventType.cleanTitle)
-        }
-    }
+    let firebaseClient = FirebaseClient()
+    
+    lazy var dataSource: UserProfileDataSource = {
+        return UserProfileDataSource(tableView: self.tableView)
+    }()
     
     //MARK: - ViewDidLoad
 
@@ -117,6 +112,7 @@ class UserProfileController: UITableViewController {
         tableView.separatorInset.left = 0
         
         tableView.register(EventCell.classForCoder(), forCellReuseIdentifier: EventCell.reuseIdentifier)
+        tableView.dataSource = dataSource
         
         getEventsForCurrentUser()
     }
@@ -124,23 +120,6 @@ class UserProfileController: UITableViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-
-    //MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 5
-    }
-    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: EventCell.reuseIdentifier, for: indexPath) as! EventCell
-        return cell
     }
     
     //MARK: - Delegate 
@@ -167,5 +146,14 @@ class UserProfileController: UITableViewController {
             //Add an alert view
         }
     }
-
+    
+    //MARK: - Events
+    
+    func getEventsForCurrentUser() {
+        guard let user = Auth.auth().currentUser else { return }
+        
+        firebaseClient.getEventsFor(user.uid) { (event) in
+            self.dataSource.update(with: event)
+        }
+    }
 }
