@@ -2,14 +2,14 @@
 //  UserProfileController.swift
 //  HoodCity
 //
-//  Created by Iván Martínez on 29/07/17.
+//  Created by Iván Martínez on 03/08/17.
 //  Copyright © 2017 Iván Martínez. All rights reserved.
 //
 
 import UIKit
 import Firebase
 
-class UserProfileController: UIViewController {
+class UserProfileController: UITableViewController {
     
     //MARK: UI Elements
     
@@ -43,6 +43,32 @@ class UserProfileController: UIViewController {
         return label
     }()
     
+    lazy var headerView: UIView = {
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 200))
+        
+        view.addSubview(self.profilePicture)
+        view.addSubview(self.nameLabel)
+        
+        let profilePictureHeight = self.view.bounds.height * 0.1604
+        
+        NSLayoutConstraint.activate([
+            self.profilePicture.heightAnchor.constraint(equalToConstant: profilePictureHeight),
+            self.profilePicture.widthAnchor.constraint(equalToConstant: profilePictureHeight),
+            self.profilePicture.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            self.profilePicture.topAnchor.constraint(equalTo: view.topAnchor, constant: 48)
+        ])
+        
+        self.profilePicture.layer.cornerRadius = profilePictureHeight/2
+        self.profilePicture.layer.masksToBounds = true
+        
+        NSLayoutConstraint.activate([
+            self.nameLabel.topAnchor.constraint(equalTo: self.profilePicture.bottomAnchor, constant: 10),
+            self.nameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
+        
+        return view
+    }()
+    
     lazy var signOutButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Sign Out", for: .normal)
@@ -53,48 +79,62 @@ class UserProfileController: UIViewController {
         return button
     }()
     
-    //MARK: ViewDidLoad
+    lazy var footerView: UIView = {
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 100))
+        view.addSubview(self.signOutButton)
+        
+        NSLayoutConstraint.activate([
+            self.signOutButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            self.signOutButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -15)
+        ])
+        
+        return view
+    }()
+    
+    //MARK: - ViewDidLoad
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        guard let navigationBerHeight = self.navigationController?.navigationBar.bounds.height else { return }
-
-        view.backgroundColor = .white
         title = "You"
-        
         navigationItem.rightBarButtonItem = cancelButton
         
-        view.addSubview(profilePicture)
-        view.addSubview(nameLabel)
-        view.addSubview(signOutButton)
-        
-        let profilePictureHeight = view.bounds.height * 0.1604
-        
-        NSLayoutConstraint.activate([
-            profilePicture.heightAnchor.constraint(equalToConstant: profilePictureHeight),
-            profilePicture.widthAnchor.constraint(equalToConstant: profilePictureHeight),
-            profilePicture.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            profilePicture.topAnchor.constraint(equalTo: view.topAnchor, constant: navigationBerHeight * 2)
-        ])
-        
-        profilePicture.layer.cornerRadius = profilePictureHeight/2
-        profilePicture.layer.masksToBounds = true
-        
-        NSLayoutConstraint.activate([
-            nameLabel.topAnchor.constraint(equalTo: profilePicture.bottomAnchor, constant: 10),
-            nameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
-        ])
-        
-        NSLayoutConstraint.activate([
-            signOutButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            signOutButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -15)
-        ])
+        tableView.tableHeaderView = headerView
+        tableView.tableFooterView = footerView
+        tableView.separatorInset.left = 0
     }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+    //MARK: - Table view data source
+
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        return 1
+    }
+
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // #warning Incomplete implementation, return the number of rows
+        return 10
+    }
+    
+    //MARK: - Delegate 
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        return UITableViewCell()
+    }
+    
+    
+    //MARK: - Cancel
     
     func cancel() {
         dismiss(animated: true, completion: nil)
     }
+    
+    //MARK: - SignOut
     
     func signOut() {
         do {
