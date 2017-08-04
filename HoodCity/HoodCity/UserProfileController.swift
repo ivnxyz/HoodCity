@@ -138,12 +138,12 @@ class UserProfileController: UITableViewController {
         return 5
     }
     
-    //MARK: - Delegate 
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: EventCell.reuseIdentifier, for: indexPath) as! EventCell
         return cell
     }
+    
+    //MARK: - Delegate 
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 75
