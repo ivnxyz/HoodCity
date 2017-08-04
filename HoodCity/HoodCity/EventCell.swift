@@ -12,8 +12,29 @@ class EventCell: UITableViewCell {
     
     static let reuseIdentifier = "EventCell"
     
-    let eventTitle = UILabel()
-    let dateLabel = UILabel()
+    lazy var eventTitle: UILabel = {
+        let label = UILabel()
+        label.textColor = UIColor(red: 88/255, green: 88/255, blue: 88/255, alpha: 1)
+        label.font = UIFont.boldSystemFont(ofSize: 16)
+        label.numberOfLines = 1
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        return label
+    }()
+    
+    lazy var dateLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = UIColor(red: 88/255, green: 88/255, blue: 88/255, alpha: 1)
+        label.font = UIFont.systemFont(ofSize: 10)
+        label.numberOfLines = 1
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        return label
+    }()
+    
+    
     let eventIcon = UIImageView()
 
     override func awakeFromNib() {
@@ -26,6 +47,9 @@ class EventCell: UITableViewCell {
         eventIcon.image = #imageLiteral(resourceName: "party")
         eventIcon.translatesAutoresizingMaskIntoConstraints = false
         
+        eventTitle.text = "Party"
+        dateLabel.text = "Created at bla bla"
+        
         addSubview(eventTitle)
         addSubview(dateLabel)
         addSubview(eventIcon)
@@ -37,6 +61,16 @@ class EventCell: UITableViewCell {
             eventIcon.widthAnchor.constraint(equalToConstant: 30),
             eventIcon.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 26),
             eventIcon.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            eventTitle.leadingAnchor.constraint(equalTo: eventIcon.trailingAnchor, constant: 26),
+            eventTitle.topAnchor.constraint(equalTo: self.topAnchor, constant: 17)
+        ])
+        
+        NSLayoutConstraint.activate([
+            dateLabel.leadingAnchor.constraint(equalTo: eventIcon.trailingAnchor, constant: 26),
+            dateLabel.topAnchor.constraint(equalTo: eventTitle.bottomAnchor, constant: 9)
         ])
     }
     
