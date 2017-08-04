@@ -102,6 +102,8 @@ class UserProfileController: UITableViewController {
         tableView.tableHeaderView = headerView
         tableView.tableFooterView = footerView
         tableView.separatorInset.left = 0
+        
+        tableView.register(EventCell.classForCoder(), forCellReuseIdentifier: EventCell.reuseIdentifier)
     }
 
     override func didReceiveMemoryWarning() {
@@ -118,13 +120,18 @@ class UserProfileController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 10
+        return 5
     }
     
     //MARK: - Delegate 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: EventCell.reuseIdentifier, for: indexPath) as! EventCell
+        return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 75
     }
     
     
