@@ -91,6 +91,19 @@ class UserProfileController: UITableViewController {
         return view
     }()
     
+    //MARK: - Events
+    let firebaseClient = FirebaseClient()
+    var events = [Event]()
+    
+    func getEventsForCurrentUser() {
+        guard let user = Auth.auth().currentUser else { return }
+        
+        firebaseClient.getEventsFor(user.uid) { (event) in
+            self.events.append(event)
+            print(event.eventType.cleanTitle)
+        }
+    }
+    
     //MARK: - ViewDidLoad
 
     override func viewDidLoad() {
@@ -104,6 +117,8 @@ class UserProfileController: UITableViewController {
         tableView.separatorInset.left = 0
         
         tableView.register(EventCell.classForCoder(), forCellReuseIdentifier: EventCell.reuseIdentifier)
+        
+        getEventsForCurrentUser()
     }
 
     override func didReceiveMemoryWarning() {
@@ -133,7 +148,6 @@ class UserProfileController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 75
     }
-    
     
     //MARK: - Cancel
     

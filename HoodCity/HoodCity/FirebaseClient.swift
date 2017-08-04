@@ -47,9 +47,7 @@ class FirebaseClient {
             let eventId = snapshot.key
             
             guard let eventDictionary = snapshot.value as? [String: AnyObject] else {
-                
                 completionHandler(nil)
-                
                 return
             }
             
@@ -143,6 +141,27 @@ class FirebaseClient {
             let firebaseUser = FirebaseUser(profilePictureUrl: profilePictureUrl, name: name)
             
             completionHandler(firebaseUser)
+        })
+    }
+    
+    func getEventsFor(_ userId: String, completionHandler: @escaping(Event) -> Void) {
+        usersReference.child(userId).child("events").observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            guard let eventsData = snapshot.value as? [String: AnyObject] else {
+                print("Cannot get events from user")
+                return
+            }
+            
+            for eventId in eventsData.keys {
+                self.getEventData(for: eventId, completionHandler: { (event) in
+                    guard let event = event else {
+                        print("Cannot get event")
+                        return
+                    }
+                    
+                    completionHandler(event)
+                })
+            }
         })
     }
 }

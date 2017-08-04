@@ -34,8 +34,13 @@ class EventCell: UITableViewCell {
         return label
     }()
     
-    
-    let eventIcon = UIImageView()
+    lazy var eventIcon: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return imageView
+    }()
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -43,12 +48,6 @@ class EventCell: UITableViewCell {
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-        eventIcon.image = #imageLiteral(resourceName: "party")
-        eventIcon.translatesAutoresizingMaskIntoConstraints = false
-        
-        eventTitle.text = "Party"
-        dateLabel.text = "Created at bla bla"
         
         addSubview(eventTitle)
         addSubview(dateLabel)
@@ -79,7 +78,14 @@ class EventCell: UITableViewCell {
     }
     
     func configure(with event: Event) {
+        eventTitle.text = event.eventType.cleanTitle
+        eventIcon.image = event.eventType.icon
         
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd/M/yyyy, H:mm"
+        let dateStringRepresentation = formatter.string(from: event.date)
+        
+        dateLabel.text = "Added: \(dateStringRepresentation)"
     }
 
 }
