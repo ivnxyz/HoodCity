@@ -91,6 +91,27 @@ class UserProfileController: UITableViewController {
         return view
     }()
     
+    lazy var placeholderView: UIView = {
+        let container = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 200))
+        let titleLabel = UILabel()
+        
+        titleLabel.textAlignment = .center
+        titleLabel.numberOfLines = 1
+        titleLabel.text = "You have no events :("
+        titleLabel.font = UIFont.systemFont(ofSize: 16)
+        titleLabel.textColor = UIColor(red: 88/255, green: 88/255, blue: 88/255, alpha: 1)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        container.addSubview(titleLabel)
+        
+        NSLayoutConstraint.activate([
+            titleLabel.centerXAnchor.constraint(equalTo: container.centerXAnchor),
+            titleLabel.centerYAnchor.constraint(equalTo: container.centerYAnchor)
+        ])
+        
+        return container
+    }()
+    
     //MARK: - Dependencies
     
     let firebaseClient = FirebaseClient()
@@ -113,6 +134,7 @@ class UserProfileController: UITableViewController {
         
         tableView.register(EventCell.classForCoder(), forCellReuseIdentifier: EventCell.reuseIdentifier)
         tableView.dataSource = dataSource
+        tableView.backgroundView?.backgroundColor = .green
         
         getEventsForCurrentUser()
     }
@@ -153,7 +175,19 @@ class UserProfileController: UITableViewController {
         guard let user = Auth.auth().currentUser else { return }
         
         firebaseClient.getEventsFor(user.uid) { (event) in
+            guard let event = event else {
+                self.addPlaceholderView()
+                return
+            }
+            
             self.dataSource.update(with: event)
         }
     }
+    
+    func addPlaceholderView() {
+        tableView.tableHeaderView?.frame = CGRect(x: 0, y: 0, width: headerView.frame.width, height: headerView.frame.height + 200)
+        tableView.backgroundView = placeholderView
+        tableView.isScrollEnabled = false
+    }
+    
 }

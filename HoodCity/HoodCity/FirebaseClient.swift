@@ -144,11 +144,12 @@ class FirebaseClient {
         })
     }
     
-    func getEventsFor(_ userId: String, completionHandler: @escaping(Event) -> Void) {
+    func getEventsFor(_ userId: String, completionHandler: @escaping(Event?) -> Void) {
         usersReference.child(userId).child("events").observeSingleEvent(of: .value, with: { (snapshot) in
             
             guard let eventsData = snapshot.value as? [String: AnyObject] else {
                 print("Cannot get events from user")
+                completionHandler(nil)
                 return
             }
             

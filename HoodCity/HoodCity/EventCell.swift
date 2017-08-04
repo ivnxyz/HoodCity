@@ -25,8 +25,8 @@ class EventCell: UITableViewCell {
     
     lazy var dateLabel: UILabel = {
         let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 13)
         label.textColor = UIColor(red: 88/255, green: 88/255, blue: 88/255, alpha: 1)
-        label.font = UIFont.systemFont(ofSize: 10)
         label.numberOfLines = 1
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false

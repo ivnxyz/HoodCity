@@ -49,7 +49,7 @@ class EventDetailsController: UIViewController {
     
     lazy var userNameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 20)
+        label.font = UIFont.boldSystemFont(ofSize: 20)
         label.textColor = UIColor(red: 88/255, green: 88/255, blue: 88/255, alpha: 1)
         label.textAlignment = .left
         label.numberOfLines = 1

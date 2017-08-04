@@ -10,7 +10,7 @@ import UIKit
 
 class UserProfileDataSource: NSObject, UITableViewDataSource {
     
-    private var events = [Event]()
+    var events = [Event]()
     let tableView: UITableView
     
     init(tableView: UITableView) {
