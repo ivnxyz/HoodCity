@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 import GoogleMobileAds
 import FBSDKCoreKit
+import TwitterKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -24,8 +25,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         GADMobileAds.configure(withApplicationID: adMobAppId)
         
-        // Configure FacebookSDK
+        // Configure SDK's
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+        Twitter.sharedInstance().start(withConsumerKey: twitterConsumerKey, consumerSecret: twitterSecretKey)
         
         // Customize NavigationBar
         let navigationAppearance = UINavigationBar.appearance()
