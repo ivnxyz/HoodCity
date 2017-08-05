@@ -17,4 +17,6 @@ target 'HoodCity' do
   pod 'FBSDKShareKit'
   pod 'FBSDKLoginKit'
 
+  pod 'TwitterKit'
+
 end
