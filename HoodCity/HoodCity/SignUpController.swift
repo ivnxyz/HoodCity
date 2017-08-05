@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import FBSDKLoginKit
+import TwitterKit
 
 class SignUpController: UIViewController {
     
@@ -140,7 +141,6 @@ extension SignUpController: SignUpViewDelegate {
     //MARK: - SignUpViewDelegate
     
     func loginWithFacebook() {
-        
         FBSDKLoginManager().logIn(withReadPermissions:  ["email", "public_profile"], from: self) { (result, error) in
             
             guard error == nil else {
@@ -181,7 +181,15 @@ extension SignUpController: SignUpViewDelegate {
     }
     
     func loginWithTwitter() {
-        print("123")
+        signUpView.startActivityIndicator()
+        
+        Twitter.sharedInstance().logIn { (session, error) in
+            if (session != nil) {
+                print("signed in as \(session!.userName)");
+            } else {
+                print("error: \(error!.localizedDescription)");
+            }
+        }
     }
     
 }
