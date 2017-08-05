@@ -10,6 +10,7 @@ import UIKit
 
 protocol SignUpViewDelegate: class {
     func loginWithFacebook()
+    func loginWithTwitter()
 }
 
 class SignUpView: UIView {
@@ -39,6 +40,20 @@ class SignUpView: UIView {
         customFacebookButton.translatesAutoresizingMaskIntoConstraints = false
         
         return customFacebookButton
+    }()
+    
+    lazy var twitterLoginButton: UIButton = {
+        let twitterButton = UIButton(type: .system)
+        twitterButton.backgroundColor = UIColor(red: 0/255.0, green: 172/255.0, blue: 237/255.0, alpha: 1)
+        twitterButton.setTitle("Twitter", for: .normal)
+        twitterButton.titleLabel?.font = .boldSystemFont(ofSize: 18)
+        twitterButton.setTitleColor(.white, for: .normal)
+        twitterButton.addTarget(self, action: #selector(SignUpView.twitterButtonPressed), for: .touchUpInside)
+        twitterButton.layer.cornerRadius = 8
+        
+        twitterButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        return twitterButton
     }()
     
     lazy var titleLabel: UILabel = {
@@ -91,6 +106,7 @@ class SignUpView: UIView {
         addSubview(backgroundView)
         backgroundView.addSubview(loginButton)
         backgroundView.addSubview(titleLabel)
+        backgroundView.addSubview(twitterLoginButton)
         
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: backgroundView.topAnchor, constant: 16),
@@ -102,6 +118,13 @@ class SignUpView: UIView {
             loginButton.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor),
             loginButton.widthAnchor.constraint(equalTo: backgroundView.widthAnchor, constant: -30),
             loginButton.heightAnchor.constraint(equalToConstant: 40)
+        ])
+        
+        NSLayoutConstraint.activate([
+            twitterLoginButton.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 32),
+            twitterLoginButton.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor),
+            twitterLoginButton.heightAnchor.constraint(equalTo: loginButton.heightAnchor),
+            twitterLoginButton.widthAnchor.constraint(equalTo: loginButton.widthAnchor)
         ])
         
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
@@ -151,6 +174,10 @@ class SignUpView: UIView {
     
     func facebookButtonPressed() {
         delegate?.loginWithFacebook()
+    }
+    
+    func twitterButtonPressed() {
+        delegate?.loginWithTwitter()
     }
 }
 

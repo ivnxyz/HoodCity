@@ -180,5 +180,9 @@ extension SignUpController: SignUpViewDelegate {
         }
     }
     
+    func loginWithTwitter() {
+        print("123")
+    }
+    
 }
 
