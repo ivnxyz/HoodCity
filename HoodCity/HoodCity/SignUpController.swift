@@ -69,14 +69,6 @@ class SignUpController: UIViewController {
         return signUpView
     }()
     
-    lazy var activityIndicator: UIActivityIndicatorView = {
-        let indicator = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
-        indicator.hidesWhenStopped = true
-        indicator.translatesAutoresizingMaskIntoConstraints = false
-        
-        return indicator
-    }()
-    
     lazy var firebaseClient: FirebaseClient = {
         let client = FirebaseClient()
         
@@ -92,7 +84,6 @@ class SignUpController: UIViewController {
         view.addSubview(mapImage)
         view.addSubview(titleLabel)
         view.addSubview(startButton)
-        view.addSubview(activityIndicator)
         
         NSLayoutConstraint.activate([
             backgroundImage.topAnchor.constraint(equalTo: view.topAnchor),
@@ -120,11 +111,6 @@ class SignUpController: UIViewController {
             startButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: view.bounds.height * -0.08),
             startButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
-        
-        NSLayoutConstraint.activate([
-            activityIndicator.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
-            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor)
-        ])
     }
     
     //MARK: - Sign Up
@@ -132,6 +118,22 @@ class SignUpController: UIViewController {
     func showSignUpView() {
         view.addSubview(signUpView)
         signUpView.show()
+    }
+    
+    func showMapController() {
+        signUpView.dismiss()
+        
+        print("UI updated")
+        let mapController = MapController()
+        let navigationController = UINavigationController(rootViewController: mapController)
+        present(navigationController, animated: false, completion: nil)
+    }
+    
+    func handle(_ error: Error?) {
+        guard let error = error else { return }
+        
+        signUpView.stopActivityIndicator()
+        print("error: \(error)")
     }
     
 }
@@ -153,28 +155,27 @@ extension SignUpController: SignUpViewDelegate {
             
             let accessToken = FBSDKAccessToken.current()
             guard let accessTokenString = accessToken?.tokenString else { return }
-            let credentials = FacebookAuthProvider.credential(withAccessToken: accessTokenString)
+            let credential = FacebookAuthProvider.credential(withAccessToken: accessTokenString)
             
-            Auth.auth().signIn(with: credentials) { (firebaseUser, error) in
+            Auth.auth().signIn(with: credential) { (firebaseUser, error) in
                 
                 guard error == nil else {
                     print("Something went wrong with Facebook user: ", error!)
+                    self.signUpView.stopActivityIndicator()
                     return
                 }
                 
                 FacebookClient().getUserData(completionHandler: { (user) in
                     
-                    self.firebaseClient.updateUserProfile(with: user)
-                    
-                    DispatchQueue.main.async {
-                        
-                        self.signUpView.dismiss()
-                        
-                        print("UI updated")
-                        let mapController = MapController()
-                        let navigationController = UINavigationController(rootViewController: mapController)
-                        self.present(navigationController, animated: false, completion: nil)
-                    }
+                    self.firebaseClient.updateUserProfile(with: user, completionHandler: { (error) in
+                        if error != nil {
+                            self.handle(error)
+                        } else {
+                            DispatchQueue.main.async {
+                                self.showMapController()
+                            }
+                        }
+                    })
                 })
             }
         }
@@ -184,10 +185,66 @@ extension SignUpController: SignUpViewDelegate {
         signUpView.startActivityIndicator()
         
         Twitter.sharedInstance().logIn { (session, error) in
-            if (session != nil) {
-                print("signed in as \(session!.userName)");
-            } else {
-                print("error: \(error!.localizedDescription)");
+            if let session = session {
+                print("signed in as \(session.userName)")
+                let authToken = session.authToken
+                let authTokenSecret = session.authTokenSecret
+                
+                let credential = TwitterAuthProvider.credential(withToken: authToken, secret: authTokenSecret)
+                
+                Auth.auth().signIn(with: credential, completion: { (user, error) in
+                    
+                    guard let firebaseUser = user else {
+                        self.handle(error)
+                        return
+                    }
+                    
+                    let twitterClient = TwitterClient()
+                    
+                    twitterClient.getUserData(completionHandler: { (user, error) in
+                        
+                        guard let user = user else {
+                            DispatchQueue.main.async {
+                                self.handle(error)
+                            }
+                            return
+                        }
+                        
+                        twitterClient.getUserEmail(completionHandler: { (email, error) in
+                            if let email = email {
+                                
+                                firebaseUser.updateEmail(to: email, completion: { (error) in
+                                    if error != nil {
+                                        self.handle(error)
+                                    } else {
+                                        user.email = email
+                                    }
+                                    
+                                    self.firebaseClient.updateUserProfile(with: user, completionHandler: { (error) in
+                                        if error != nil {
+                                            self.handle(error)
+                                        } else {
+                                            DispatchQueue.main.async {
+                                                self.showMapController()
+                                            }
+                                        }
+                                    })
+                                })
+                            } else {
+                                
+                                self.firebaseClient.updateUserProfile(with: user, completionHandler: { (error) in
+                                    if error != nil {
+                                        self.handle(error)
+                                    } else {
+                                        DispatchQueue.main.async {
+                                            self.showMapController()
+                                        }
+                                    }
+                                })
+                            }
+                        })
+                    })
+                })
             }
         }
     }

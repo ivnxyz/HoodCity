@@ -23,6 +23,7 @@
 		A6C1234A1F34E86500C065B5 /* UserProfileDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C123491F34E86500C065B5 /* UserProfileDataSource.swift */; };
 		A6D1DAAC1F17D8A200DF2D13 /* FirebaseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6D1DAAB1F17D8A200DF2D13 /* FirebaseError.swift */; };
 		A6D1DAAE1F18567400DF2D13 /* EventType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6D1DAAD1F18567400DF2D13 /* EventType.swift */; };
+		A6E0DFA41F35A2AA00B2870C /* TwitterClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E0DFA31F35A2AA00B2870C /* TwitterClient.swift */; };
 		A6E2B9731F15A564006C4C85 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E2B9721F15A564006C4C85 /* AppDelegate.swift */; };
 		A6E2B9781F15A564006C4C85 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A6E2B9761F15A564006C4C85 /* Main.storyboard */; };
 		A6E2B97A1F15A564006C4C85 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A6E2B9791F15A564006C4C85 /* Assets.xcassets */; };
@@ -58,6 +59,7 @@
 		A6C123491F34E86500C065B5 /* UserProfileDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileDataSource.swift; sourceTree = "<group>"; };
 		A6D1DAAB1F17D8A200DF2D13 /* FirebaseError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseError.swift; sourceTree = "<group>"; };
 		A6D1DAAD1F18567400DF2D13 /* EventType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventType.swift; sourceTree = "<group>"; };
+		A6E0DFA31F35A2AA00B2870C /* TwitterClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterClient.swift; sourceTree = "<group>"; };
 		A6E2B96F1F15A564006C4C85 /* HoodCity.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HoodCity.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6E2B9721F15A564006C4C85 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A6E2B9771F15A564006C4C85 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -238,6 +240,7 @@
 				A6E2B9B71F172C4F006C4C85 /* FirebaseClient.swift */,
 				A6D1DAAB1F17D8A200DF2D13 /* FirebaseError.swift */,
 				A6A32BA91F2DC02F006F83FA /* FacebookClient.swift */,
+				A6E0DFA31F35A2AA00B2870C /* TwitterClient.swift */,
 			);
 			name = Networking;
 			sourceTree = "<group>";
@@ -396,6 +399,7 @@
 				A617F5951F296EC400391723 /* MapController.swift in Sources */,
 				A6D1DAAC1F17D8A200DF2D13 /* FirebaseError.swift in Sources */,
 				A6E2B9991F15AE3F006C4C85 /* GFBase32Utils.m in Sources */,
+				A6E0DFA41F35A2AA00B2870C /* TwitterClient.swift in Sources */,
 				A6A49FAE1F228606002BA67C /* EventAnnotationView.swift in Sources */,
 				A634BAF61F23369300927724 /* SecretKeys.swift in Sources */,
 				A6E2B9B31F15E38E006C4C85 /* GeoFireError.swift in Sources */,

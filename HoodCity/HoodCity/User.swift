@@ -19,7 +19,7 @@ class User {
     private init?() {
     }
     
-    init(name: String, email: String, profilePicture: UIImage) {
+    init(name: String?, email: String?, profilePicture: UIImage?) {
         self.name = name
         self.email = email
         self.profilePicture = profilePicture

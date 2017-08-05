@@ -19,7 +19,7 @@ class SignUpView: UIView {
     
     lazy var backgroundView: UIView = {
         
-        let backgroundViewHeight = CGFloat(440)
+        let backgroundViewHeight = CGFloat(200)
         let backgroundViewWidth = self.frame.width
         
         let view = UIView(frame: CGRect(x: 0, y: backgroundViewHeight * 2, width: backgroundViewWidth, height: backgroundViewHeight))
@@ -59,7 +59,7 @@ class SignUpView: UIView {
     lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.textColor = UIColor(red: 63/255.0, green: 63/255.0, blue: 63/255.0, alpha: 1)
-        label.text = "Sign in to add a new event"
+        label.text = "Sign In or Sign Up"
         label.font = UIFont.systemFont(ofSize: 21, weight: UIFontWeightSemibold)
         label.translatesAutoresizingMaskIntoConstraints = false
         
@@ -108,24 +108,7 @@ class SignUpView: UIView {
         backgroundView.addSubview(titleLabel)
         backgroundView.addSubview(twitterLoginButton)
         
-        NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: backgroundView.topAnchor, constant: 16),
-            titleLabel.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor)
-        ])
-        
-        NSLayoutConstraint.activate([
-            loginButton.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 32),
-            loginButton.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor),
-            loginButton.widthAnchor.constraint(equalTo: backgroundView.widthAnchor, constant: -30),
-            loginButton.heightAnchor.constraint(equalToConstant: 40)
-        ])
-        
-        NSLayoutConstraint.activate([
-            twitterLoginButton.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 32),
-            twitterLoginButton.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor),
-            twitterLoginButton.heightAnchor.constraint(equalTo: loginButton.heightAnchor),
-            twitterLoginButton.widthAnchor.constraint(equalTo: loginButton.widthAnchor)
-        ])
+        activateConstraints()
         
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
             
@@ -138,6 +121,27 @@ class SignUpView: UIView {
         }, completion: nil)
     }
     
+    func activateConstraints() {
+        NSLayoutConstraint.activate([
+            titleLabel.topAnchor.constraint(equalTo: backgroundView.topAnchor, constant: 16),
+            titleLabel.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            loginButton.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 32),
+            loginButton.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor),
+            loginButton.widthAnchor.constraint(equalTo: backgroundView.widthAnchor, constant: -30),
+            loginButton.heightAnchor.constraint(equalToConstant: 45)
+        ])
+        
+        NSLayoutConstraint.activate([
+            twitterLoginButton.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 32),
+            twitterLoginButton.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor),
+            twitterLoginButton.heightAnchor.constraint(equalTo: loginButton.heightAnchor),
+            twitterLoginButton.widthAnchor.constraint(equalTo: loginButton.widthAnchor)
+        ])
+    }
+    
     //MARK: - Dismiss
     
     func dismiss() {
@@ -146,6 +150,8 @@ class SignUpView: UIView {
             self.alpha = 0
             
             self.backgroundView.frame = CGRect(x: 0, y: self.backgroundView.frame.height * 2, width: self.backgroundView.frame.width, height: self.backgroundView.frame.height)
+            
+            self.loadingView.stop()
             
         }, completion: { (true) in
             self.removeFromSuperview()
@@ -168,6 +174,16 @@ class SignUpView: UIView {
             loadingView.heightAnchor.constraint(equalToConstant: 80),
             loadingView.widthAnchor.constraint(equalToConstant: 80)
         ])
+    }
+    
+    func stopActivityIndicator() {
+        loadingView.stop()
+        
+        backgroundView.addSubview(loginButton)
+        backgroundView.addSubview(titleLabel)
+        backgroundView.addSubview(twitterLoginButton)
+        
+        activateConstraints()
     }
     
     //MARK: - Delegate

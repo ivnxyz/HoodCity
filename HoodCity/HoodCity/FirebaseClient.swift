@@ -59,42 +59,11 @@ class FirebaseClient {
     
     //MARK: - User
     
-    func addProfilePictureToCurrentUser(_ image: UIImage) {
-        guard let user = Auth.auth().currentUser else { return }
-        
-        let data = UIImageJPEGRepresentation(image, 0.8)
-        let photoName = "profilePicture"
-        
-        storage.child("users").child(user.uid).child("\(photoName).jpg").putData(data!, metadata: nil) { (metadata, error) in
-            guard error == nil else {
-                print("Error trying to put image to user: ", error!)
-                return
-            }
-            
-            guard let downloadUrl = metadata?.downloadURL() else {
-                print("Empty url")
-                return
-            }
-            
-            self.savePhotoInfoToUserPath(name: photoName, downloadUrl: downloadUrl)
+    func updateUserProfile(with userData: User, completionHandler: @escaping(Error?) -> Void) {
+        guard let user = Auth.auth().currentUser else {
+            completionHandler(FirebaseError.emptyUser)
+            return
         }
-    }
-    
-    func savePhotoInfoToUserPath(name: String, downloadUrl: URL) {
-        
-        guard let user = Auth.auth().currentUser else { return }
-        
-        let data = [
-            "name": name,
-            "downloadUrl": downloadUrl.absoluteString
-        ]
-        
-        print("Saving photo...")
-        usersReference.child(user.uid).child(name).setValue(data)
-    }
-    
-    func updateUserProfile(with userData: User) {
-        guard let user = Auth.auth().currentUser else { return }
         
         let userInfo = [
             "name": userData.name!
@@ -102,13 +71,58 @@ class FirebaseClient {
         
         usersReference.child(user.uid).updateChildValues(userInfo) { (error, reference) in
             guard error == nil else {
-                print(error!)
+                completionHandler(error)
                 return
             }
             
-            self.addProfilePictureToCurrentUser(userData.profilePicture!)
+            guard let profilePicture = userData.profilePicture else {
+                completionHandler(FirebaseError.userHasNoProfilePicture)
+                return
+            }
+            
+            self.addProfilePictureToUser(user, image: profilePicture, completionHandler: { (error) in
+                completionHandler(error)
+            })
         }
     }
+    
+    func addProfilePictureToUser(_ userInfo: UserInfo, image: UIImage, completionHandler: @escaping(Error?) -> Void) {
+
+        let data = UIImageJPEGRepresentation(image, 0.8)
+        let photoName = "profilePicture"
+        
+        storage.child("users").child(userInfo.uid).child("\(photoName).jpg").putData(data!, metadata: nil) { (metadata, error) in
+            guard error == nil else {
+                completionHandler(error)
+                return
+            }
+            
+            guard let downloadURL = metadata?.downloadURL() else {
+                completionHandler(FirebaseError.emptyURL)
+                return
+            }
+            
+            self.savePhotoInfoToUserPath(userInfo: userInfo, photoName: photoName, downloadURL: downloadURL, completionHandler: { (error) in
+                completionHandler(error)
+            })
+        }
+    }
+    
+    func savePhotoInfoToUserPath(userInfo: UserInfo, photoName: String, downloadURL: URL, completionHandler: @escaping(Error?) -> Void) {
+        
+        let data = [
+            "name": photoName,
+            "downloadUrl": downloadURL.absoluteString
+        ]
+        
+        print("Saving photo...")
+        
+        usersReference.child(userInfo.uid).child(photoName).setValue(data) { (error, reference) in
+            completionHandler(error)
+        }
+    }
+    
+    //Get user data
     
     struct FirebaseUser {
         let profilePictureUrl: String
@@ -166,6 +180,7 @@ class FirebaseClient {
         })
     }
 }
+
 
 
 
