@@ -182,9 +182,10 @@ extension SignUpController: SignUpViewDelegate {
     }
     
     func loginWithTwitter() {
-        signUpView.startActivityIndicator()
-        
         Twitter.sharedInstance().logIn { (session, error) in
+            
+            self.signUpView.startActivityIndicator()
+            
             if let session = session {
                 print("signed in as \(session.userName)")
                 let authToken = session.authToken
@@ -245,6 +246,8 @@ extension SignUpController: SignUpViewDelegate {
                         })
                     })
                 })
+            } else {
+                self.handle(error)
             }
         }
     }
