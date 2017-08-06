@@ -73,7 +73,7 @@ class UserProfileController: UITableViewController {
         let button = UIButton(type: .system)
         button.setTitle("Sign Out", for: .normal)
         button.setTitleColor(.red, for: .normal)
-        button.addTarget(self, action: #selector(UserProfileController.signOut), for: .touchUpInside)
+        button.addTarget(self, action: #selector(UserProfileController.userPressedSignoutButton), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
@@ -111,6 +111,15 @@ class UserProfileController: UITableViewController {
         
         return container
     }()
+    
+    lazy var signoutAlert: UIAlertController = {
+        let alertController = UIAlertController(title: nil, message: "Are you sure you want to sign out?", preferredStyle: .actionSheet)
+        alertController.addAction(UIAlertAction(title: "Sign Out", style: .destructive, handler: self.signOut(alertAction:)))
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        return alertController
+    }()
+    
     
     //MARK: - Dependencies
     
@@ -158,7 +167,11 @@ class UserProfileController: UITableViewController {
     
     //MARK: - SignOut
     
-    func signOut() {
+    func userPressedSignoutButton() {
+        self.present(signoutAlert, animated: true, completion: nil)
+    }
+    
+    func signOut(alertAction: UIAlertAction) {
         do {
             try Auth.auth().signOut()
             let signUpController = SignUpController()
