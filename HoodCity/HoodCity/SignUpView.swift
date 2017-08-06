@@ -11,6 +11,7 @@ import UIKit
 protocol SignUpViewDelegate: class {
     func loginWithFacebook()
     func loginWithTwitter()
+    func userTappedTermsLabel()
 }
 
 class SignUpView: UIView {
@@ -19,7 +20,7 @@ class SignUpView: UIView {
     
     lazy var backgroundView: UIView = {
         
-        let backgroundViewHeight = CGFloat(250)
+        let backgroundViewHeight = CGFloat(260)
         let backgroundViewWidth = self.frame.width
         
         let view = UIView(frame: CGRect(x: 0, y: backgroundViewHeight * 2, width: backgroundViewWidth, height: backgroundViewHeight))
@@ -61,7 +62,31 @@ class SignUpView: UIView {
         label.textColor = UIColor(red: 63/255.0, green: 63/255.0, blue: 63/255.0, alpha: 1)
         label.text = "Sign In or Sign Up"
         label.font = UIFont.systemFont(ofSize: 21, weight: UIFontWeightSemibold)
+        label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
+        
+        return label
+    }()
+    
+    lazy var termsLabel: UILabel = {
+        let label = UILabel()
+        
+        let textColor = UIColor(red: 88/255, green: 88/255, blue: 88/255, alpha: 1)
+        let buttonColor = UIButton(type: .system).tintColor
+        
+        let text = NSMutableAttributedString(string: "By signing up you agree to our TaC and Privacy Policy", attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 12, weight: UIFontWeightRegular)])
+        
+        text.addAttribute(NSForegroundColorAttributeName, value: textColor, range: NSRange(location: 0, length: text.length))
+        text.addAttribute(NSForegroundColorAttributeName, value: buttonColor, range: NSRange(location: 31, length: 3))
+        text.addAttribute(NSForegroundColorAttributeName, value: buttonColor, range: NSRange(location: 39, length: 14))
+        
+        label.attributedText = text
+        label.textAlignment = .center
+        label.isUserInteractionEnabled = true
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        let termsLabelGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.termsLabelPressed))
+        label.addGestureRecognizer(termsLabelGestureRecognizer)
         
         return label
     }()
@@ -92,7 +117,6 @@ class SignUpView: UIView {
     func show() {
         
         // Add gesture recognizer
-        
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(SignUpView.dismiss))
         self.addGestureRecognizer(gestureRecognizer)
         
@@ -101,6 +125,7 @@ class SignUpView: UIView {
         backgroundView.addSubview(loginButton)
         backgroundView.addSubview(titleLabel)
         backgroundView.addSubview(twitterLoginButton)
+        backgroundView.addSubview(termsLabel)
         
         activateConstraints()
         
@@ -133,6 +158,13 @@ class SignUpView: UIView {
             twitterLoginButton.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor),
             twitterLoginButton.heightAnchor.constraint(equalTo: loginButton.heightAnchor),
             twitterLoginButton.widthAnchor.constraint(equalTo: loginButton.widthAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            termsLabel.heightAnchor.constraint(equalToConstant: 50),
+            termsLabel.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor),
+            termsLabel.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor),
+            termsLabel.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor)
         ])
     }
     
@@ -176,6 +208,7 @@ class SignUpView: UIView {
         backgroundView.addSubview(loginButton)
         backgroundView.addSubview(titleLabel)
         backgroundView.addSubview(twitterLoginButton)
+        backgroundView.addSubview(termsLabel)
         
         activateConstraints()
     }
@@ -188,6 +221,10 @@ class SignUpView: UIView {
     
     func twitterButtonPressed() {
         delegate?.loginWithTwitter()
+    }
+    
+    func termsLabelPressed() {
+        delegate?.userTappedTermsLabel()
     }
 }
 

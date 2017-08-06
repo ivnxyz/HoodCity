@@ -62,6 +62,15 @@ class SignUpController: UIViewController {
         return button
     }()
     
+    lazy var termsAlertController: UIAlertController = {
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        alertController.addAction(UIAlertAction(title: "Read Terms and Conditions", style: .default, handler: self.readTermsAndConditions))
+        alertController.addAction(UIAlertAction(title: "Read Privacy Policy", style: .default, handler: self.readPrivacyPolicy))
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        return alertController
+    }()
+    
     lazy var signUpView: SignUpView = {
         let signUpView = SignUpView(frame: self.view.bounds)
         signUpView.delegate = self
@@ -139,6 +148,16 @@ class SignUpController: UIViewController {
         
         self.present(alertController, animated: true, completion: nil)
         print("error: \(error)")
+    }
+    
+    //MARK: - Legal stuff
+    
+    func readTermsAndConditions(alertAction: UIAlertAction) {
+        print("Terms and conditions")
+    }
+    
+    func readPrivacyPolicy(alertAction: UIAlertAction) {
+        print("Privacy Policy")
     }
     
 }
@@ -255,6 +274,10 @@ extension SignUpController: SignUpViewDelegate {
                 self.handle(error)
             }
         }
+    }
+    
+    func userTappedTermsLabel() {
+        self.present(termsAlertController, animated: true, completion: nil)
     }
     
 }
