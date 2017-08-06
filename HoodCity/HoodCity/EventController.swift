@@ -40,6 +40,7 @@ class EventController: UIViewController, GADBannerViewDelegate {
     lazy var addEventButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Add event", for: .normal)
+        button.setTitleColor(UIColor(red: 38/255.0, green: 42/255.0, blue: 152/255.0, alpha: 1), for: .normal)
         button.titleLabel?.font = button.titleLabel?.font.withSize(21)
         button.translatesAutoresizingMaskIntoConstraints = false
         

@@ -176,18 +176,10 @@ class UserProfileController: UITableViewController {
         
         firebaseClient.getEventsFor(user.uid) { (event) in
             guard let event = event else {
-                self.addPlaceholderView()
                 return
             }
             
             self.dataSource.update(with: event)
         }
     }
-    
-    func addPlaceholderView() {
-        tableView.tableHeaderView?.frame = CGRect(x: 0, y: 0, width: headerView.frame.width, height: headerView.frame.height + 200)
-        tableView.backgroundView = placeholderView
-        tableView.isScrollEnabled = false
-    }
-    
 }

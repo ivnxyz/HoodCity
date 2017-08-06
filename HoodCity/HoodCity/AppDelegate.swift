@@ -31,12 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Customize NavigationBar
         let navigationAppearance = UINavigationBar.appearance()
-        navigationAppearance.tintColor = .white
-        navigationAppearance.barTintColor = UIColor(red: 37/255.0, green: 183/255.0, blue: 97/255.0, alpha: 1)
-        navigationAppearance.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
-        
-        // White statusBar
-        UIApplication.shared.statusBarStyle = .lightContent
+        navigationAppearance.tintColor = UIColor(red: 38/255.0, green: 42/255.0, blue: 152/255.0, alpha: 1)
         
         // Initial ViewController
         

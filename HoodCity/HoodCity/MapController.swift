@@ -249,7 +249,10 @@ extension MapController: MKMapViewDelegate {
             annotationView?.annotation = annotation
         } else {
             annotationView = EventAnnotationView(eventAnnotation: eventAnnotation, reuseIdentifier: identifier)
-            annotationView?.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+            let calloutAccessoryButton = UIButton(type: .detailDisclosure)
+            calloutAccessoryButton.tintColor = UIColor(red: 38/255.0, green: 42/255.0, blue: 152/255.0, alpha: 1)
+            
+            annotationView?.rightCalloutAccessoryView = calloutAccessoryButton
         }
         
         annotationView?.frame.size = CGSize(width: 30.0, height: 30.0)
