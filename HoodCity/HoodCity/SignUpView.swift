@@ -19,7 +19,7 @@ class SignUpView: UIView {
     
     lazy var backgroundView: UIView = {
         
-        let backgroundViewHeight = CGFloat(200)
+        let backgroundViewHeight = CGFloat(250)
         let backgroundViewWidth = self.frame.width
         
         let view = UIView(frame: CGRect(x: 0, y: backgroundViewHeight * 2, width: backgroundViewWidth, height: backgroundViewHeight))
@@ -35,7 +35,7 @@ class SignUpView: UIView {
         customFacebookButton.titleLabel?.font = .boldSystemFont(ofSize: 18)
         customFacebookButton.setTitleColor(.white, for: .normal)
         customFacebookButton.addTarget(self, action: #selector(SignUpView.facebookButtonPressed), for: .touchUpInside)
-        customFacebookButton.layer.cornerRadius = 8
+        customFacebookButton.layer.cornerRadius = 9
         
         customFacebookButton.translatesAutoresizingMaskIntoConstraints = false
         
@@ -49,7 +49,7 @@ class SignUpView: UIView {
         twitterButton.titleLabel?.font = .boldSystemFont(ofSize: 18)
         twitterButton.setTitleColor(.white, for: .normal)
         twitterButton.addTarget(self, action: #selector(SignUpView.twitterButtonPressed), for: .touchUpInside)
-        twitterButton.layer.cornerRadius = 8
+        twitterButton.layer.cornerRadius = 9
         
         twitterButton.translatesAutoresizingMaskIntoConstraints = false
         
@@ -96,13 +96,7 @@ class SignUpView: UIView {
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(SignUpView.dismiss))
         self.addGestureRecognizer(gestureRecognizer)
         
-        let backgroundViewHeight = self.frame.height / 2
-        let backgroundViewWidth = self.frame.width
-        
         // Add subviews
-        
-        backgroundView.frame = CGRect(x: 0, y: backgroundViewHeight * 3, width: backgroundViewWidth, height: backgroundViewHeight)
-        
         addSubview(backgroundView)
         backgroundView.addSubview(loginButton)
         backgroundView.addSubview(titleLabel)

@@ -133,6 +133,11 @@ class SignUpController: UIViewController {
         guard let error = error else { return }
         
         signUpView.stopActivityIndicator()
+        
+        let alertController = UIAlertController(title: "Oops! :(", message: "\(error.localizedDescription)", preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        
+        self.present(alertController, animated: true, completion: nil)
         print("error: \(error)")
     }
     
