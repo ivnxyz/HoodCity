@@ -36,7 +36,7 @@ class SignUpView: UIView {
         customFacebookButton.titleLabel?.font = .boldSystemFont(ofSize: 18)
         customFacebookButton.setTitleColor(.white, for: .normal)
         customFacebookButton.addTarget(self, action: #selector(SignUpView.facebookButtonPressed), for: .touchUpInside)
-        customFacebookButton.layer.cornerRadius = 9
+        customFacebookButton.layer.cornerRadius = 10
         
         customFacebookButton.translatesAutoresizingMaskIntoConstraints = false
         
@@ -74,7 +74,7 @@ class SignUpView: UIView {
         let textColor = UIColor(red: 88/255, green: 88/255, blue: 88/255, alpha: 1)
         let buttonColor = UIButton(type: .system).tintColor
         
-        let text = NSMutableAttributedString(string: "By signing up you agree to our TaC and Privacy Policy", attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 12, weight: UIFontWeightRegular)])
+        let text = NSMutableAttributedString(string: "By signing up you agree to our TaC and Privacy Policy", attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 9, weight: UIFontWeightRegular)])
         
         text.addAttribute(NSForegroundColorAttributeName, value: textColor, range: NSRange(location: 0, length: text.length))
         text.addAttribute(NSForegroundColorAttributeName, value: buttonColor, range: NSRange(location: 31, length: 3))
@@ -130,13 +130,10 @@ class SignUpView: UIView {
         activateConstraints()
         
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-            
             self.alpha = 1
             
             let backgroundViewY = self.frame.height - self.backgroundView.frame.height
-            
             self.backgroundView.frame = CGRect(x: 0, y: backgroundViewY, width: self.backgroundView.frame.width, height: self.backgroundView.frame.height)
-            
         }, completion: nil)
     }
     
@@ -172,14 +169,12 @@ class SignUpView: UIView {
     
     func dismiss() {
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+            self.backgroundView.frame = CGRect(x: 0, y: self.frame.height, width: self.backgroundView.frame.width, height: self.backgroundView.frame.height)
             
             self.alpha = 0
-            
-            self.backgroundView.frame = CGRect(x: 0, y: self.backgroundView.frame.height * 2, width: self.backgroundView.frame.width, height: self.backgroundView.frame.height)
-            
             self.loadingView.stop()
             
-        }, completion: { (true) in
+        }, completion: { (finished) in
             self.removeFromSuperview()
         })
     }

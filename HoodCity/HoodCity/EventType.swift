@@ -16,9 +16,8 @@ enum EventType {
     case meetup
     case art
     case rain
-    case pride
     
-    static var count: Int { return EventType.pride.hashValue + 1}
+    static var count: Int { return EventType.rain.hashValue + 1}
 }
 
 extension EventType {
@@ -38,8 +37,6 @@ extension EventType {
             self = .art
         case "rain":
             self = .rain
-        case "pride":
-            self = .pride
         default:
             return nil
         }
@@ -63,8 +60,6 @@ extension EventType {
             self = .art
         case 6:
             self = .rain
-        case 7:
-            self = .pride
         default:
             return nil
         }
@@ -88,8 +83,6 @@ extension EventType {
             return "🎭 Art event"
         case .rain:
             return "🌧 Rain"
-        case .pride:
-            return "🏳️‍🌈 Pride"
         }
     }
     
@@ -109,8 +102,6 @@ extension EventType {
             return "artEvent"
         case .rain:
             return "rain"
-        case .pride:
-            return "pride"
         }
     }
     
@@ -130,8 +121,6 @@ extension EventType {
             return #imageLiteral(resourceName: "artEvent")
         case .rain:
             return #imageLiteral(resourceName: "rain")
-        case .pride:
-            return #imageLiteral(resourceName: "pride")
         }
     }
     
@@ -151,8 +140,6 @@ extension EventType {
             return "Art event"
         case .rain:
             return "Rain"
-        case .pride:
-            return "Pride"
         }
     }
 }

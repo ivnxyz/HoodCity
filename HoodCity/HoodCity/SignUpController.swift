@@ -18,7 +18,7 @@ class SignUpController: UIViewController {
     lazy var backgroundImage: UIImageView = {
         let imageView: UIImageView = UIImageView(frame: self.view.bounds)
         imageView.contentMode = .scaleAspectFill
-        imageView.image = #imageLiteral(resourceName: "background_image")
+        imageView.image = #imageLiteral(resourceName: "background-image")
         
         return imageView
     }()
@@ -26,7 +26,7 @@ class SignUpController: UIViewController {
     lazy var mapImage: UIImageView = {
         let imageView: UIImageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        imageView.image = #imageLiteral(resourceName: "map_image")
+        imageView.image = #imageLiteral(resourceName: "map-image")
         imageView.translatesAutoresizingMaskIntoConstraints = false
         
         return imageView
@@ -120,6 +120,14 @@ class SignUpController: UIViewController {
             startButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: view.bounds.height * -0.08),
             startButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        UIApplication.shared.statusBarStyle = .lightContent
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        UIApplication.shared.statusBarStyle = .default
     }
     
     //MARK: - Sign Up
