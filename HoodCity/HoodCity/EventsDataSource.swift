@@ -1,15 +1,15 @@
 //
-//  UserProfileDataSource.swift
+//  EventsDataSource.swift
 //  HoodCity
 //
-//  Created by Iván Martínez on 04/08/17.
+//  Created by Iván Martínez on 12/08/17.
 //  Copyright © 2017 Iván Martínez. All rights reserved.
 //
 
 import UIKit
 
-class UserProfileDataSource: NSObject, UITableViewDataSource {
-    
+class EventsDataSource: NSObject, UITableViewDataSource {
+
     var events = [Event]()
     let tableView: UITableView
     
@@ -45,4 +45,5 @@ class UserProfileDataSource: NSObject, UITableViewDataSource {
         
         return cell
     }
+    
 }

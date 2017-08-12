@@ -162,7 +162,7 @@ class FirebaseClient {
         usersReference.child(userId).child("events").observeSingleEvent(of: .value, with: { (snapshot) in
             
             guard let eventsData = snapshot.value as? [String: AnyObject] else {
-                print("Cannot get events from user")
+                print("There are no events")
                 completionHandler(nil)
                 return
             }

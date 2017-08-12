@@ -180,7 +180,7 @@ class MapController: UIViewController {
     //MARK: - User
     
     func showUserProfile() {
-        let userProfileController = UserProfileController()
+        let userProfileController = SettingsController(style: .grouped)
         let navigationController = UINavigationController(rootViewController: userProfileController)
         
         present(navigationController, animated: true, completion: nil)

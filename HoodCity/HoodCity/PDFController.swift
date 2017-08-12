@@ -42,8 +42,11 @@ class PDFController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.rightBarButtonItem = cancelButton
-        guard let navigationBarHeight = navigationController?.navigationBar.frame.size.height else { return }
+        guard let viewControllersCount = navigationController?.viewControllers.count else { return }
+        
+        if viewControllersCount < 2 {
+            navigationItem.rightBarButtonItem = cancelButton
+        }
         
         view.backgroundColor = .white
         title = controllerTitle
