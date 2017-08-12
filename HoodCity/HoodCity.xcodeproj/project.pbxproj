@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		898B42EECF5D8DC32F509CD1 /* Pods_HoodCity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E528CCB43C36F541315C31EB /* Pods_HoodCity.framework */; };
 		A602DF8F1F23AFB000890744 /* EventController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A602DF8E1F23AFB000890744 /* EventController.swift */; };
+		A6060F981F3EAE3700D71213 /* PDFController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6060F971F3EAE3700D71213 /* PDFController.swift */; };
 		A617F5911F2827E600391723 /* SignUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A617F5901F2827E600391723 /* SignUpController.swift */; };
 		A617F5951F296EC400391723 /* MapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A617F5941F296EC400391723 /* MapController.swift */; };
 		A634BAF61F23369300927724 /* SecretKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = A634BAF51F23369300927724 /* SecretKeys.swift */; };
@@ -44,6 +45,7 @@
 
 /* Begin PBXFileReference section */
 		A602DF8E1F23AFB000890744 /* EventController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventController.swift; sourceTree = "<group>"; };
+		A6060F971F3EAE3700D71213 /* PDFController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFController.swift; sourceTree = "<group>"; };
 		A617F5901F2827E600391723 /* SignUpController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpController.swift; sourceTree = "<group>"; };
 		A617F5941F296EC400391723 /* MapController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapController.swift; sourceTree = "<group>"; };
 		A634BAF51F23369300927724 /* SecretKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecretKeys.swift; sourceTree = "<group>"; };
@@ -220,6 +222,7 @@
 				A617F5901F2827E600391723 /* SignUpController.swift */,
 				A6AC1EAF1F2E895C00A3BFE1 /* EventDetailsController.swift */,
 				A6C123441F34217C00C065B5 /* UserProfileController.swift */,
+				A6060F971F3EAE3700D71213 /* PDFController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -409,6 +412,7 @@
 				A6E2B9B61F15E600006C4C85 /* EventAnnotation.swift in Sources */,
 				A6E2B9731F15A564006C4C85 /* AppDelegate.swift in Sources */,
 				A602DF8F1F23AFB000890744 /* EventController.swift in Sources */,
+				A6060F981F3EAE3700D71213 /* PDFController.swift in Sources */,
 				A6C1234A1F34E86500C065B5 /* UserProfileDataSource.swift in Sources */,
 				A6E2B9AA1F15BB6B006C4C85 /* LocationManager.swift in Sources */,
 				A6E2B9AD1F15DE06006C4C85 /* GeoFireClient.swift in Sources */,

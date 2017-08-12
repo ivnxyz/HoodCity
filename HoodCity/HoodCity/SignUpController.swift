@@ -34,9 +34,11 @@ class SignUpController: UIViewController {
     
     lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "Discover events around you. \n Create new events."
+        label.text = "Discover events around you.\nCreate new events and connect with your community."
         label.textColor = .white
         label.font = UIFont.boldSystemFont(ofSize: 22)
+        label.minimumScaleFactor = 0.5
+        label.adjustsFontSizeToFitWidth = true
         label.numberOfLines = 0
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -161,11 +163,26 @@ class SignUpController: UIViewController {
     //MARK: - Legal stuff
     
     func readTermsAndConditions(alertAction: UIAlertAction) {
-        print("Terms and conditions")
+        if let url = URL(string: termsAndConditionsURL) {
+            let urlRequest = URLRequest(url: url)
+            let pdfController = PDFController(request: urlRequest, title: "Terms and Conditions")
+            
+            let navigationController = UINavigationController(rootViewController: pdfController)
+            
+            present(navigationController, animated: true, completion: nil)
+        }
     }
     
     func readPrivacyPolicy(alertAction: UIAlertAction) {
-        print("Privacy Policy")
+        
+        if let url = URL(string: privacyPolicyURL) {
+            let urlRequest = URLRequest(url: url)
+            let pdfController = PDFController(request: urlRequest, title: "Privacy Policy")
+            
+            let navigationController = UINavigationController(rootViewController: pdfController)
+            
+            present(navigationController, animated: true, completion: nil)
+        }
     }
     
 }
