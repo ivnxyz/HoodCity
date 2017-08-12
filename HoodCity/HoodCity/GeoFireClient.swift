@@ -43,19 +43,17 @@ class GeoFireClient {
     
     // Observe Keys that exited query criteria
     
-    func observeExitedKeys(at location: CLLocation, completionHandler: @escaping (GeoFireData?, GeoFireError?) -> Void) {
+    func observeExitedKeys(at location: CLLocation, completionHandler: @escaping (String?, GeoFireError?) -> Void) {
         let query = geoFire.query(at: location, withRadius: 10)
         
         query?.observe(.keyExited, with: { (key, location) in
-            guard let key = key, let location = location else {
+            guard let key = key else {
                 completionHandler(nil, GeoFireError.observeExitedKeysFailed)
                 
                 return
             }
             
-            let data = GeoFireData(key, location)
-            
-            completionHandler(data, nil)
+            completionHandler(key, nil)
         })
     }
     

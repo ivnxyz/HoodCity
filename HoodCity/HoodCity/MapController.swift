@@ -68,6 +68,8 @@ class MapController: UIViewController {
     
     var mapHasCenteredOnce = false
     
+    var annotations = [String: EventAnnotation]()
+    
     //MARK: - ViewDidLoad
     
     override func viewDidLoad() {
@@ -113,6 +115,7 @@ class MapController: UIViewController {
         
         if let location = currentLocation {
             showEvents(at: location)
+            observeExitedKeys(at: location)
         }
     }
     
@@ -130,7 +133,7 @@ class MapController: UIViewController {
         present(controller, animated: false, completion: nil)
     }
     
-    //MARK: - Show Events
+    //MARK: - Events
     
     func showEvents(at location: CLLocation) {
         geoFireClient.showEvents(at: location) { (geoFireData, error) in
@@ -169,6 +172,8 @@ class MapController: UIViewController {
                     self.remove(event)
                 } else {
                     let annotation = EventAnnotation(coordinate: event.location.coordinate, event: event)
+                    self.annotations[eventId] = annotation
+                    
                     self.mapView.addAnnotation(annotation)
                 }
             } else {
@@ -176,6 +181,22 @@ class MapController: UIViewController {
             }
         }
     }
+    
+    func observeExitedKeys(at location: CLLocation) {
+        geoFireClient.observeExitedKeys(at: location) { (key, error) in
+            if let key = key {
+                guard let eventAnnotation = self.annotations[key] else {
+                    print("Annotation does not exist")
+                    return
+                }
+                
+                self.mapView.removeAnnotation(eventAnnotation)
+            } else {
+                print("Error trying to get data: \(error!)")
+            }
+        }
+    }
+    
     
     //MARK: - User
     

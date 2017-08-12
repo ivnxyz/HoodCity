@@ -23,9 +23,10 @@ class EventsController: UITableViewController {
     // MARK: - Dependencies
     
     let firebaseClient = FirebaseClient()
+    let geoFireClient = GeoFireClient()
     
     lazy var dataSource: EventsDataSource = {
-        return EventsDataSource(tableView: self.tableView)
+        return EventsDataSource(eventsController: self)
     }()
     
     // MARK: - ViewDidLoad
@@ -104,6 +105,23 @@ class EventsController: UITableViewController {
     
     func stopLoadingView() {
         loadingView.stop()
+    }
+    
+    // MARK: - Delete event
+    
+    func remove(_ event: Event, completionHandler: @escaping (Error?) -> Void) {
+        startLoadingView()
+        
+        geoFireClient.remove(event.id) { (error) in
+            guard error == nil else {
+                completionHandler(error)
+                return
+            }
+            
+            self.firebaseClient.removeEventFrom(userId: event.userId, eventId: event.id)
+            completionHandler(nil)
+            self.stopLoadingView()
+        }
     }
 
 }

@@ -11,10 +11,12 @@ import UIKit
 class EventsDataSource: NSObject, UITableViewDataSource {
 
     var events = [Event]()
+    let controller: EventsController
     let tableView: UITableView
     
-    init(tableView: UITableView) {
-        self.tableView = tableView
+    init(eventsController: EventsController) {
+        self.tableView = eventsController.tableView
+        self.controller = eventsController
     }
     
     //MARK: - Helper
@@ -44,6 +46,26 @@ class EventsDataSource: NSObject, UITableViewDataSource {
         cell.configure(with: event)
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let event = events[indexPath.row]
+            
+            controller.remove(event, completionHandler: { (error) in
+                guard error == nil else {
+                    print(error!)
+                    return
+                }
+                
+                self.events.remove(at: indexPath.row)
+                self.controller.getEventsForCurrentUser()
+            })
+        }
     }
     
 }
