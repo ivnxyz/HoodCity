@@ -109,7 +109,10 @@ class MapController: UIViewController {
             
             getCurrentUserData(completionHandler: { (finished) in
                 guard let profilePicture = User.shared?.profilePicture else { return }
-                navigationButton.setImage(profilePicture, for: .normal)
+                
+                DispatchQueue.main.async {
+                    navigationButton.setImage(profilePicture, for: .normal)
+                }
             })
         }
         

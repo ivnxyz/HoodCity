@@ -196,7 +196,7 @@ extension SignUpController: SignUpViewDelegate {
             
             guard error == nil else {
                 print("Error at Facebook's log in: ", error!)
-                
+                self.handle(error)
                 return
             }
             
@@ -210,7 +210,7 @@ extension SignUpController: SignUpViewDelegate {
                 
                 guard error == nil else {
                     print("Something went wrong with Facebook user: ", error!)
-                    self.signUpView.stopActivityIndicator()
+                    self.handle(error)
                     return
                 }
                 
