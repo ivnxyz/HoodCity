@@ -15,7 +15,13 @@ protocol LocationManagerDelegate: class {
 
 class LocationManager: NSObject {
     
-    private let locationManager = CLLocationManager()
+    private lazy var locationManager: CLLocationManager = {
+        let manager = CLLocationManager()
+        manager.delegate = self
+        
+        return manager
+    }()
+    
     let mapView: MKMapView?
     
     var delegate: LocationManagerDelegate?
@@ -24,16 +30,18 @@ class LocationManager: NSObject {
         self.mapView = mapView
     }
     
-    func getAuthStatus() {
-        if CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
-            mapView?.showsUserLocation = true
-        } else {
-            locationManager.requestWhenInUseAuthorization()
-        }
+    // Helper
+    
+    func authorizationStatus() -> CLAuthorizationStatus {
+        return CLLocationManager.authorizationStatus()
+    }
+    
+    func requestAuthorization() {
+        locationManager.requestWhenInUseAuthorization()
     }
     
     func centerMapOnLocation(_ location: CLLocation) {
-        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, 4000, 4000)
+        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, 5000, 5000)
         
         mapView?.setRegion(coordinateRegion, animated: true)
     }
@@ -41,6 +49,7 @@ class LocationManager: NSObject {
     func currentLocation() -> CLLocation? {
         return locationManager.location
     }
+    
 }
 
 extension LocationManager: CLLocationManagerDelegate {
@@ -48,10 +57,6 @@ extension LocationManager: CLLocationManagerDelegate {
     // MARK: - CLLocationManagerDelegate
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        if status == .authorizedWhenInUse {
-            mapView?.showsUserLocation = true
-        }
-        
         delegate?.locationManagerDidChangeAuthorization(status: status)
     }
     

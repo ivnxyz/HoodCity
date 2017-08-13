@@ -193,6 +193,7 @@ class EventController: UIViewController, GADBannerViewDelegate {
         let childNameId = "\(Int(NSDate.timeIntervalSinceReferenceDate * 100000))"
         
         startActivityIndicator()
+        
         create(event, at: location, with: childNameId) {
             self.stopActivityIndicator()
             self.handleDismiss()

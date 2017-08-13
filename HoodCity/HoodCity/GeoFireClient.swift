@@ -26,7 +26,7 @@ class GeoFireClient {
     typealias GeoFireData = (String, CLLocation)
     
     func showEvents(at location: CLLocation, completionHandler: @escaping (GeoFireData?, GeoFireError?) -> Void) {
-        let query = geoFire.query(at: location, withRadius: 10)
+        let query = geoFire.query(at: location, withRadius: 7)
         
         query?.observe(.keyEntered, with: { (key, location) in
             guard let key = key, let location = location else {
@@ -44,7 +44,7 @@ class GeoFireClient {
     // Observe Keys that exited query criteria
     
     func observeExitedKeys(at location: CLLocation, completionHandler: @escaping (String?, GeoFireError?) -> Void) {
-        let query = geoFire.query(at: location, withRadius: 10)
+        let query = geoFire.query(at: location, withRadius: 7)
         
         query?.observe(.keyExited, with: { (key, location) in
             guard let key = key else {

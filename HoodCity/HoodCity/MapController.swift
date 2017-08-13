@@ -11,8 +11,6 @@ import FBSDKLoginKit
 import FBSDKCoreKit
 import Firebase
 
-//let uservarhe = NSCache<NSString, FacebookUser>()
-
 class MapController: UIViewController {
     
     //MARK: - UI Elements
@@ -45,6 +43,13 @@ class MapController: UIViewController {
         return barButtonItem
     }()
     
+    lazy var locationAlertController: UIAlertController = {
+        let alert = UIAlertController(title: "Oops! :(", message: "We don't have access to your location.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        
+        return alert
+    }()
+    
     //MARK: - Dependencies
     
     lazy var locationManager: LocationManager = {
@@ -60,10 +65,6 @@ class MapController: UIViewController {
     
     lazy var firebaseClient: FirebaseClient = {
         return FirebaseClient()
-    }()
-    
-    lazy var currentLocation: CLLocation? = {
-        return self.locationManager.currentLocation()
     }()
     
     var mapHasCenteredOnce = false
@@ -99,7 +100,6 @@ class MapController: UIViewController {
         mapView.delegate = self
         mapView.userTrackingMode = .follow
         
-        
         let navigationButton = navigationItem.rightBarButtonItem?.customView as! UIButton
         
         if let profilePicture = User.shared?.profilePicture {
@@ -113,14 +113,7 @@ class MapController: UIViewController {
             })
         }
         
-        if let location = currentLocation {
-            showEvents(at: location)
-            observeExitedKeys(at: location)
-        }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        locationManager.getAuthStatus()
+        locationManager.requestAuthorization()
     }
     
     //Add new event
@@ -190,6 +183,7 @@ class MapController: UIViewController {
                     return
                 }
                 
+                print("This is being called on \(key)")
                 self.mapView.removeAnnotation(eventAnnotation)
             } else {
                 print("Error trying to get data: \(error!)")
@@ -229,16 +223,35 @@ class MapController: UIViewController {
         }
     }
     
+    // MARK: - Location
+    
+    func observeEvents() {
+        if let location = locationManager.currentLocation() {
+            print("Showing events...")
+            locationManager.centerMapOnLocation(location)
+            mapHasCenteredOnce = true
+            mapView.showsUserLocation = true
+            showEvents(at: location)
+            observeExitedKeys(at: location)
+        }
+    }
+    
 }
 
 extension MapController: LocationManagerDelegate {
+    
+    // MARK: - LocationManagerDelegate
+    
     func locationManagerDidChangeAuthorization(status: CLAuthorizationStatus) {
         if status == .authorizedWhenInUse {
-            if let location = currentLocation {
-                showEvents(at: location)
-            }
+            observeEvents()
+            print("User allowed when in use acces to location")
+        } else if status == .denied {
+            print("We don't have access to location")
+            present(locationAlertController, animated: true, completion: nil)
         }
     }
+    
 }
 
 extension MapController: MKMapViewDelegate {
