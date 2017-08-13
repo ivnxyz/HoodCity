@@ -63,7 +63,11 @@ class EventsDataSource: NSObject, UITableViewDataSource {
                 }
                 
                 self.events.remove(at: indexPath.row)
-                self.controller.getEventsForCurrentUser()
+                self.tableView.reloadData()
+                
+                if self.events.count < 1 {
+                    self.controller.showEmptyTableViewMessage()
+                }
             })
         }
     }

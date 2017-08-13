@@ -43,7 +43,7 @@ class LocationManager: NSObject {
     func centerMapOnLocation(_ location: CLLocation) {
         let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, 5000, 5000)
         
-        mapView?.setRegion(coordinateRegion, animated: true)
+        mapView?.setRegion(coordinateRegion, animated: false)
     }
 
     func currentLocation() -> CLLocation? {
