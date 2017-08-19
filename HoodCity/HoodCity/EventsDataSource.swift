@@ -44,6 +44,7 @@ class EventsDataSource: NSObject, UITableViewDataSource {
         
         let event = events[indexPath.row]
         cell.configure(with: event)
+        cell.selectionStyle = .none
         
         return cell
     }

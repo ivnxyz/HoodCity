@@ -42,6 +42,11 @@ class EventController: UIViewController, GADBannerViewDelegate {
         button.setTitle("Add event", for: .normal)
         button.setTitleColor(UIColor(red: 38/255.0, green: 42/255.0, blue: 152/255.0, alpha: 1), for: .normal)
         button.titleLabel?.font = button.titleLabel?.font.withSize(21)
+        
+        button.layer.cornerRadius = 6
+        button.layer.borderWidth = 2
+        button.layer.borderColor = UIColor(red: 38/255.0, green: 42/255.0, blue: 152/255.0, alpha: 1).cgColor
+        
         button.translatesAutoresizingMaskIntoConstraints = false
         
         button.addTarget(self, action: #selector(EventController.addEvent), for: .touchUpInside)
@@ -134,15 +139,15 @@ class EventController: UIViewController, GADBannerViewDelegate {
         ])
         
         NSLayoutConstraint.activate([
-            eventInfoLabel.bottomAnchor.constraint(equalTo: bannerView.topAnchor, constant: -69),
+            eventInfoLabel.bottomAnchor.constraint(equalTo: bannerView.topAnchor, constant: -30),
             eventInfoLabel.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor)
         ])
         
         NSLayoutConstraint.activate([
-            addEventButton.bottomAnchor.constraint(equalTo: eventInfoLabel.topAnchor, constant: 7),
-            addEventButton.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor),
-            addEventButton.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor),
-            addEventButton.heightAnchor.constraint(equalToConstant: 50)
+            addEventButton.bottomAnchor.constraint(equalTo: eventInfoLabel.topAnchor, constant: -15),
+            addEventButton.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor),
+            addEventButton.widthAnchor.constraint(equalToConstant: 134),
+            addEventButton.heightAnchor.constraint(equalToConstant: 37)
         ])
         
         NSLayoutConstraint.activate([
