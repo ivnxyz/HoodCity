@@ -287,6 +287,7 @@
 				A6E2B96D1F15A564006C4C85 /* Resources */,
 				A1B1B47939403FCB600698EA /* [CP] Embed Pods Frameworks */,
 				925F3FFEF92C9DFC48F1BC73 /* [CP] Copy Pods Resources */,
+				A6CAC7C01F48A51B00D4A871 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -396,6 +397,19 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HoodCity/Pods-HoodCity-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		A6CAC7C01F48A51B00D4A871 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" 900212ae82423d2df5335fc32898a48d3f70204b 0bcb8e2a3f5ebd660e1c986d905d5ce7d8b3143fe2e0c5dd4dfe3f6cd88ba8ea";
 		};
 /* End PBXShellScriptBuildPhase section */
 

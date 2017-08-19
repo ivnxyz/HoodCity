@@ -11,12 +11,13 @@ import Firebase
 import GoogleMobileAds
 import FBSDKCoreKit
 import TwitterKit
+import Fabric
+import Crashlytics
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -45,16 +46,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if currentUser != nil {
             let mapController = MapController()
             let navigationController = UINavigationController(rootViewController: mapController)
+            self.logUser()
             mainViewController = navigationController
         } else {
             let signUpController = SignUpController()
             mainViewController = signUpController
         }
         
+        // Configure Fabric
+        
+        Fabric.with([Answers.self, Twitter.self, Crashlytics.self])
+        
         window?.rootViewController = mainViewController
         
         return true
     }
+    
+    func logUser() {
+        guard let firebaseUser = Auth.auth().currentUser else { return }
+        
+        Crashlytics.sharedInstance().setUserEmail(firebaseUser.email)
+        Crashlytics.sharedInstance().setUserIdentifier(firebaseUser.uid)
+    }
+
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         if url.scheme == "fb1104746023003791" {

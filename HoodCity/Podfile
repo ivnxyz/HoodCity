@@ -18,5 +18,8 @@ target 'HoodCity' do
   pod 'FBSDKLoginKit'
 
   pod 'TwitterKit'
+  
+  pod 'Fabric'
+  pod 'Crashlytics'
 
 end
