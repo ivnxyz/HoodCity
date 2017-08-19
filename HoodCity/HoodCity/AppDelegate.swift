@@ -12,7 +12,7 @@ import GoogleMobileAds
 import FBSDKCoreKit
 import TwitterKit
 import Fabric
-import Answers
+import Crashlytics
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -54,7 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Configure Fabric
         
-        Fabric.with([Answers.self, Twitter.self])
+        Fabric.with([Answers.self, Twitter.self, Crashlytics.self])
         
         window?.rootViewController = mainViewController
         

@@ -20,6 +20,6 @@ target 'HoodCity' do
   pod 'TwitterKit'
   
   pod 'Fabric'
-  pod 'Answers'
+  pod 'Crashlytics'
 
 end
