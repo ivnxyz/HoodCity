@@ -11,6 +11,8 @@ import Firebase
 import GoogleMobileAds
 import FBSDKCoreKit
 import TwitterKit
+import Fabric
+import Answers
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -28,6 +30,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Configure SDK's
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         Twitter.sharedInstance().start(withConsumerKey: twitterConsumerKey, consumerSecret: twitterSecretKey)
+        
+        Fabric.with([Answers.self, Twitter.self])
         
         // Customize NavigationBar
         let navigationAppearance = UINavigationBar.appearance()
