@@ -46,6 +46,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if currentUser != nil {
             let mapController = MapController()
             let navigationController = UINavigationController(rootViewController: mapController)
+            self.logUser()
             mainViewController = navigationController
         } else {
             let signUpController = SignUpController()
@@ -60,6 +61,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         return true
     }
+    
+    func logUser() {
+        guard let firebaseUser = Auth.auth().currentUser else { return }
+        
+        Crashlytics.sharedInstance().setUserEmail(firebaseUser.email)
+        Crashlytics.sharedInstance().setUserIdentifier(firebaseUser.uid)
+    }
+
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         if url.scheme == "fb1104746023003791" {
