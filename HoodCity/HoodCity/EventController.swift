@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import GoogleMobileAds
+import Answers
 
 class EventController: UIViewController, GADBannerViewDelegate {
     
@@ -229,6 +230,13 @@ class EventController: UIViewController, GADBannerViewDelegate {
             }
             
             self.firebaseClient.addEventToCurrentUser(eventId: eventId)
+            
+            
+            // Log event to Fabric
+            
+            Answers.logCustomEvent(withName: "Event added", customAttributes: [
+                "Event type": event.type
+            ])
             
             completionHandler()
         }

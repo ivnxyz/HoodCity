@@ -19,7 +19,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
@@ -30,8 +29,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Configure SDK's
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         Twitter.sharedInstance().start(withConsumerKey: twitterConsumerKey, consumerSecret: twitterSecretKey)
-        
-        Fabric.with([Answers.self, Twitter.self])
         
         // Customize NavigationBar
         let navigationAppearance = UINavigationBar.appearance()
@@ -54,6 +51,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let signUpController = SignUpController()
             mainViewController = signUpController
         }
+        
+        // Configure Fabric
+        
+        Fabric.with([Answers.self, Twitter.self])
         
         window?.rootViewController = mainViewController
         
