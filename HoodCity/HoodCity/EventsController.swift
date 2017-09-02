@@ -34,7 +34,7 @@ class EventsController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "Your events"
+        title = "My Events"
         tableView.separatorInset.left = 0
         
         tableView.register(EventCell.classForCoder(), forCellReuseIdentifier: EventCell.reuseIdentifier)

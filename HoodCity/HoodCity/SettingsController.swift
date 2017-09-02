@@ -69,7 +69,7 @@ class SettingsController: UITableViewController {
     
     lazy var eventsCell: UITableViewCell = {
         let cell = UITableViewCell()
-        cell.textLabel?.text = "My active events 🎉"
+        cell.textLabel?.text = "My Active Events 🎉"
         cell.accessoryType = .disclosureIndicator
         
         return cell
