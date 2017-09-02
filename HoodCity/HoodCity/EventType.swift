@@ -82,7 +82,7 @@ extension EventType {
         case .art:
             return "🎭 Art event"
         case .rain:
-            return "🌧 Rain"
+            return "☔️ Rain"
         }
     }
     
