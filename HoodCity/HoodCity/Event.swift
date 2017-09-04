@@ -24,10 +24,7 @@ extension Event {
             return nil
         }
         
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd-MM-yyyy HH:mm"
-        
-        guard let date = formatter.date(from: dateStringValue) else {
+        guard let date = EventDate.getDateFrom(string: dateStringValue) else {
             print("Not a valid date")
             return nil
         }

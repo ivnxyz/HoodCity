@@ -211,11 +211,7 @@ class EventController: UIViewController, GADBannerViewDelegate {
         
         guard let user = Auth.auth().currentUser else { return }
         
-        let currentDate = Date()
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd-MM-yyyy HH:mm"
-        
-        let dateStringRepresentation = formatter.string(from: currentDate)
+        let dateStringRepresentation = EventDate.getCurrentDateString()
         
         let data = [
             "date": dateStringRepresentation,
