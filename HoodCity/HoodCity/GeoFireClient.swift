@@ -64,11 +64,12 @@ class GeoFireClient {
     
     // Remove keys
     
-    func remove(_ key: String, completionHandler: @escaping (GeoFireError?) -> Void) {
-        geoFire.removeKey(key) { (error) in
+    func remove(_ event: Event, completionHandler: @escaping (GeoFireError?) -> Void) {
+        geoFire.removeKey(event.id) { (error) in
             if error != nil {
                 completionHandler(GeoFireError.keyWasNotRemoved)
             } else {
+                self.firebaseClient.removeEventFrom(userId: event.eventData.userID, eventId: event.id)
                 completionHandler(nil)
             }
         }

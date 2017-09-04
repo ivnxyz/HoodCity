@@ -149,14 +149,14 @@ class MapController: UIViewController {
         firebaseClient.getEventData(for: event) { (eventData) in
             if let eventData = eventData {
                 
-                self.geoFireClient.remove(event.id) { (error) in
+                event.eventData = eventData
+
+                self.geoFireClient.remove(event, completionHandler: { (error) in
                     guard error == nil else {
                         print(error!)
                         return
                     }
-                    
-                    self.firebaseClient.removeEventFrom(userId: eventData.userID, eventId: event.id)
-                }
+                })
                 
             } else {
                 print("Cannot get event data so the event cannot be deleted")

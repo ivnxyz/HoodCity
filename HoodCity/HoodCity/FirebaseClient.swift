@@ -189,7 +189,16 @@ class FirebaseClient {
                         return
                     }
                     
-                    completionHandler(event)
+                    self.getEventData(for: event, completionHandler: { (eventData) in
+                        guard let eventData = eventData else {
+                            completionHandler(nil)
+                            return
+                        }
+                        
+                        event.eventData = eventData
+                        
+                        completionHandler(event)
+                    })
                 })
             }
         })

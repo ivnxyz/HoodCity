@@ -8,7 +8,6 @@
 
 import UIKit
 import Firebase
-import FirebaseAuth
 
 class EventsController: UITableViewController {
     
@@ -113,13 +112,12 @@ class EventsController: UITableViewController {
     func remove(_ event: Event, completionHandler: @escaping (Error?) -> Void) {
         startLoadingView()
         
-        geoFireClient.remove(event.id) { (error) in
+        geoFireClient.remove(event) { (error) in
             guard error == nil else {
                 completionHandler(error)
                 return
             }
             
-            self.firebaseClient.removeEventFrom(userId: event.eventData.userID, eventId: event.id)
             completionHandler(nil)
             self.stopLoadingView()
         }
