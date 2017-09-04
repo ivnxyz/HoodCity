@@ -118,7 +118,7 @@ class EventsController: UITableViewController {
                 return
             }
             
-            self.firebaseClient.removeEventFrom(userId: event.userId, eventId: event.id)
+            self.firebaseClient.removeEventFrom(userId: event.eventData.userID, eventId: event.id)
             completionHandler(nil)
             self.stopLoadingView()
         }

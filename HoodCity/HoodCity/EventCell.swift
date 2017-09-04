@@ -78,12 +78,18 @@ class EventCell: UITableViewCell {
     }
     
     func configure(with event: Event) {
-        eventTitle.text = event.eventType.cleanTitle
-        eventIcon.image = event.eventType.icon
+        
+        guard let eventData = event.eventData else {
+            print("Event Data is nil")
+            return
+        }
+        
+        eventTitle.text = eventData.eventType.cleanTitle
+        eventIcon.image = eventData.eventType.icon
         
         let formatter = DateFormatter()
         formatter.dateFormat = "dd/MM/yyyy HH:mm"
-        let dateStringRepresentation = formatter.string(from: event.date)
+        let dateStringRepresentation = formatter.string(from: eventData.date)
         
         dateLabel.text = "Added: \(dateStringRepresentation)"
     }

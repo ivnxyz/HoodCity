@@ -14,12 +14,13 @@ class FirebaseClient {
     
     let storage = Storage.storage().reference()
     let eventsReference = Database.database().reference().child("events")
+    let eventsDataReference = Database.database().reference().child("eventsData")
     let usersReference = Database.database().reference().child("users")
 
     //MARK: - Add new event
   
     func addDataToExistingEvent(event: String, data: [String: Any], completionHandler: @escaping(Error?, DatabaseReference?) -> Void) {
-        eventsReference.child(event).updateChildValues(data) { (error, reference) in
+        eventsDataReference.child(event).updateChildValues(data) { (error, reference) in
             completionHandler(error, reference)
         }
     }
@@ -36,6 +37,7 @@ class FirebaseClient {
     //MARK: - Remove event
     
     func removeEventFrom(userId: String, eventId: String) {
+        eventsDataReference.child(eventId).removeValue()
         usersReference.child(userId).child("events").child(eventId).removeValue()
     }
 
@@ -51,9 +53,19 @@ class FirebaseClient {
                 return
             }
             
-            let event = Event(eventDict: eventDictionary, id: eventId)
+            var event = Event(eventDict: eventDictionary, id: eventId)
             
-            completionHandler(event)
+            self.eventsDataReference.child(eventId).observeSingleEvent(of: .value, with: { (snapshot) in
+                guard let eventDataDictionary = snapshot.value as? [String: AnyObject] else {
+                    completionHandler(nil)
+                    return
+                }
+                
+                let eventData = EventData(eventDict: eventDataDictionary)
+                event?.eventData = eventData
+                
+                completionHandler(event)
+            })
         })
     }
     

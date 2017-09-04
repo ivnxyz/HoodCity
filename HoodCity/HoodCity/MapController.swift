@@ -152,7 +152,7 @@ class MapController: UIViewController {
                 return
             }
             
-            self.firebaseClient.removeEventFrom(userId: event.userId, eventId: event.id)
+            self.firebaseClient.removeEventFrom(userId: event.eventData!.userID, eventId: event.id)
         }
     }
     
@@ -160,7 +160,7 @@ class MapController: UIViewController {
         firebaseClient.getEventData(for: eventId) { (event) in
             if let event = event {
                 let currentDate = Date()
-                let interval = currentDate.timeIntervalSince(event.date)
+                let interval = currentDate.timeIntervalSince(event.eventData!.date)
                 
                 let hoursSinceEvent = interval / 3600
                 
@@ -280,7 +280,7 @@ extension MapController: MKMapViewDelegate {
         guard let eventAnnotation = annotation as? EventAnnotation else { return nil }
         
         var annotationView: EventAnnotationView?
-        let identifier = eventAnnotation.event.eventType.type
+        let identifier = eventAnnotation.event.eventData.eventType.type
         
         if let dequeuedAnnotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? EventAnnotationView {
             annotationView = dequeuedAnnotationView

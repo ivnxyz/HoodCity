@@ -13,7 +13,12 @@ class EventAnnotationView: MKAnnotationView {
     init(eventAnnotation: EventAnnotation, reuseIdentifier: String?) {
         super.init(annotation: eventAnnotation, reuseIdentifier: reuseIdentifier)
         
-        self.image = eventAnnotation.event.eventType.icon
+        guard let eventData = eventAnnotation.event.eventData else {
+            print("Cnnot get event data when creating annotation")
+            return
+        }
+        
+        self.image = eventData.eventType.icon
         self.canShowCallout = true
     }
     

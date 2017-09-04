@@ -9,18 +9,38 @@
 import Foundation
 
 struct Event {
-    let date: Date
-    let eventType: EventType
     let location: CLLocation
-    let userId: String
     let id: String
+    var eventData: EventData!
 }
 
 extension Event {
     init?(eventDict: [String: AnyObject], id: String) {
 
-        guard let dateStringValue = eventDict["date"] as? String, let type = eventDict["type"] as? String, let locationArray = eventDict["l"] as? [Double], let userId = eventDict["publishedBy"] as? String else {
+        guard let locationArray = eventDict["l"] as? [Double] else {
             print("Cannot get info from event dictionary")
+            return nil
+        }
+        
+        let latitude = locationArray[0]
+        let longitude = locationArray[1]
+        
+        let location = CLLocation(latitude: latitude, longitude: longitude)
+        
+        self.init(location: location, id: id, eventData: nil)
+    }
+}
+
+struct EventData {
+    let date: Date
+    let eventType: EventType
+    let userID: String
+}
+
+extension EventData {
+    init?(eventDict: [String: AnyObject]) {
+        guard let dateStringValue = eventDict["date"] as? String, let type = eventDict["type"] as? String, let userID = eventDict["publishedBy"] as? String else {
+            print("Cannot get info from event's data dictionary")
             return nil
         }
         
@@ -34,11 +54,6 @@ extension Event {
             return nil
         }
         
-        let latitude = locationArray[0]
-        let longitude = locationArray[1]
-        
-        let location = CLLocation(latitude: latitude, longitude: longitude)
-        
-        self.init(date: date, eventType: eventType, location: location, userId: userId, id: id)
+        self.init(date: date, eventType: eventType, userID: userID)
     }
 }

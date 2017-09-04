@@ -15,7 +15,7 @@ class EventAnnotation: NSObject, MKAnnotation {
     
     init(coordinate: CLLocationCoordinate2D, event: Event) {
         self.coordinate = coordinate
-        self.title = event.eventType.title
+        self.title = event.eventData.eventType.title
         self.event = event
     }
 }

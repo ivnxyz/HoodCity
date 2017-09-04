@@ -23,6 +23,13 @@ class GeoFireClient {
         geoFire.setLocation(location, forKey: "\(eventID)")
     }
     
+//    func newSighting(for location: CLLocation, with event: Event) {
+//        
+//        let data = ["eventType": event.eventType]
+//        
+//        firebaseDatabaseReference.childByAutoId().setValue(<#T##value: Any?##Any?#>, withCompletionBlock: <#T##(Error?, DatabaseReference) -> Void#>)
+//    }
+    
     typealias GeoFireData = (String, CLLocation)
     
     func showEvents(at location: CLLocation, completionHandler: @escaping (GeoFireData?, GeoFireError?) -> Void) {

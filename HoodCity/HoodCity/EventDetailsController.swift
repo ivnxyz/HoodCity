@@ -18,7 +18,7 @@ class EventDetailsController: UIViewController {
         guard let event = self.event else { return UILabel() }
         
         let label = UILabel()
-        label.text = event.eventType.cleanTitle
+        label.text = event.eventData.eventType.cleanTitle
         label.textColor = UIColor(red: 88/255, green: 88/255, blue: 88/255, alpha: 1)
         label.font = UIFont.boldSystemFont(ofSize: 20)
         label.numberOfLines = 1
@@ -32,7 +32,7 @@ class EventDetailsController: UIViewController {
         guard let event = self.event else { return UIImageView() }
         
         let imageView = UIImageView()
-        imageView.image = event.eventType.icon
+        imageView.image = event.eventData.eventType.icon
         imageView.translatesAutoresizingMaskIntoConstraints = false
         
         return imageView
@@ -68,7 +68,7 @@ class EventDetailsController: UIViewController {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd/MM/yyyy HH:mm"
         
-        let dateStringRepresentation = formatter.string(from: event.date)
+        let dateStringRepresentation = formatter.string(from: event.eventData.date)
         
         label.text = "Added: \(dateStringRepresentation)"
         label.font = UIFont.systemFont(ofSize: 13)
@@ -152,7 +152,7 @@ class EventDetailsController: UIViewController {
         
         guard let event = event else { return }
         
-        firebaseClient.getProfileFor(userId: event.userId) { (firebaseUser) in
+        firebaseClient.getProfileFor(userId: event.eventData.userID) { (firebaseUser) in
             guard let user = firebaseUser else {
                 print("Cannot get user from database")
                 return
