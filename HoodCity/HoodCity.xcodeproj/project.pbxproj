@@ -19,6 +19,7 @@
 		A662045A1F3F407A00F4655C /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A66204591F3F407A00F4655C /* SettingsController.swift */; };
 		A662045C1F3F4CA700F4655C /* ProfileContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A662045B1F3F4CA700F4655C /* ProfileContentView.swift */; };
 		A6847FC71F2992740093E250 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6847FC61F2992740093E250 /* SignUpView.swift */; };
+		A684A2711F5E00890066685D /* EventData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A684A2701F5E00890066685D /* EventData.swift */; };
 		A6A32BAA1F2DC02F006F83FA /* FacebookClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6A32BA91F2DC02F006F83FA /* FacebookClient.swift */; };
 		A6A47C2F1F5DBAA7004E0157 /* EventDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6A47C2E1F5DBAA7004E0157 /* EventDate.swift */; };
 		A6A49FAE1F228606002BA67C /* EventAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6A49FAD1F228606002BA67C /* EventAnnotationView.swift */; };
@@ -59,6 +60,7 @@
 		A66204591F3F407A00F4655C /* SettingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
 		A662045B1F3F4CA700F4655C /* ProfileContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileContentView.swift; sourceTree = "<group>"; };
 		A6847FC61F2992740093E250 /* SignUpView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
+		A684A2701F5E00890066685D /* EventData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventData.swift; sourceTree = "<group>"; };
 		A6A32BA91F2DC02F006F83FA /* FacebookClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookClient.swift; sourceTree = "<group>"; };
 		A6A47C2E1F5DBAA7004E0157 /* EventDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventDate.swift; sourceTree = "<group>"; };
 		A6A49FAD1F228606002BA67C /* EventAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventAnnotationView.swift; sourceTree = "<group>"; };
@@ -260,6 +262,7 @@
 			isa = PBXGroup;
 			children = (
 				A6EE1C1F1F2E642400B0499F /* Event.swift */,
+				A684A2701F5E00890066685D /* EventData.swift */,
 				A6D1DAAD1F18567400DF2D13 /* EventType.swift */,
 				A6E2B9B51F15E600006C4C85 /* EventAnnotation.swift */,
 				A6AC4C1F1F2D0E8400E96B93 /* User.swift */,
@@ -450,6 +453,7 @@
 				A65910471F3112A3003CC2F4 /* LoadingView.swift in Sources */,
 				A6E2B99C1F15AE3F006C4C85 /* GFQuery.m in Sources */,
 				A6C123471F34365600C065B5 /* EventCell.swift in Sources */,
+				A684A2711F5E00890066685D /* EventData.swift in Sources */,
 				A6AC1EB01F2E895C00A3BFE1 /* EventDetailsController.swift in Sources */,
 				A6847FC71F2992740093E250 /* SignUpView.swift in Sources */,
 				A6D1DAAE1F18567400DF2D13 /* EventType.swift in Sources */,

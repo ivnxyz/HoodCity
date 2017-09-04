@@ -8,16 +8,24 @@
 
 import Foundation
 
-struct Event {
+class Event {
     let location: CLLocation
     let id: String
     let date: Date
     let eventType: EventType
     var eventData: EventData!
+    
+    init(location: CLLocation, id: String, date: Date, eventType: EventType, eventData: EventData?) {
+        self.location = location
+        self.id = id
+        self.date = date
+        self.eventType = eventType
+        self.eventData = eventData
+    }
 }
 
 extension Event {
-    init?(eventDict: [String: AnyObject], id: String) {
+    convenience init?(eventDict: [String: AnyObject], id: String) {
 
         guard let locationArray = eventDict["l"] as? [Double], let dateStringValue = eventDict["date"] as? String, let type = eventDict["type"] as? String else {
             print("Cannot get info from event dictionary")
@@ -26,6 +34,7 @@ extension Event {
         
         guard let date = EventDate.getDateFrom(string: dateStringValue) else {
             print("Not a valid date")
+            
             return nil
         }
         
@@ -40,20 +49,5 @@ extension Event {
         let location = CLLocation(latitude: latitude, longitude: longitude)
         
         self.init(location: location, id: id, date: date, eventType: eventType, eventData: nil)
-    }
-}
-
-struct EventData {
-    let userID: String
-}
-
-extension EventData {
-    init?(eventDict: [String: AnyObject]) {
-        guard let userID = eventDict["publishedBy"] as? String else {
-            print("Cannot get info from event's data dictionary")
-            return nil
-        }
-        
-        self.init(userID: userID)
     }
 }
