@@ -73,6 +73,8 @@ typedef void (^GFCallbackBlock) (CLLocation *location, NSError *error);
 - (void)setLocation:(CLLocation *)location
              forKey:(NSString *)key;
 
+- (void)setLocation:(CLLocation *)location forEvent:(NSString *)eventID withKey:(NSString *)key date:(NSString *)date;
+
 /**
  * Updates the location for a key and calls the completion callback once the location was successfully updated on the
  * server.

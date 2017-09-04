@@ -43,7 +43,7 @@ class FirebaseClient {
 
     //MARK: - Event data
     
-    func getEventData(for eventId: String, completionHandler: @escaping (Event?) -> Void) {
+    func getEvent(for eventId: String, completionHandler: @escaping (Event?) -> Void) {
         eventsReference.child(eventId).observeSingleEvent(of: .value, with: { (snapshot) in
             
             let eventId = snapshot.key
@@ -53,19 +53,22 @@ class FirebaseClient {
                 return
             }
             
-            var event = Event(eventDict: eventDictionary, id: eventId)
+            let event = Event(eventDict: eventDictionary, id: eventId)
             
-            self.eventsDataReference.child(eventId).observeSingleEvent(of: .value, with: { (snapshot) in
-                guard let eventDataDictionary = snapshot.value as? [String: AnyObject] else {
-                    completionHandler(nil)
-                    return
-                }
-                
-                let eventData = EventData(eventDict: eventDataDictionary)
-                event?.eventData = eventData
-                
-                completionHandler(event)
-            })
+            completionHandler(event)
+        })
+    }
+    
+    func getEventData(for event: Event, completionHandler: @escaping (EventData?) -> Void) {
+        self.eventsDataReference.child(event.id).observeSingleEvent(of: .value, with: { (snapshot) in
+            guard let eventDataDictionary = snapshot.value as? [String: AnyObject] else {
+                completionHandler(nil)
+                return
+            }
+            
+            let eventData = EventData(eventDict: eventDataDictionary)
+            
+            completionHandler(eventData)
         })
     }
     
@@ -180,7 +183,7 @@ class FirebaseClient {
             }
             
             for eventId in eventsData.keys {
-                self.getEventData(for: eventId, completionHandler: { (event) in
+                self.getEvent(for: eventId, completionHandler: { (event) in
                     guard let event = event else {
                         print("Cannot get event")
                         return

@@ -53,6 +53,23 @@ enum {
     [self setLocation:location forKey:key withCompletionBlock:nil];
 }
 
+// Set location with an event attached
+
+- (void)setLocation:(CLLocation *)location forEvent:(NSString *)eventID withKey:(NSString *)key date:(NSString *)date {
+    [self setLocation:location forEvent:eventID withKey:key date:date andCompletionBlock:nil];
+}
+
+- (void)setLocation:(CLLocation *)location forEvent:(NSString *)eventID withKey:(NSString *)key date:(NSString *)date andCompletionBlock:(GFCompletionBlock)block {
+    if (!CLLocationCoordinate2DIsValid(location.coordinate)) {
+        [NSException raise:NSInvalidArgumentException
+                    format:@"Not a valid coordinate: [%f, %f]",
+         location.coordinate.latitude, location.coordinate.longitude];
+    }
+    [self setLocationValue:location forEvent:eventID forKey:key date:date withBlock:block];
+}
+
+// End here
+
 - (void)setLocation:(CLLocation *)location
              forKey:(NSString *)key
 withCompletionBlock:(GFCompletionBlock)block
@@ -81,6 +98,34 @@ withCompletionBlock:(GFCompletionBlock)block
     return [self.firebaseRef child:key];
 }
 
+// Custom code
+
+- (void)setLocationValue:(CLLocation *)location forEvent:(NSString *)eventID forKey:(NSString *)key date:(NSString *)date withBlock:(GFCompletionBlock)block {
+    NSDictionary *value;
+    NSString *priority;
+    if (location != nil) {
+        NSNumber *lat = [NSNumber numberWithDouble:location.coordinate.latitude];
+        NSNumber *lng = [NSNumber numberWithDouble:location.coordinate.longitude];
+        NSString *geoHash = [GFGeoHash newWithLocation:location.coordinate].geoHashValue;
+        value = @{ @"l": @[ lat, lng ], @"g": geoHash, @"type": eventID, @"date":date };
+        priority = geoHash;
+    } else {
+        value = nil;
+        priority = nil;
+    }
+    [[self firebaseRefForLocationKey:key] setValue:value
+                                       andPriority:priority
+                               withCompletionBlock:^(NSError *error, FIRDatabaseReference *ref) {
+                                   if (block != nil) {
+                                       dispatch_async(self.callbackQueue, ^{
+                                           block(error);
+                                       });
+                                   }
+    }];
+}
+
+// End here
+
 - (void)setLocationValue:(CLLocation *)location
                   forKey:(NSString *)key
                withBlock:(GFCompletionBlock)block
@@ -91,7 +136,7 @@ withCompletionBlock:(GFCompletionBlock)block
         NSNumber *lat = [NSNumber numberWithDouble:location.coordinate.latitude];
         NSNumber *lng = [NSNumber numberWithDouble:location.coordinate.longitude];
         NSString *geoHash = [GFGeoHash newWithLocation:location.coordinate].geoHashValue;
-        value = @{ @"l": @[ lat, lng ], @"g": geoHash };
+        value = @{ @"l": @[ lat, lng ], @"g": geoHash, @"type": @"party" /* add some othe value here */ };
         priority = geoHash;
     } else {
         value = nil;

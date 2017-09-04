@@ -11,36 +11,16 @@ import Foundation
 struct Event {
     let location: CLLocation
     let id: String
+    let date: Date
+    let eventType: EventType
     var eventData: EventData!
 }
 
 extension Event {
     init?(eventDict: [String: AnyObject], id: String) {
 
-        guard let locationArray = eventDict["l"] as? [Double] else {
+        guard let locationArray = eventDict["l"] as? [Double], let dateStringValue = eventDict["date"] as? String, let type = eventDict["type"] as? String else {
             print("Cannot get info from event dictionary")
-            return nil
-        }
-        
-        let latitude = locationArray[0]
-        let longitude = locationArray[1]
-        
-        let location = CLLocation(latitude: latitude, longitude: longitude)
-        
-        self.init(location: location, id: id, eventData: nil)
-    }
-}
-
-struct EventData {
-    let date: Date
-    let eventType: EventType
-    let userID: String
-}
-
-extension EventData {
-    init?(eventDict: [String: AnyObject]) {
-        guard let dateStringValue = eventDict["date"] as? String, let type = eventDict["type"] as? String, let userID = eventDict["publishedBy"] as? String else {
-            print("Cannot get info from event's data dictionary")
             return nil
         }
         
@@ -54,6 +34,26 @@ extension EventData {
             return nil
         }
         
-        self.init(date: date, eventType: eventType, userID: userID)
+        let latitude = locationArray[0]
+        let longitude = locationArray[1]
+        
+        let location = CLLocation(latitude: latitude, longitude: longitude)
+        
+        self.init(location: location, id: id, date: date, eventType: eventType, eventData: nil)
+    }
+}
+
+struct EventData {
+    let userID: String
+}
+
+extension EventData {
+    init?(eventDict: [String: AnyObject]) {
+        guard let userID = eventDict["publishedBy"] as? String else {
+            print("Cannot get info from event's data dictionary")
+            return nil
+        }
+        
+        self.init(userID: userID)
     }
 }

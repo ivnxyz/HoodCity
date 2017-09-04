@@ -146,21 +146,30 @@ class MapController: UIViewController {
     
     func remove(_ event: Event) {
         
-        geoFireClient.remove(event.id) { (error) in
-            guard error == nil else {
-                print(error!)
-                return
+        firebaseClient.getEventData(for: event) { (eventData) in
+            if let eventData = eventData {
+                
+                self.geoFireClient.remove(event.id) { (error) in
+                    guard error == nil else {
+                        print(error!)
+                        return
+                    }
+                    
+                    self.firebaseClient.removeEventFrom(userId: eventData.userID, eventId: event.id)
+                }
+                
+            } else {
+                print("Cannot get event data so the event cannot be deleted")
             }
-            
-            self.firebaseClient.removeEventFrom(userId: event.eventData!.userID, eventId: event.id)
         }
+        
     }
     
     func isEventExpired(_ eventId: String) {
-        firebaseClient.getEventData(for: eventId) { (event) in
+        firebaseClient.getEvent(for: eventId) { (event) in
             if let event = event {
                 let currentDate = Date()
-                let interval = currentDate.timeIntervalSince(event.eventData!.date)
+                let interval = currentDate.timeIntervalSince(event.date)
                 
                 let hoursSinceEvent = interval / 3600
                 
@@ -280,7 +289,7 @@ extension MapController: MKMapViewDelegate {
         guard let eventAnnotation = annotation as? EventAnnotation else { return nil }
         
         var annotationView: EventAnnotationView?
-        let identifier = eventAnnotation.event.eventData.eventType.type
+        let identifier = eventAnnotation.event.eventType.type
         
         if let dequeuedAnnotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? EventAnnotationView {
             annotationView = dequeuedAnnotationView

@@ -207,15 +207,14 @@ class EventController: UIViewController, GADBannerViewDelegate {
     }
     
     func create(_ event: EventType, at location: CLLocation, with eventId: String, completionHandler: @escaping() -> Void) {
-        geoFireClient.createSighting(for: location, with: eventId)
         
         guard let user = Auth.auth().currentUser else { return }
         
         let dateStringRepresentation = EventDate.getCurrentDateString()
         
+        geoFireClient.newSighting(at: location, for: event, with: eventId, date: dateStringRepresentation)
+        
         let data = [
-            "date": dateStringRepresentation,
-            "type": event.type,
             "publishedBy": user.uid
         ]
         
