@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import GoogleMobileAds
 
-class EventDetailsController: UIViewController {
+class EventDetailsController: UIViewController, GADBannerViewDelegate {
     
     var event: Event?
     
@@ -56,6 +57,23 @@ class EventDetailsController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
+    }()
+    
+    lazy var bannerView: GADBannerView = {
+        let bannerView = GADBannerView(adSize: kGADAdSizeBanner)
+        bannerView.rootViewController = self
+        bannerView.clipsToBounds = true
+        bannerView.adUnitID = eventDetailsBannerViewID
+        
+        let request = GADRequest()
+        request.testDevices = [kGADSimulatorID]
+        bannerView.delegate = self
+        bannerView.adUnitID = eventInfoBannerViewId
+        bannerView.load(request)
+        
+        bannerView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return bannerView
     }()
     
     lazy var dateLabel: UILabel = {
@@ -106,6 +124,7 @@ class EventDetailsController: UIViewController {
         view.addSubview(dateLabel)
         view.addSubview(userProfilePicture)
         view.addSubview(userNameLabel)
+        view.addSubview(bannerView)
         
         NSLayoutConstraint.activate([
             iconView.topAnchor.constraint(equalTo: view.topAnchor, constant: navigationBerHeight * 2),
@@ -141,6 +160,11 @@ class EventDetailsController: UIViewController {
         NSLayoutConstraint.activate([
             userNameLabel.centerYAnchor.constraint(equalTo: userProfilePicture.centerYAnchor),
             userNameLabel.leadingAnchor.constraint(equalTo: userProfilePicture.trailingAnchor, constant: 30)
+        ])
+        
+        NSLayoutConstraint.activate([
+            bannerView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            bannerView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
         
         // Get user profile to configure view

@@ -79,6 +79,7 @@ class EventController: UIViewController, GADBannerViewDelegate {
         let bannerView = GADBannerView(adSize: kGADAdSizeBanner)
         bannerView.rootViewController = self
         bannerView.clipsToBounds = true
+        bannerView.adUnitID = eventInfoBannerViewID
         
         let request = GADRequest()
         request.testDevices = [kGADSimulatorID]
@@ -196,11 +197,11 @@ class EventController: UIViewController, GADBannerViewDelegate {
         guard let event = EventType(index: selectedEventIndex) else { return }
         
         guard let location = locationManager.currentLocation() else { return }
-        let childNameId = "\(Int(NSDate.timeIntervalSinceReferenceDate * 100000))"
+        let eventID = "\(Int(NSDate.timeIntervalSinceReferenceDate * 10000000000))"
         
         startActivityIndicator()
         
-        create(event, at: location, with: childNameId) {
+        create(event, at: location, with: eventID) {
             self.stopActivityIndicator()
             self.handleDismiss()
         }

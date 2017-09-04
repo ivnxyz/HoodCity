@@ -19,11 +19,7 @@ class GeoFireClient {
         self.firebaseDatabaseReference = Database.database().reference().child("events")
         self.geoFire = GeoFire(firebaseRef: firebaseDatabaseReference)
     }
-    
-    func createSighting(for location: CLLocation, with eventID: String) {
-        geoFire.setLocation(location, forKey: "\(eventID)")
-    }
-    
+
     func newSighting(at location: CLLocation, for event: EventType, with key: String, date: String) {
         geoFire.setLocation(location, forEvent: event.type, withKey: key, date: date)
     }
