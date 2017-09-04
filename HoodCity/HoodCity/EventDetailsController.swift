@@ -66,7 +66,7 @@ class EventDetailsController: UIViewController {
         // Get string representation
         
         let formatter = DateFormatter()
-        formatter.dateFormat = "dd/M/yyyy, H:mm"
+        formatter.dateFormat = "dd/MM/yyyy HH:mm"
         
         let dateStringRepresentation = formatter.string(from: event.date)
         

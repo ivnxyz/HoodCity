@@ -25,7 +25,7 @@ extension Event {
         }
         
         let formatter = DateFormatter()
-        formatter.dateFormat = "dd/M/yyyy, H:mm"
+        formatter.dateFormat = "dd-MM-yyyy HH:mm"
         
         guard let date = formatter.date(from: dateStringValue) else {
             print("Not a valid date")

@@ -82,7 +82,7 @@ class EventCell: UITableViewCell {
         eventIcon.image = event.eventType.icon
         
         let formatter = DateFormatter()
-        formatter.dateFormat = "dd/M/yyyy, H:mm"
+        formatter.dateFormat = "dd/MM/yyyy HH:mm"
         let dateStringRepresentation = formatter.string(from: event.date)
         
         dateLabel.text = "Added: \(dateStringRepresentation)"

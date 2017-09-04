@@ -213,7 +213,7 @@ class EventController: UIViewController, GADBannerViewDelegate {
         
         let currentDate = Date()
         let formatter = DateFormatter()
-        formatter.dateFormat = "dd/M/yyyy, H:mm"
+        formatter.dateFormat = "dd-MM-yyyy HH:mm"
         
         let dateStringRepresentation = formatter.string(from: currentDate)
         
@@ -230,7 +230,6 @@ class EventController: UIViewController, GADBannerViewDelegate {
             }
             
             self.firebaseClient.addEventToCurrentUser(eventId: eventId)
-            
             
             // Log event to Fabric
             

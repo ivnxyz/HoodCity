@@ -72,7 +72,7 @@ class SignUpView: UIView {
         let label = UILabel()
         
         let textColor = UIColor(red: 88/255, green: 88/255, blue: 88/255, alpha: 1)
-        let buttonColor = UIButton(type: .system).tintColor
+        guard let buttonColor = UIButton(type: .system).tintColor else { return UILabel() }
         
         let text = NSMutableAttributedString(string: "By signing up you agree to our TaC and Privacy Policy", attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 9, weight: UIFontWeightRegular)])
         

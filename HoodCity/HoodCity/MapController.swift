@@ -165,6 +165,7 @@ class MapController: UIViewController {
                 let hoursSinceEvent = interval / 3600
                 
                 if hoursSinceEvent > 12.0 {
+                    print("Removing event...")
                     self.remove(event)
                 } else {
                     let annotation = EventAnnotation(coordinate: event.location.coordinate, event: event)
