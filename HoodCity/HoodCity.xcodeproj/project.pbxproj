@@ -25,6 +25,7 @@
 		A6A49FAE1F228606002BA67C /* EventAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6A49FAD1F228606002BA67C /* EventAnnotationView.swift */; };
 		A6AC1EB01F2E895C00A3BFE1 /* EventDetailsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6AC1EAF1F2E895C00A3BFE1 /* EventDetailsController.swift */; };
 		A6AC4C201F2D0E8400E96B93 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6AC4C1F1F2D0E8400E96B93 /* User.swift */; };
+		A6B986E51F5FD0D6001C26E4 /* FacebookError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6B986E41F5FD0D6001C26E4 /* FacebookError.swift */; };
 		A6C123471F34365600C065B5 /* EventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C123461F34365600C065B5 /* EventCell.swift */; };
 		A6D1DAAC1F17D8A200DF2D13 /* FirebaseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6D1DAAB1F17D8A200DF2D13 /* FirebaseError.swift */; };
 		A6D1DAAE1F18567400DF2D13 /* EventType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6D1DAAD1F18567400DF2D13 /* EventType.swift */; };
@@ -66,6 +67,7 @@
 		A6A49FAD1F228606002BA67C /* EventAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventAnnotationView.swift; sourceTree = "<group>"; };
 		A6AC1EAF1F2E895C00A3BFE1 /* EventDetailsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventDetailsController.swift; sourceTree = "<group>"; };
 		A6AC4C1F1F2D0E8400E96B93 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		A6B986E41F5FD0D6001C26E4 /* FacebookError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookError.swift; sourceTree = "<group>"; };
 		A6C123461F34365600C065B5 /* EventCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventCell.swift; sourceTree = "<group>"; };
 		A6D1DAAB1F17D8A200DF2D13 /* FirebaseError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseError.swift; sourceTree = "<group>"; };
 		A6D1DAAD1F18567400DF2D13 /* EventType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventType.swift; sourceTree = "<group>"; };
@@ -249,11 +251,12 @@
 			isa = PBXGroup;
 			children = (
 				A6E2B9AC1F15DE06006C4C85 /* GeoFireClient.swift */,
-				A6E2B9B21F15E38E006C4C85 /* GeoFireError.swift */,
 				A6E2B9B71F172C4F006C4C85 /* FirebaseClient.swift */,
-				A6D1DAAB1F17D8A200DF2D13 /* FirebaseError.swift */,
 				A6A32BA91F2DC02F006F83FA /* FacebookClient.swift */,
 				A6E0DFA31F35A2AA00B2870C /* TwitterClient.swift */,
+				A6D1DAAB1F17D8A200DF2D13 /* FirebaseError.swift */,
+				A6E2B9B21F15E38E006C4C85 /* GeoFireError.swift */,
+				A6B986E41F5FD0D6001C26E4 /* FacebookError.swift */,
 			);
 			name = Networking;
 			sourceTree = "<group>";
@@ -441,6 +444,7 @@
 				A6365CB21F3F935C00BB03AD /* EventsController.swift in Sources */,
 				A6EE1C201F2E642400B0499F /* Event.swift in Sources */,
 				A6E2B9B61F15E600006C4C85 /* EventAnnotation.swift in Sources */,
+				A6B986E51F5FD0D6001C26E4 /* FacebookError.swift in Sources */,
 				A6E2B9731F15A564006C4C85 /* AppDelegate.swift in Sources */,
 				A602DF8F1F23AFB000890744 /* EventController.swift in Sources */,
 				A6060F981F3EAE3700D71213 /* PDFController.swift in Sources */,

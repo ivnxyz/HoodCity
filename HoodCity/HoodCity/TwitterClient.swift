@@ -13,19 +13,11 @@ class TwitterClient {
     
     let client = TWTRAPIClient.withCurrentUser()
     
-    func getUserEmail(completionHandler: @escaping(String?, Error?) -> Void) {
-        client.requestEmail { (email, error) in
-            if let email = email {
-                completionHandler(email, nil)
-            } else {
-                completionHandler(nil, error)
-            }
-        }
-    }
+    typealias UserData = [String: Any]
     
-    func getUserData(completionHandler: @escaping(User?, Error?) -> Void) {
+    func getUserProfileData(completionHandler: @escaping(Error?, UserData?) -> Void) {
         guard let currentUserID = client.userID else {
-            completionHandler(nil, TwitterError.currentUserDoesNotExist)
+            completionHandler(TwitterError.currentUserDoesNotExist, nil)
             return
         }
         
@@ -33,29 +25,16 @@ class TwitterClient {
             if let user = user {
                 
                 let name = user.name
+                let pictureUrlString = user.profileImageURL
                 
-                guard let profilePictureURL = URL(string: user.profileImageURL) else {
-                    completionHandler(nil, TwitterError.invalidProfileImageURL)
-                    return
-                }
+                let userData = ["name": name,
+                                "profilePicture": [
+                                    "downloadUrl": pictureUrlString
+                               ]] as [String : Any]
                 
-                URLSession.shared.dataTask(with: profilePictureURL, completionHandler: { (data, response, error) in
-                    guard error == nil else {
-                        completionHandler(nil, error)
-                        return
-                    }
-                    
-                    guard let profilePicture = UIImage(data: data!) else {
-                        completionHandler(nil, TwitterError.cannotConvertDataToImage)
-                        return
-                    }
-                    
-                    let user = User(name: name, email: nil, profilePicture: profilePicture)
-                    
-                    completionHandler(user, nil)
-                }).resume()
+                completionHandler(nil, userData)
             } else {
-                completionHandler(nil, error)
+                completionHandler(error, nil)
             }
         }
     }

@@ -81,66 +81,19 @@ class FirebaseClient {
     
     //MARK: - User
     
-    func updateUserProfile(with userData: User, completionHandler: @escaping(Error?) -> Void) {
+    func updateCurrentUserProfile(with data: [String: Any], completionHandler: @escaping(Error?) -> Void) {
         guard let user = Auth.auth().currentUser else {
             completionHandler(FirebaseError.emptyUser)
             return
         }
         
-        let userInfo = [
-            "name": userData.name!
-        ]
-        
-        usersReference.child(user.uid).updateChildValues(userInfo) { (error, reference) in
+        usersReference.child(user.uid).updateChildValues(data) { (error, reference) in
             guard error == nil else {
                 completionHandler(error)
                 return
             }
             
-            guard let profilePicture = userData.profilePicture else {
-                completionHandler(FirebaseError.userHasNoProfilePicture)
-                return
-            }
-            
-            self.addProfilePictureToUser(user, image: profilePicture, completionHandler: { (error) in
-                completionHandler(error)
-            })
-        }
-    }
-    
-    func addProfilePictureToUser(_ userInfo: UserInfo, image: UIImage, completionHandler: @escaping(Error?) -> Void) {
-
-        let data = UIImageJPEGRepresentation(image, 0.8)
-        let photoName = "profilePicture"
-        
-        storage.child("users").child(userInfo.uid).child("\(photoName).jpg").putData(data!, metadata: nil) { (metadata, error) in
-            guard error == nil else {
-                completionHandler(error)
-                return
-            }
-            
-            guard let downloadURL = metadata?.downloadURL() else {
-                completionHandler(FirebaseError.emptyURL)
-                return
-            }
-            
-            self.savePhotoInfoToUserPath(userInfo: userInfo, photoName: photoName, downloadURL: downloadURL, completionHandler: { (error) in
-                completionHandler(error)
-            })
-        }
-    }
-    
-    func savePhotoInfoToUserPath(userInfo: UserInfo, photoName: String, downloadURL: URL, completionHandler: @escaping(Error?) -> Void) {
-        
-        let data = [
-            "name": photoName,
-            "downloadUrl": downloadURL.absoluteString
-        ]
-        
-        print("Saving photo...")
-        
-        usersReference.child(userInfo.uid).child(photoName).setValue(data) { (error, reference) in
-            completionHandler(error)
+            completionHandler(nil)
         }
     }
     

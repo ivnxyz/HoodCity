@@ -10,51 +10,53 @@ import Foundation
 import FBSDKLoginKit
 
 class FacebookClient {
+
+    typealias FacebookUserData = [String: Any]
     
-    func getUserData(completionHandler: @escaping(User) -> Void) {
-        let request = FBSDKGraphRequest(graphPath: "me", parameters:  ["fields": "id, name, email, picture.type(large)"])
+    func getUserProfileData(completionHandler: @escaping(Error?, FacebookUserData?) -> Void) {
+        let request = FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "id, name, email, picture.type(large)"])
         
         _ = request?.start(completionHandler: { (connection, result, error) in
             guard error == nil else {
-                print("Error at getting users's data:", error!)
+                print("Error trying to get user's data from Facebook: \(error!.localizedDescription)")
+                completionHandler(FacebookError.cannotGetUsersData, nil)
                 return
             }
             
             guard let result = result as? [String: AnyObject] else {
                 print("Error: Cannot convert result to dictionary")
+                completionHandler(FacebookError.cannotGetUsersData, nil)
+                return
+            }
+            
+            guard let name = result["name"] as? String else {
+                print("Error: We couldn't get the name of the user.")
+                completionHandler(FacebookError.cannotGetUsersData, nil)
                 return
             }
             
             guard let pictureData = result["picture"]?["data"] as? [String: AnyObject] else {
                 print("Error: Cannot picture data")
+                completionHandler(FacebookError.cannotGetProfilePicture, nil)
                 return
             }
             
             guard let pictureUrlString = pictureData["url"] as? String else {
                 print("Error: Cannot find profile picture url")
+                completionHandler(FacebookError.cannotGetProfilePicture, nil)
                 return
             }
             
-            let pictureUrl = URL(string: pictureUrlString)!
+            let userData = ["name": name,
+                            "profilePicture": [
+                            "downloadUrl": pictureUrlString
+                           ]] as [String : Any]
             
-            URLSession.shared.dataTask(with: pictureUrl, completionHandler: { (data, response, error) in
-                guard error == nil else {
-                    print("Error: ", error!)
-                    return
-                }
-                
-                guard let profilePicture = UIImage(data: data!) else {
-                    print("Error: Cannot convert to image")
-                    return
-                }
-                
-                let name = result["name"] as! String
-                let email = result["email"] as! String
-                
-                let user = User(name: name, email: email, profilePicture: profilePicture)
-                
-                completionHandler(user)
-            }).resume()
+            completionHandler(nil, userData)
         })
     }
 }
+
+
+
+

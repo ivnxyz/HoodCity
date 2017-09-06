@@ -214,17 +214,23 @@ extension SignUpController: SignUpViewDelegate {
                     return
                 }
                 
-                FacebookClient().getUserData(completionHandler: { (user) in
+                FacebookClient().getUserProfileData(completionHandler: { (error, facebookData) in
+                    guard error == nil else {
+                        self.handle(error)
+                        return
+                    }
                     
-                    self.firebaseClient.updateUserProfile(with: user, completionHandler: { (error) in
-                        if error != nil {
-                            self.handle(error)
-                        } else {
-                            DispatchQueue.main.async {
-                                self.showMapController()
+                    if let facebookData = facebookData {
+                        self.firebaseClient.updateCurrentUserProfile(with: facebookData, completionHandler: { (error) in
+                            if error != nil {
+                                self.handle(error)
+                            } else {
+                                DispatchQueue.main.async {
+                                    self.showMapController()
+                                }
                             }
-                        }
-                    })
+                        })
+                    }
                 })
             }
         }
@@ -243,54 +249,24 @@ extension SignUpController: SignUpViewDelegate {
                 let credential = TwitterAuthProvider.credential(withToken: authToken, secret: authTokenSecret)
                 
                 Auth.auth().signIn(with: credential, completion: { (user, error) in
-                    
-                    guard let firebaseUser = user else {
-                        self.handle(error)
-                        return
-                    }
-                    
+
                     let twitterClient = TwitterClient()
                     
-                    twitterClient.getUserData(completionHandler: { (user, error) in
-                        
-                        guard let user = user else {
+                    twitterClient.getUserProfileData(completionHandler: { (error, twitterData) in
+                        guard let twitterData = twitterData, error == nil else {
                             DispatchQueue.main.async {
                                 self.handle(error)
                             }
                             return
                         }
                         
-                        twitterClient.getUserEmail(completionHandler: { (email, error) in
-                            if let email = email {
-                                
-                                firebaseUser.updateEmail(to: email, completion: { (error) in
-                                    if error != nil {
-                                        self.handle(error)
-                                    } else {
-                                        user.email = email
-                                    }
-                                    
-                                    self.firebaseClient.updateUserProfile(with: user, completionHandler: { (error) in
-                                        if error != nil {
-                                            self.handle(error)
-                                        } else {
-                                            DispatchQueue.main.async {
-                                                self.showMapController()
-                                            }
-                                        }
-                                    })
-                                })
+                        self.firebaseClient.updateCurrentUserProfile(with: twitterData, completionHandler: { (error) in
+                            if error != nil {
+                                self.handle(error)
                             } else {
-                                
-                                self.firebaseClient.updateUserProfile(with: user, completionHandler: { (error) in
-                                    if error != nil {
-                                        self.handle(error)
-                                    } else {
-                                        DispatchQueue.main.async {
-                                            self.showMapController()
-                                        }
-                                    }
-                                })
+                                DispatchQueue.main.async {
+                                    self.showMapController()
+                                }
                             }
                         })
                     })
