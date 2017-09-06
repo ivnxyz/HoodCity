@@ -26,6 +26,7 @@
 		A6AC1EB01F2E895C00A3BFE1 /* EventDetailsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6AC1EAF1F2E895C00A3BFE1 /* EventDetailsController.swift */; };
 		A6AC4C201F2D0E8400E96B93 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6AC4C1F1F2D0E8400E96B93 /* User.swift */; };
 		A6B986E51F5FD0D6001C26E4 /* FacebookError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6B986E41F5FD0D6001C26E4 /* FacebookError.swift */; };
+		A6B986E81F6040B4001C26E4 /* TwitterError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6B986E71F6040B4001C26E4 /* TwitterError.swift */; };
 		A6C123471F34365600C065B5 /* EventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C123461F34365600C065B5 /* EventCell.swift */; };
 		A6D1DAAC1F17D8A200DF2D13 /* FirebaseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6D1DAAB1F17D8A200DF2D13 /* FirebaseError.swift */; };
 		A6D1DAAE1F18567400DF2D13 /* EventType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6D1DAAD1F18567400DF2D13 /* EventType.swift */; };
@@ -68,6 +69,7 @@
 		A6AC1EAF1F2E895C00A3BFE1 /* EventDetailsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventDetailsController.swift; sourceTree = "<group>"; };
 		A6AC4C1F1F2D0E8400E96B93 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		A6B986E41F5FD0D6001C26E4 /* FacebookError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookError.swift; sourceTree = "<group>"; };
+		A6B986E71F6040B4001C26E4 /* TwitterError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterError.swift; sourceTree = "<group>"; };
 		A6C123461F34365600C065B5 /* EventCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventCell.swift; sourceTree = "<group>"; };
 		A6D1DAAB1F17D8A200DF2D13 /* FirebaseError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseError.swift; sourceTree = "<group>"; };
 		A6D1DAAD1F18567400DF2D13 /* EventType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventType.swift; sourceTree = "<group>"; };
@@ -138,6 +140,17 @@
 			name = View;
 			sourceTree = "<group>";
 		};
+		A6B986E61F60408F001C26E4 /* Error */ = {
+			isa = PBXGroup;
+			children = (
+				A6D1DAAB1F17D8A200DF2D13 /* FirebaseError.swift */,
+				A6E2B9B21F15E38E006C4C85 /* GeoFireError.swift */,
+				A6B986E41F5FD0D6001C26E4 /* FacebookError.swift */,
+				A6B986E71F6040B4001C26E4 /* TwitterError.swift */,
+			);
+			name = Error;
+			sourceTree = "<group>";
+		};
 		A6C123481F34E80D00C065B5 /* DataSources */ = {
 			isa = PBXGroup;
 			children = (
@@ -168,6 +181,7 @@
 			isa = PBXGroup;
 			children = (
 				A65BB9621F248D2600F40CE6 /* HoodCity.entitlements */,
+				A6B986E61F60408F001C26E4 /* Error */,
 				A6E2B9861F15AE3F006C4C85 /* GeoFire */,
 				A6C123481F34E80D00C065B5 /* DataSources */,
 				A6E2B9AB1F15DDE2006C4C85 /* Networking */,
@@ -254,9 +268,6 @@
 				A6E2B9B71F172C4F006C4C85 /* FirebaseClient.swift */,
 				A6A32BA91F2DC02F006F83FA /* FacebookClient.swift */,
 				A6E0DFA31F35A2AA00B2870C /* TwitterClient.swift */,
-				A6D1DAAB1F17D8A200DF2D13 /* FirebaseError.swift */,
-				A6E2B9B21F15E38E006C4C85 /* GeoFireError.swift */,
-				A6B986E41F5FD0D6001C26E4 /* FacebookError.swift */,
 			);
 			name = Networking;
 			sourceTree = "<group>";
@@ -435,6 +446,7 @@
 				A6D1DAAC1F17D8A200DF2D13 /* FirebaseError.swift in Sources */,
 				A6E2B9991F15AE3F006C4C85 /* GFBase32Utils.m in Sources */,
 				A6E0DFA41F35A2AA00B2870C /* TwitterClient.swift in Sources */,
+				A6B986E81F6040B4001C26E4 /* TwitterError.swift in Sources */,
 				A6A49FAE1F228606002BA67C /* EventAnnotationView.swift in Sources */,
 				A662045A1F3F407A00F4655C /* SettingsController.swift in Sources */,
 				A634BAF61F23369300927724 /* SecretKeys.swift in Sources */,

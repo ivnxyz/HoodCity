@@ -16,8 +16,6 @@ class FirebaseClient {
     let eventsReference = Database.database().reference().child("events")
     let eventsDataReference = Database.database().reference().child("eventsData")
     let usersReference = Database.database().reference().child("users")
-    
-//    weak var geoFireClient = GeoFireClient()
 
     //MARK: - Add new event
   
@@ -164,11 +162,3 @@ class FirebaseClient {
         })
     }
 }
-
-
-
-
-
-
-
-

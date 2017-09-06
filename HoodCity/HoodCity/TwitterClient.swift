@@ -13,9 +13,9 @@ class TwitterClient {
     
     let client = TWTRAPIClient.withCurrentUser()
     
-    typealias UserData = [String: Any]
+    typealias twitterUserData = [String: Any]
     
-    func getUserProfileData(completionHandler: @escaping(Error?, UserData?) -> Void) {
+    func getUserProfileData(completionHandler: @escaping(Error?, twitterUserData?) -> Void) {
         guard let currentUserID = client.userID else {
             completionHandler(TwitterError.currentUserDoesNotExist, nil)
             return
@@ -39,25 +39,4 @@ class TwitterClient {
         }
     }
     
-}
-
-enum TwitterError: Error {
-    case currentUserDoesNotExist
-    case cannotConvertDataToImage
-    case invalidProfileImageURL
-}
-
-extension TwitterError: LocalizedError {
-    
-    var localizedDescription: String {
-        switch self {
-        case .currentUserDoesNotExist:
-            return "The current user desn't exist."
-        case .cannotConvertDataToImage:
-            return "Unable to convert url session data to UIImage."
-        case .invalidProfileImageURL:
-            return "The URL for Twitter profile image is invalid."
-            
-        }
-    }
 }
