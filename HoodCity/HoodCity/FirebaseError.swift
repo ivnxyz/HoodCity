@@ -14,6 +14,7 @@ enum FirebaseError: Error {
     case userHasNoProfilePicture
     case emptyURL
     case emptyUser
+    case failedToAddDataToExistingEvent
 }
 
 extension FirebaseError: LocalizedError {
@@ -29,6 +30,8 @@ extension FirebaseError: LocalizedError {
             return "The imageURL passed is empty."
         case .emptyUser:
             return "User is not signed in."
+        case .failedToAddDataToExistingEvent:
+            return "We couldn't add this event, try again later :("
         }
     }
 }

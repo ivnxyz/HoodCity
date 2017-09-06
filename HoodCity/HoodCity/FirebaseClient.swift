@@ -16,17 +16,24 @@ class FirebaseClient {
     let eventsReference = Database.database().reference().child("events")
     let eventsDataReference = Database.database().reference().child("eventsData")
     let usersReference = Database.database().reference().child("users")
+    
+//    weak var geoFireClient = GeoFireClient()
 
     //MARK: - Add new event
   
-    func addDataToExistingEvent(event: String, data: [String: Any], completionHandler: @escaping(Error?, DatabaseReference?) -> Void) {
-        eventsDataReference.child(event).updateChildValues(data) { (error, reference) in
-            completionHandler(error, reference)
+    func addDataToExistingEvent(event: Event, data: [String: Any], completionHandler: @escaping(Error?, DatabaseReference?) -> Void) {
+        eventsDataReference.child(event.id).updateChildValues(data) { (error, reference) in
+            if let error = error {
+                print("An error ocurred: \(error.localizedDescription)")
+                                
+                completionHandler(FirebaseError.failedToAddDataToExistingEvent, nil)
+            }
+            
+            completionHandler(nil, reference)
         }
     }
     
     func addEventToCurrentUser(eventId: String) {
-        
         guard let user = Auth.auth().currentUser else { return }
         
         let eventInfo = ["\(eventId)" : true]

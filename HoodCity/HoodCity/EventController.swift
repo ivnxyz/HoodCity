@@ -201,28 +201,46 @@ class EventController: UIViewController, GADBannerViewDelegate {
         
         startActivityIndicator()
         
-        create(event, at: location, with: eventID) {
+        newEvent(ofType: event, at: location, with: eventID) { (error) in
+            guard error == nil else {
+                self.handle(error)
+                return
+            }
+            
             self.stopActivityIndicator()
             self.handleDismiss()
         }
     }
     
-    func create(_ event: EventType, at location: CLLocation, with eventId: String, completionHandler: @escaping() -> Void) {
+    func newEvent(ofType eventType: EventType, at location: CLLocation, with eventId: String, completionHandler: @escaping(Error?) -> Void) {
+        
+        // Create event
         
         guard let user = Auth.auth().currentUser else { return }
         
         let dateStringRepresentation = EventDate.getCurrentDateString()
+        let date = EventDate.getDateFrom(string: dateStringRepresentation) ?? Date()
         
-        geoFireClient.newSighting(at: location, for: event, with: eventId, date: dateStringRepresentation)
+        let event = Event(location: location, id: eventId, date: date, eventType: eventType, eventData: nil)
         
         let data = [
             "publishedBy": user.uid
         ]
         
-        firebaseClient.addDataToExistingEvent(event: eventId, data: data) { (error, reference) in
-            guard error == nil else {
-                print("Error trying to add data to existing event: ", error!)
-                return
+        // Add event to Firebase
+        
+        geoFireClient.newSighting(at: location, for: event.eventType, with: eventId, date: dateStringRepresentation)
+        
+        firebaseClient.addDataToExistingEvent(event: event, data: data) { (error, reference) in
+            if let error = error {
+                self.geoFireClient.remove(event, completionHandler: { (geoFireError) in
+                    if let geoFireError = geoFireError {
+                        print("Error trying to remove event: \(geoFireError)")
+                    }
+                })
+                
+                print("Error trying to add data to existing event: ", error)
+                completionHandler(error)
             }
             
             self.firebaseClient.addEventToCurrentUser(eventId: eventId)
@@ -230,14 +248,28 @@ class EventController: UIViewController, GADBannerViewDelegate {
             // Log event to Fabric
             
             Answers.logCustomEvent(withName: "Event added", customAttributes: [
-                "Event type": event.type
+                "Event type": event.eventType.type
             ])
             
-            completionHandler()
+            completionHandler(nil)
         }
     }
     
-    //MARK: - ActivityIndicator
+    // MARK: - Error
+    
+    func handle(_ error: Error?) {
+        guard let error = error else { return }
+        
+        stopActivityIndicator()
+        
+        let alertController = UIAlertController(title: "Oops! :(", message: "\(error.localizedDescription)", preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        
+        self.present(alertController, animated: true, completion: nil)
+        print("Error: \(error)")
+    }
+    
+    // MARK: - ActivityIndicator
     
     func startActivityIndicator() {
         for view in backgroundView.subviews {

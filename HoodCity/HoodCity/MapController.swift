@@ -105,7 +105,7 @@ class MapController: UIViewController {
         if let profilePicture = User.shared?.profilePicture {
             navigationButton.setImage(profilePicture, for: .normal)
         } else {
-            print("User doesn't exist")
+            print("The User object does not exist... we're going to download it")
             
             getCurrentUserData(completionHandler: { (finished) in
                 guard let profilePicture = User.shared?.profilePicture else { return }
@@ -217,22 +217,28 @@ class MapController: UIViewController {
     func getCurrentUserData(completionHandler: @escaping(Bool) -> Void) {
         guard let currentUser = Auth.auth().currentUser else { return }
         
+        // FIX THE RETURN VALUE FOR THIS FUNCTION
         firebaseClient.getProfileFor(userId: currentUser.uid) { (firebaseUser) in
-            guard let imageUrl = URL(string: firebaseUser!.profilePictureUrl) else { return }
-            
-            URLSession.shared.dataTask(with: imageUrl, completionHandler: { (data, response, error) in
-                guard error == nil else {
-                    print(error!)
-                    return
-                }
+    
+            if let firebaseUser = firebaseUser {
+                // FUCKING ERROR HERE FIX THIS
+                guard let imageUrl = URL(string: firebaseUser.profilePictureUrl) else { return }
                 
-                guard let profilePicutre = UIImage(data: data!) else { return }
-                
-                User.shared?.profilePicture = profilePicutre
-                User.shared?.name = firebaseUser?.name
-                
-                completionHandler(true)
-            }).resume()
+                URLSession.shared.dataTask(with: imageUrl, completionHandler: { (data, response, error) in
+                    guard error == nil else {
+                        print(error!)
+                        return
+                    }
+                    
+                    guard let profilePicutre = UIImage(data: data!) else { return }
+                    
+                    User.shared?.profilePicture = profilePicutre
+                    User.shared?.name = firebaseUser.name
+                    
+                    completionHandler(true)
+                }).resume()
+            }
+    
         }
     }
     
