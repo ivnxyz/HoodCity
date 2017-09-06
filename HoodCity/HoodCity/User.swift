@@ -14,14 +14,12 @@ class User {
     
     var name: String?
     var profilePicture: UIImage?
-    var email: String?
     
     private init?() {
     }
     
-    init(name: String?, email: String?, profilePicture: UIImage?) {
+    init(name: String?, profilePicture: UIImage?) {
         self.name = name
-        self.email = email
         self.profilePicture = profilePicture
     }
     
