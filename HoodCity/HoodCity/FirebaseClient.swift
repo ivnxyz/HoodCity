@@ -151,32 +151,32 @@ class FirebaseClient {
         let name: String
     }
     
-    func getProfileFor(userId: String, completionHandler: @escaping(FirebaseUser?) -> Void) {
+    func getProfileFor(userId: String, completionHandler: @escaping(FirebaseError?, FirebaseUser?) -> Void) {
         usersReference.child(userId).observeSingleEvent(of: .value, with: { (snapshot) in
             
             guard let userData = snapshot.value as? [String: AnyObject] else {
-                completionHandler(nil)
+                completionHandler(FirebaseError.userDictionaryDoesNotExist, nil)
                 return
             }
             
             guard let profilePictureData = userData["profilePicture"] as? [String: AnyObject] else {
-                completionHandler(nil)
+                completionHandler(FirebaseError.userHasNoProfilePicture, nil)
                 return
             }
             
             guard let profilePictureUrl = profilePictureData["downloadUrl"] as? String else {
-                completionHandler(nil)
+                completionHandler(FirebaseError.userHasNoProfilePicture, nil)
                 return
             }
             
             guard let name = userData["name"] as? String else {
-                completionHandler(nil)
+                completionHandler(FirebaseError.cannotGetNameFromUser, nil)
                 return
             }
             
             let firebaseUser = FirebaseUser(profilePictureUrl: profilePictureUrl, name: name)
             
-            completionHandler(firebaseUser)
+            completionHandler(nil, firebaseUser)
         })
     }
     

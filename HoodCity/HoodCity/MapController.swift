@@ -107,7 +107,13 @@ class MapController: UIViewController {
         } else {
             print("The User object does not exist... we're going to download it")
             
-            getCurrentUserData(completionHandler: { (finished) in
+            getCurrentUserData(completionHandler: { (error) in
+                
+                guard error == nil else {
+                    self.handle(error)
+                    return
+                }
+                
                 guard let profilePicture = User.shared?.profilePicture else { return }
                 
                 DispatchQueue.main.async {
@@ -205,7 +211,7 @@ class MapController: UIViewController {
     }
     
     
-    //MARK: - User
+    // MARK: - User
     
     func showUserProfile() {
         let userProfileController = SettingsController(style: .grouped)
@@ -214,19 +220,16 @@ class MapController: UIViewController {
         present(navigationController, animated: true, completion: nil)
     }
     
-    func getCurrentUserData(completionHandler: @escaping(Bool) -> Void) {
+    func getCurrentUserData(completionHandler: @escaping(Error?) -> Void) {
         guard let currentUser = Auth.auth().currentUser else { return }
         
-        // FIX THE RETURN VALUE FOR THIS FUNCTION
-        firebaseClient.getProfileFor(userId: currentUser.uid) { (firebaseUser) in
-    
+        firebaseClient.getProfileFor(userId: currentUser.uid) { (firebaseError, firebaseUser) in
             if let firebaseUser = firebaseUser {
-                // FUCKING ERROR HERE FIX THIS
                 guard let imageUrl = URL(string: firebaseUser.profilePictureUrl) else { return }
                 
                 URLSession.shared.dataTask(with: imageUrl, completionHandler: { (data, response, error) in
                     guard error == nil else {
-                        print(error!)
+                        completionHandler(error)
                         return
                     }
                     
@@ -235,11 +238,24 @@ class MapController: UIViewController {
                     User.shared?.profilePicture = profilePicutre
                     User.shared?.name = firebaseUser.name
                     
-                    completionHandler(true)
+                    completionHandler(nil)
                 }).resume()
+            } else {
+                completionHandler(firebaseError)
             }
-    
         }
+    }
+    
+    // MARK: - Error
+    
+    func handle(_ error: Error?) {
+        guard let error = error else { return }
+        
+        let alertController = UIAlertController(title: "Oops! :(", message: "\(error.localizedDescription)", preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        
+        self.present(alertController, animated: true, completion: nil)
+        print("Error: \(error)")
     }
     
     // MARK: - Location

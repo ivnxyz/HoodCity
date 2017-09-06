@@ -183,9 +183,9 @@ class EventDetailsController: UIViewController, GADBannerViewDelegate {
                 return
             }
             
-            self.firebaseClient.getProfileFor(userId: eventData.userID) { (firebaseUser) in
+            self.firebaseClient.getProfileFor(userId: eventData.userID) { (firebaseError, firebaseUser) in
                 guard let user = firebaseUser else {
-                    print("Cannot get user from database")
+                    print("We can't get information about the user that posted this event")
                     return
                 }
                 
