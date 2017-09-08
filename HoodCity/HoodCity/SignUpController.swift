@@ -15,54 +15,9 @@ class SignUpController: UIViewController {
     
     //MARK: - UI Elements
     
-    lazy var backgroundImage: UIImageView = {
-        let imageView: UIImageView = UIImageView(frame: self.view.bounds)
-        imageView.contentMode = .scaleAspectFill
-        imageView.image = #imageLiteral(resourceName: "background-image")
-        
-        return imageView
-    }()
-    
-    lazy var mapImage: UIImageView = {
-        let imageView: UIImageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
-        imageView.image = #imageLiteral(resourceName: "map-image")
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        
-        return imageView
-    }()
-    
-    lazy var titleLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Discover events around you.\nCreate new events and connect with your community."
-        label.textColor = .white
-        label.font = UIFont.boldSystemFont(ofSize: 22)
-        label.minimumScaleFactor = 0.5
-        label.adjustsFontSizeToFitWidth = true
-        label.numberOfLines = 0
-        label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
-        
-        return label
-    }()
-    
-    lazy var startButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Get started", for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 19)
-        button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .clear
-        
-        button.layer.cornerRadius = 6
-        button.layer.borderWidth = 2
-        button.layer.borderColor = UIColor.white.cgColor
-    
-        button.translatesAutoresizingMaskIntoConstraints = false
-        
-        button.addTarget(self, action: #selector(SignUpController.showSignUpView), for: .touchUpInside)
-        
-        return button
-    }()
+    @IBOutlet weak var mapImageView: UIImageView!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var getStartedButton: UIButton!
     
     lazy var termsAlertController: UIAlertController = {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
@@ -90,38 +45,11 @@ class SignUpController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        view.addSubview(backgroundImage)
-        view.addSubview(mapImage)
-        view.addSubview(titleLabel)
-        view.addSubview(startButton)
         
-        NSLayoutConstraint.activate([
-            backgroundImage.topAnchor.constraint(equalTo: view.topAnchor),
-            backgroundImage.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            backgroundImage.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            backgroundImage.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-        ])
+        getStartedButton.layer.cornerRadius = 6
+        getStartedButton.layer.borderWidth = 2
+        getStartedButton.layer.borderColor = UIColor.white.cgColor
         
-        NSLayoutConstraint.activate([
-            mapImage.topAnchor.constraint(equalTo: view.topAnchor, constant: 76),
-            mapImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            mapImage.heightAnchor.constraint(equalToConstant: view.bounds.height * 0.35),
-            mapImage.widthAnchor.constraint(equalToConstant: view.bounds.width * 0.35)
-        ])
-        
-        NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: mapImage.bottomAnchor, constant: view.bounds.height * 0.06),
-            titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
-            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30)
-        ])
-        
-        NSLayoutConstraint.activate([
-            startButton.heightAnchor.constraint(equalToConstant: 38),
-            startButton.widthAnchor.constraint(equalToConstant: 134),
-            startButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: view.bounds.height * -0.08),
-            startButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
-        ])
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -132,9 +60,9 @@ class SignUpController: UIViewController {
         UIApplication.shared.statusBarStyle = .default
     }
     
-    //MARK: - Sign Up
+    // MARK: - Sign Up
     
-    func showSignUpView() {
+    @IBAction func getStarted(_ sender: UIButton) {
         view.addSubview(signUpView)
         signUpView.show()
     }
@@ -142,11 +70,13 @@ class SignUpController: UIViewController {
     func showMapController() {
         signUpView.dismiss()
         
-        print("UI updated")
-        let mapController = MapController()
-        let navigationController = UINavigationController(rootViewController: mapController)
-        present(navigationController, animated: false, completion: nil)
+        print("Showing MapController...")
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let mapController = storyboard.instantiateInitialViewController()
+        present(mapController!, animated: false, completion: nil)
     }
+    
+    // MARK: - Error Handling
     
     func handle(_ error: Error?) {
         guard let error = error else { return }
@@ -160,7 +90,7 @@ class SignUpController: UIViewController {
         print("error: \(error)")
     }
     
-    //MARK: - Legal stuff
+    // MARK: - Legal stuff
     
     func readTermsAndConditions(alertAction: UIAlertAction) {
         if let url = URL(string: termsAndConditionsURL) {

@@ -15,21 +15,8 @@ class MapController: UIViewController {
     
     //MARK: - UI Elements
     
-    lazy var mapView: MKMapView = {
-        let mapView = MKMapView()
-        mapView.translatesAutoresizingMaskIntoConstraints = false
-        
-        return mapView
-    }()
-    
-    lazy var addEventButton: UIButton = {
-        let button = UIButton()
-        button.setImage(#imageLiteral(resourceName: "add-event-button"), for: .normal)
-        button.addTarget(self, action: #selector(MapController.addNewEvent), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        
-        return button
-    }()
+    @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var addEventButton: UIButton!
     
     lazy var userProfileButton: UIBarButtonItem = {
         let button = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
@@ -76,26 +63,7 @@ class MapController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "Near You"
-        
         navigationItem.rightBarButtonItem = userProfileButton
-        
-        view.addSubview(mapView)
-        view.addSubview(addEventButton)
-        
-        NSLayoutConstraint.activate([
-            mapView.topAnchor.constraint(equalTo: view.topAnchor),
-            mapView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            mapView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            mapView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
-        ])
-        
-        NSLayoutConstraint.activate([
-            addEventButton.heightAnchor.constraint(equalToConstant: 61),
-            addEventButton.widthAnchor.constraint(equalToConstant: 61),
-            addEventButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
-            addEventButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
-        ])
         
         mapView.delegate = self
         mapView.userTrackingMode = .follow
@@ -127,8 +95,7 @@ class MapController: UIViewController {
     
     //Add new event
     
-    func addNewEvent() {
-        
+    @IBAction func addNewEvent(_ sender: UIButton) {
         let controller = EventController()
         controller.modalPresentationStyle = .overCurrentContext
         
@@ -214,10 +181,7 @@ class MapController: UIViewController {
     // MARK: - User
     
     func showUserProfile() {
-        let userProfileController = SettingsController(style: .grouped)
-        let navigationController = UINavigationController(rootViewController: userProfileController)
-        
-        present(navigationController, animated: true, completion: nil)
+        performSegue(withIdentifier: "ShowProfile", sender: nil)
     }
     
     func getCurrentUserData(completionHandler: @escaping(Error?) -> Void) {
@@ -268,6 +232,18 @@ class MapController: UIViewController {
             mapView.showsUserLocation = true
             showEvents(at: location)
             observeExitedKeys(at: location)
+        }
+    }
+    
+    // MARK: - Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ShowEventDetails" {
+            if let destination = segue.destination as? EventDetailsController {
+                if let event = sender as? Event {
+                    destination.event = event
+                }
+            }
         }
     }
     
@@ -336,10 +312,8 @@ extension MapController: MKMapViewDelegate {
         
         let event = eventAnnotation.event
         
-        let eventDetailsController = EventDetailsController()
-        eventDetailsController.event = event
-        
-        navigationController?.pushViewController(eventDetailsController, animated: true)
+        //Add the event as a sender
+        performSegue(withIdentifier: "ShowEventDetails", sender: event)
     }
     
 }

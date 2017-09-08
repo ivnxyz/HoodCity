@@ -35,22 +35,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navigationAppearance.tintColor = UIColor(red: 38/255.0, green: 42/255.0, blue: 152/255.0, alpha: 1)
         
         // Initial ViewController
-        
-        window = UIWindow(frame: UIScreen.main.bounds)
-        window?.makeKeyAndVisible()
-        
-        let mainViewController: UIViewController!
+
+        let mainViewController: UIViewController
         
         let currentUser = Auth.auth().currentUser
         
         if currentUser != nil {
-            let mapController = MapController()
-            let navigationController = UINavigationController(rootViewController: mapController)
-            self.logUser()
-            mainViewController = navigationController
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            mainViewController = storyboard.instantiateInitialViewController()!
         } else {
-            let signUpController = SignUpController()
-            mainViewController = signUpController
+            let storyboard = UIStoryboard(name: "SignUp", bundle: nil)
+            mainViewController = storyboard.instantiateInitialViewController()!
         }
         
         // Configure Fabric

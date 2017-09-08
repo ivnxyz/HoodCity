@@ -34,10 +34,6 @@ class EventsController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "My Events"
-        tableView.separatorInset.left = 0
-        
-        tableView.register(EventCell.classForCoder(), forCellReuseIdentifier: EventCell.reuseIdentifier)
         tableView.dataSource = dataSource
         tableView.tableFooterView = UIView()
         

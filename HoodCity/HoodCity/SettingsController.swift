@@ -13,25 +13,12 @@ class SettingsController: UITableViewController {
     
     // MARK: - UI elements
     
-    lazy var cancelButton:  UIBarButtonItem = {
-        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
-        button.setImage(#imageLiteral(resourceName: "cancel-button"), for: .normal)
-        button.addTarget(self, action: #selector(SettingsController.cancel), for: .touchUpInside)
-        
-        let tabBarButtonItem = UIBarButtonItem(customView: button)
-        
-        return tabBarButtonItem
-    }()
+    @IBOutlet weak var profileImageView: UIImageView!
+    @IBOutlet weak var userNameLabel: UILabel!
     
-    lazy var signoutButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Sign Out 😡", for: .normal)
-        button.setTitleColor(.red, for: .normal)
-        button.addTarget(self, action: #selector(SettingsController.userPressedSignoutButton), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        
-        return button
-    }()
+    @IBOutlet weak var eventsCell: UITableViewCell!
+    @IBOutlet weak var privacyPolicyCell: UITableViewCell!
+    @IBOutlet weak var termsAndConditionsCell: UITableViewCell!
     
     lazy var signoutAlert: UIAlertController = {
         let alertController = UIAlertController(title: nil, message: "Are you sure you want to sign out?", preferredStyle: .actionSheet)
@@ -41,118 +28,28 @@ class SettingsController: UITableViewController {
         return alertController
     }()
     
-    // Cells
-    
-    lazy var profileCell: UITableViewCell = {
-        let profileView = ProfileContentView(width: self.view.frame.width)
-        let cell = UITableViewCell(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 78))
-        cell.isUserInteractionEnabled = false
-        
-        cell.addSubview(profileView)
-        
-        return cell
-    }()
-    
-    lazy var signoutCell: UITableViewCell = {
-        let cell = UITableViewCell()
-        cell.selectionStyle = .none
-        
-        cell.addSubview(self.signoutButton)
-        
-        NSLayoutConstraint.activate([
-            self.signoutButton.centerXAnchor.constraint(equalTo: cell.centerXAnchor),
-            self.signoutButton.centerYAnchor.constraint(equalTo: cell.centerYAnchor)
-        ])
-        
-        return cell
-    }()
-    
-    lazy var eventsCell: UITableViewCell = {
-        let cell = UITableViewCell()
-        cell.textLabel?.text = "My Active Events 🎉"
-        cell.accessoryType = .disclosureIndicator
-        
-        return cell
-    }()
-    
-    lazy var privacyPolicyCell: UITableViewCell = {
-        let cell = UITableViewCell()
-        cell.textLabel?.text = "Read Privacy Policy"
-        cell.accessoryType = .disclosureIndicator
-        
-        return cell
-    }()
-    
-    lazy var termsAndConditionsCell: UITableViewCell = {
-        let cell = UITableViewCell()
-        cell.textLabel?.text = "Read Terms and Conditions"
-        cell.accessoryType = .disclosureIndicator
-        
-        return cell
-    }()
-    
-    var cells: [[UITableViewCell]]!
-    
     // MARK: - View
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "Settings"
-        navigationItem.rightBarButtonItem = cancelButton
-        cells = [[profileCell],[eventsCell],[privacyPolicyCell, termsAndConditionsCell],[signoutCell]]
-    }
+        eventsCell.textLabel?.text = "My Active Events 🎉"
+        privacyPolicyCell.textLabel?.text = "Read Privacy Policy"
+        termsAndConditionsCell.textLabel?.text = "Read Terms and Conditions"
 
-    // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return cells.count
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return cells[section].count
-    }
-    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return cells[indexPath.section][indexPath.row]
-    }
-    
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        switch(section) {
-        case 0: return "Profile"
-        case 1: return "Events"
-        case 2: return "Legal stuff"
-        case 3: return "Sign out"
-        default: fatalError("Unknown section")
-        }
+        profileImageView.image = User.shared?.profilePicture ?? #imageLiteral(resourceName: "avatar")
+        userNameLabel.text = User.shared?.name ?? ""
     }
     
     // MARK: - Table view delegate
     
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        switch indexPath.section {
-        case 0:
-            return ProfileContentView.cellHeight
-        default:
-            return privacyPolicyCell.frame.height
-        }
-    }
-    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch indexPath.section {
-        case 1:
-            showEventsController()
-        case 2:
-            switch indexPath.row {
-            case 0:
-                showPrivacyPolicy()
-            case 1:
-                showTermsAndConditions()
-            default:
-                break
+        if indexPath.section == 2 {
+            if indexPath.row == 0 {
+                readPrivacyPolicy()
+            } else if indexPath.row == 1 {
+                readTermsAndConditions()
             }
-        default:
-            break
         }
     }
     
@@ -173,20 +70,21 @@ class SettingsController: UITableViewController {
     
     //MARK: - Cancel
     
-    func cancel() {
+    @IBAction func cancel(_ sender: UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
     }
     
     //MARK: - SignOut
     
-    func userPressedSignoutButton() {
+    @IBAction func userPressedSignoutButton(_ sender: UIButton) {
         self.present(signoutAlert, animated: true, completion: nil)
     }
     
     func signOut(alertAction: UIAlertAction) {
         do {
             try Auth.auth().signOut()
-            let signUpController = SignUpController()
+            let storyboard = UIStoryboard(name: "SignUp", bundle: nil)
+            let signUpController = storyboard.instantiateInitialViewController()!
             present(signUpController, animated: false, completion: nil)
         } catch let error {
             print("Error trying to sign out: ", error)
