@@ -1,0 +1,48 @@
+
+/* Class = "UITableViewSection"; headerTitle = "Profile"; ObjectID = "0io-Rs-F7I"; */
+"0io-Rs-F7I.headerTitle" = "Perfil";
+
+/* Class = "UITableViewController"; title = "My Events"; ObjectID = "1xB-O6-kmi"; */
+"1xB-O6-kmi.title" = "Mis Eventos";
+
+/* Class = "UILabel"; text = "User's Name"; ObjectID = "3to-ah-MxN"; */
+"3to-ah-MxN.text" = "Nombre del Usuario";
+
+/* Class = "UITableViewSection"; headerTitle = "Events"; ObjectID = "6Nx-ZX-J2m"; */
+"6Nx-ZX-J2m.headerTitle" = "Eventos";
+
+/* Class = "UINavigationItem"; title = "Event Details"; ObjectID = "Bup-go-rfN"; */
+"Bup-go-rfN.title" = "Detalles del Evento";
+
+/* Class = "UINavigationItem"; title = "Near You"; ObjectID = "DES-IS-Ka0"; */
+"DES-IS-Ka0.title" = "Cerca de Ti";
+
+/* Class = "UILabel"; text = "Event Type"; ObjectID = "Kxj-zk-4lD"; */
+"Kxj-zk-4lD.text" = "Tipo de Evento";
+
+/* Class = "UILabel"; text = "Date"; ObjectID = "Q3R-bc-qxi"; */
+"Q3R-bc-qxi.text" = "Fecha";
+
+/* Class = "UILabel"; text = "User's Name"; ObjectID = "Qz1-At-WDl"; */
+"Qz1-At-WDl.text" = "Nombre del Usuario";
+
+/* Class = "UITableViewSection"; headerTitle = "Legal stuff"; ObjectID = "XzW-FV-TBg"; */
+"XzW-FV-TBg.headerTitle" = "Legal";
+
+/* Class = "UINavigationItem"; title = "Settings"; ObjectID = "YLd-7L-dHi"; */
+"YLd-7L-dHi.title" = "Ajustes";
+
+/* Class = "UIButton"; normalTitle = "Sign Out 😡"; ObjectID = "dqv-Ah-fat"; */
+"dqv-Ah-fat.normalTitle" = "Salir 😡";
+
+/* Class = "UITableViewSection"; headerTitle = "Sign out"; ObjectID = "eaZ-AA-x71"; */
+"eaZ-AA-x71.headerTitle" = "Salir";
+
+/* Class = "UILabel"; text = "Date"; ObjectID = "iiy-Cm-lze"; */
+"iiy-Cm-lze.text" = "Fecha";
+
+/* Class = "UIViewController"; title = "Event Details"; ObjectID = "qJC-5B-fqP"; */
+"qJC-5B-fqP.title" = "Detalles";
+
+/* Class = "UILabel"; text = "Event Type"; ObjectID = "xY6-Ki-Rme"; */
+"xY6-Ki-Rme.text" = "Tipo de Evento";

@@ -197,7 +197,7 @@ class EventController: UIViewController, GADBannerViewDelegate {
         guard let event = EventType(index: selectedEventIndex) else { return }
         
         guard let location = locationManager.currentLocation() else { return }
-        let eventID = "\(Int(NSDate.timeIntervalSinceReferenceDate * 10000000000))"
+        let eventID = "\(Int(NSDate.timeIntervalSinceReferenceDate * 100000000))"
         
         startActivityIndicator()
         
