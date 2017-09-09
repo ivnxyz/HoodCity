@@ -23,3 +23,9 @@ EventType.SportEvent.CleanTitle = "Evento Deportivo";
 EventType.Meetup.CleanTitle = "Meetup";
 EventType.ArtEvent.CleanTitle = "Evento Artístico";
 EventType.Rain.CleanTitle = "Lluvia";
+
+// EventController
+
+EventController.Title = "Agregar un nuevo evento";
+EventController.Information = "Este evento desaparecerá en 12 horas";
+EventController.NewEventButtonTitle = "Agrear Evento";

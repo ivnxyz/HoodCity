@@ -40,9 +40,11 @@ class EventController: UIViewController, GADBannerViewDelegate {
     
     lazy var addEventButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Add event", for: .normal)
+        button.setTitle(NSLocalizedString("EventController.NewEventButtonTitle", comment: ""), for: .normal)
         button.setTitleColor(UIColor(red: 38/255.0, green: 42/255.0, blue: 152/255.0, alpha: 1), for: .normal)
-        button.titleLabel?.font = button.titleLabel?.font.withSize(21)
+        button.titleLabel?.font = button.titleLabel?.font.withSize(20)
+        
+        button.sizeToFit()
         
         button.layer.cornerRadius = 6
         button.layer.borderWidth = 2
@@ -58,7 +60,9 @@ class EventController: UIViewController, GADBannerViewDelegate {
     lazy var addEventLabel: UILabel = {
         let label = UILabel()
         label.textColor = UIColor(red: 63/255.0, green: 63/255.0, blue: 63/255.0, alpha: 1)
-        label.text = "Add a new event"
+        label.text = NSLocalizedString("EventController.Title", comment: "")
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.3
         label.font = UIFont.systemFont(ofSize: 21, weight: UIFontWeightSemibold)
         label.translatesAutoresizingMaskIntoConstraints = false
         
@@ -68,7 +72,9 @@ class EventController: UIViewController, GADBannerViewDelegate {
     lazy var eventInfoLabel: UILabel = {
         let label = UILabel()
         label.textColor = UIColor(red: 129/255.0, green: 129/255.0, blue: 129/255.0, alpha: 1)
-        label.text = "This event will disappear in 12 hours."
+        label.text = NSLocalizedString("EventController.Information", comment: "")
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.3
         label.font = UIFont.systemFont(ofSize: 15, weight: UIFontWeightMedium)
         label.translatesAutoresizingMaskIntoConstraints = false
         
@@ -148,7 +154,7 @@ class EventController: UIViewController, GADBannerViewDelegate {
         NSLayoutConstraint.activate([
             addEventButton.bottomAnchor.constraint(equalTo: eventInfoLabel.topAnchor, constant: -15),
             addEventButton.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor),
-            addEventButton.widthAnchor.constraint(equalToConstant: 134),
+            addEventButton.widthAnchor.constraint(equalToConstant: addEventButton.frame.width + 20),
             addEventButton.heightAnchor.constraint(equalToConstant: 37)
         ])
         
