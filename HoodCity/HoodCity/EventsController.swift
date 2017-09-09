@@ -73,7 +73,7 @@ class EventsController: UITableViewController {
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height))
         label.textAlignment = .center
         label.numberOfLines = 0
-        label.text = "You don't have any events yet :("
+        label.text = NSLocalizedString("EventsController.EmptyTableViewMessage", comment: "")
         label.textColor = UIColor(red: 88/255, green: 88/255, blue: 88/255, alpha: 1)
         label.font = UIFont.boldSystemFont(ofSize: 20)
         

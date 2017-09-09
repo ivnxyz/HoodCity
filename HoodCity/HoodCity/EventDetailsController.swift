@@ -66,8 +66,11 @@ class EventDetailsController: UIViewController, GADBannerViewDelegate {
             formatter.dateFormat = "dd/MM/yyyy HH:mm"
             
             let dateStringRepresentation = formatter.string(from: event.date)
+            
+            let added = NSLocalizedString("Date.Added", comment: "")
 
-            dateLabel.text = dateStringRepresentation            
+            dateLabel.text = "\(added): \(dateStringRepresentation)"
+            
             // Get user profile to configure view
             
             getUserProfile()

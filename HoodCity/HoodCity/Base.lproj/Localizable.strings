@@ -29,3 +29,23 @@ EventType.Rain.CleanTitle = "Rain";
 EventController.Title = "Add a new event";
 EventController.Information = "This event will disappear in 12 hours";
 EventController.NewEventButtonTitle = "Add Event";
+
+// Settings Controller
+
+SettingsController.MyEvents = "My Active Events 🎉";
+SettingsController.SignoutAlert.Message = "Are you sure you want to sign out?";
+SettingsController.SignoutAlert.SignOut = "Sign Out";
+SettingsController.SignoutAlert.Cancel = "Cancel";
+
+// Events Controller
+
+EventsController.EmptyTableViewMessage = "You don't have any events yet :(";
+
+// Legal
+
+Legal.PrivacyPolicy = "Privacy Policy";
+Legal.TermsAndConditions = "Terms and Conditions";
+
+// Date
+
+Date.Added = "Added";

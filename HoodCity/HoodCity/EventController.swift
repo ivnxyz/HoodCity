@@ -62,7 +62,7 @@ class EventController: UIViewController, GADBannerViewDelegate {
         label.textColor = UIColor(red: 63/255.0, green: 63/255.0, blue: 63/255.0, alpha: 1)
         label.text = NSLocalizedString("EventController.Title", comment: "")
         label.adjustsFontSizeToFitWidth = true
-        label.minimumScaleFactor = 0.3
+        label.minimumScaleFactor = 0.4
         label.font = UIFont.systemFont(ofSize: 21, weight: UIFontWeightSemibold)
         label.translatesAutoresizingMaskIntoConstraints = false
         
@@ -74,7 +74,7 @@ class EventController: UIViewController, GADBannerViewDelegate {
         label.textColor = UIColor(red: 129/255.0, green: 129/255.0, blue: 129/255.0, alpha: 1)
         label.text = NSLocalizedString("EventController.Information", comment: "")
         label.adjustsFontSizeToFitWidth = true
-        label.minimumScaleFactor = 0.3
+        label.minimumScaleFactor = 0.5
         label.font = UIFont.systemFont(ofSize: 15, weight: UIFontWeightMedium)
         label.translatesAutoresizingMaskIntoConstraints = false
         

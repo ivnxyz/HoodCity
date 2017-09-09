@@ -24,7 +24,9 @@ class EventCell: UITableViewCell {
         formatter.dateFormat = "dd/MM/yyyy HH:mm"
         let dateStringRepresentation = formatter.string(from: event.date)
         
-        dateLabel.text = "Added: \(dateStringRepresentation)"
+        let added = NSLocalizedString("Date.Added", comment: "")
+        
+        dateLabel.text = "\(added): \(dateStringRepresentation)"
     }
 
 }

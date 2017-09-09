@@ -21,9 +21,9 @@ class SettingsController: UITableViewController {
     @IBOutlet weak var termsAndConditionsCell: UITableViewCell!
     
     lazy var signoutAlert: UIAlertController = {
-        let alertController = UIAlertController(title: nil, message: "Are you sure you want to sign out?", preferredStyle: .actionSheet)
-        alertController.addAction(UIAlertAction(title: "Sign Out", style: .destructive, handler: self.signOut(alertAction:)))
-        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        let alertController = UIAlertController(title: nil, message: NSLocalizedString("SettingsController.SignoutAlert.Message", comment: ""), preferredStyle: .actionSheet)
+        alertController.addAction(UIAlertAction(title: NSLocalizedString("SettingsController.SignoutAlert.SignOut", comment: ""), style: .destructive, handler: self.signOut(alertAction:)))
+        alertController.addAction(UIAlertAction(title: NSLocalizedString("SettingsController.SignoutAlert.Cancel", comment: ""), style: .cancel, handler: nil))
         
         return alertController
     }()
@@ -33,9 +33,9 @@ class SettingsController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        eventsCell.textLabel?.text = "My Active Events 🎉"
-        privacyPolicyCell.textLabel?.text = "Read Privacy Policy"
-        termsAndConditionsCell.textLabel?.text = "Read Terms and Conditions"
+        eventsCell.textLabel?.text = NSLocalizedString("SettingsController.MyEvents", comment: "")
+        privacyPolicyCell.textLabel?.text = NSLocalizedString("Legal.PrivacyPolicy", comment: "")
+        termsAndConditionsCell.textLabel?.text = NSLocalizedString("Legal.TermsAndConditions", comment: "")
 
         profileImageView.image = User.shared?.profilePicture ?? #imageLiteral(resourceName: "avatar")
         userNameLabel.text = User.shared?.name ?? ""
@@ -97,7 +97,7 @@ class SettingsController: UITableViewController {
     func readTermsAndConditions() {
         if let url = URL(string: termsAndConditionsURL) {
             let urlRequest = URLRequest(url: url)
-            let pdfController = PDFController(request: urlRequest, title: "Terms and Conditions")
+            let pdfController = PDFController(request: urlRequest, title: NSLocalizedString("Legal.TermsAndConditions", comment: ""))
             
             navigationController?.pushViewController(pdfController, animated: true)
         }
@@ -106,7 +106,7 @@ class SettingsController: UITableViewController {
     func readPrivacyPolicy() {
         if let url = URL(string: privacyPolicyURL) {
             let urlRequest = URLRequest(url: url)
-            let pdfController = PDFController(request: urlRequest, title: "Privacy Policy")
+            let pdfController = PDFController(request: urlRequest, title: NSLocalizedString("Legal.PrivacyPolicy", comment: ""))
             
             navigationController?.pushViewController(pdfController, animated: true)
         }
