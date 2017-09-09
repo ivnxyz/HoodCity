@@ -17,6 +17,7 @@
 		A6365CB41F3F957E00BB03AD /* EventsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6365CB31F3F957E00BB03AD /* EventsDataSource.swift */; };
 		A65910471F3112A3003CC2F4 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A65910461F3112A3003CC2F4 /* LoadingView.swift */; };
 		A65965661F63C5C90083BE0F /* SignUp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A65965681F63C5C90083BE0F /* SignUp.storyboard */; };
+		A65965781F64793A0083BE0F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A659657A1F64793A0083BE0F /* Localizable.strings */; };
 		A662045A1F3F407A00F4655C /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A66204591F3F407A00F4655C /* SettingsController.swift */; };
 		A662045C1F3F4CA700F4655C /* ProfileContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A662045B1F3F4CA700F4655C /* ProfileContentView.swift */; };
 		A6847FC71F2992740093E250 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6847FC61F2992740093E250 /* SignUpView.swift */; };
@@ -63,6 +64,8 @@
 		A65965651F63C3670083BE0F /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		A65965671F63C5C90083BE0F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/SignUp.storyboard; sourceTree = "<group>"; };
 		A659656A1F63C5D20083BE0F /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/SignUp.strings; sourceTree = "<group>"; };
+		A65965791F64793A0083BE0F /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A659657B1F6479490083BE0F /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A65BB9621F248D2600F40CE6 /* HoodCity.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HoodCity.entitlements; sourceTree = "<group>"; };
 		A66204591F3F407A00F4655C /* SettingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
 		A662045B1F3F4CA700F4655C /* ProfileContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileContentView.swift; sourceTree = "<group>"; };
@@ -203,6 +206,7 @@
 				A6E2B9841F15A9FA006C4C85 /* GoogleService-Info.plist */,
 				A6E2B9A51F15AF6A006C4C85 /* HoodCity-Bridging-Header.h */,
 				A634BAF51F23369300927724 /* SecretKeys.swift */,
+				A659657A1F64793A0083BE0F /* Localizable.strings */,
 			);
 			path = HoodCity;
 			sourceTree = "<group>";
@@ -374,6 +378,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A6E2B97D1F15A564006C4C85 /* LaunchScreen.storyboard in Resources */,
+				A65965781F64793A0083BE0F /* Localizable.strings in Resources */,
 				A6E2B9851F15A9FA006C4C85 /* GoogleService-Info.plist in Resources */,
 				A6E2B97A1F15A564006C4C85 /* Assets.xcassets in Resources */,
 				A6E2B9781F15A564006C4C85 /* Main.storyboard in Resources */,
@@ -497,6 +502,15 @@
 				A659656A1F63C5D20083BE0F /* es */,
 			);
 			name = SignUp.storyboard;
+			sourceTree = "<group>";
+		};
+		A659657A1F64793A0083BE0F /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A65965791F64793A0083BE0F /* Base */,
+				A659657B1F6479490083BE0F /* es */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 		A6E2B9761F15A564006C4C85 /* Main.storyboard */ = {

@@ -1,0 +1,25 @@
+/* 
+  Localizable.strings
+  HoodCity
+
+  Created by Iván Martínez on 09/09/17.
+  Copyright © 2017 Iván Martínez. All rights reserved.
+*/
+
+// Eventos
+
+EventType.Traffic = "🚦 Traffic";
+EventType.Protest = "✋ Protest";
+EventType.Party = "🎉 Party";
+EventType.SportEvent = "🏆 Sport Event";
+EventType.Meetup = "🍻 Meetup";
+EventType.ArtEvent = "🎭 Art Event";
+EventType.Rain = "☔️ Rain";
+
+EventType.Traffic.CleanTitle = "Traffic";
+EventType.Protest.CleanTitle = "Protest";
+EventType.Party.CleanTitle = "Party";
+EventType.SportEvent.CleanTitle = "Sport Event";
+EventType.Meetup.CleanTitle = "Meetup";
+EventType.ArtEvent.CleanTitle = "Art Event";
+EventType.Rain.CleanTitle = "Rain";

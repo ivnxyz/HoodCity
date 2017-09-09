@@ -70,19 +70,19 @@ extension EventType {
     var title: String {
         switch self {
         case .traffic:
-            return "🚦 Traffic"
+            return NSLocalizedString("EventType.Traffic", comment: "") 
         case .protest:
-            return "✋ Protest"
+            return NSLocalizedString("EventType.Protest", comment: "")
         case .party:
-            return "🎉 Party"
+            return NSLocalizedString("EventType.Party", comment: "")
         case .sportEvent:
-            return "🏆 Sport event"
+            return NSLocalizedString("EventType.SportEvent", comment: "")
         case .meetup:
-            return "🍻 Meetup"
+            return NSLocalizedString("EventType.Meetup", comment: "")
         case .art:
-            return "🎭 Art event"
+            return NSLocalizedString("EventType.ArtEvent", comment: "")
         case .rain:
-            return "☔️ Rain"
+            return NSLocalizedString("EventType.Rain", comment: "")
         }
     }
     
@@ -127,19 +127,19 @@ extension EventType {
     var cleanTitle: String {
         switch self {
         case .traffic:
-            return "Traffic"
+            return NSLocalizedString("EventType.Traffic.CleanTitle", comment: "")
         case .protest:
-            return "Protest"
+            return NSLocalizedString("EventType.Protest.CleanTitle", comment: "")
         case .party:
-            return "Party"
+            return NSLocalizedString("EventType.Party.CleanTitle", comment: "")
         case .sportEvent:
-            return "Sport event"
+            return NSLocalizedString("EventType.SportEvent.CleanTitle", comment: "")
         case .meetup:
-            return "Meetup"
+            return NSLocalizedString("EventType.Meetup.CleanTitle", comment: "")
         case .art:
-            return "Art event"
+            return NSLocalizedString("EventType.ArtEvent.CleanTitle", comment: "")
         case .rain:
-            return "Rain"
+            return NSLocalizedString("EventType.Rain.CleanTitle", comment: "")
         }
     }
 }
