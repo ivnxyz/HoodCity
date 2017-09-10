@@ -39,12 +39,17 @@ SettingsController.SignoutAlert.Cancel = "Cancel";
 
 // Events Controller
 
-EventsController.EmptyTableViewMessage = "You don't have any events yet :(";
+EventsController.EmptyTableViewMessage = "No events :(";
+
+// SignUp View
+
+SignUpView.Title = "Sign In or Sign Up";
 
 // Legal
 
 Legal.PrivacyPolicy = "Privacy Policy";
 Legal.TermsAndConditions = "Terms and Conditions";
+Legal.SignUpAgreement = "By signing up you agree to our TaC and Privacy Policy";
 
 // Date
 

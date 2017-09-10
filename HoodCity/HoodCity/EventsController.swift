@@ -70,10 +70,12 @@ class EventsController: UITableViewController {
     }
     
     func showEmptyTableViewMessage() {
-        let label = UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height))
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.bounds.size.width, height: self.view.bounds.size.height))
+        label.text = NSLocalizedString("EventsController.EmptyTableViewMessage", comment: "")
         label.textAlignment = .center
         label.numberOfLines = 0
-        label.text = NSLocalizedString("EventsController.EmptyTableViewMessage", comment: "")
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.5
         label.textColor = UIColor(red: 88/255, green: 88/255, blue: 88/255, alpha: 1)
         label.font = UIFont.boldSystemFont(ofSize: 20)
         

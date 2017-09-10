@@ -60,7 +60,7 @@ class SignUpView: UIView {
     lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.textColor = UIColor(red: 63/255.0, green: 63/255.0, blue: 63/255.0, alpha: 1)
-        label.text = "Sign In or Sign Up"
+        label.text = NSLocalizedString("SignUpView.Title", comment: "")
         label.font = UIFont.systemFont(ofSize: 21, weight: UIFontWeightSemibold)
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -74,13 +74,11 @@ class SignUpView: UIView {
         let textColor = UIColor(red: 88/255, green: 88/255, blue: 88/255, alpha: 1)
         guard let buttonColor = UIButton(type: .system).tintColor else { return UILabel() }
         
-        let text = NSMutableAttributedString(string: "By signing up you agree to our TaC and Privacy Policy", attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 9, weight: UIFontWeightRegular)])
-        
-        text.addAttribute(NSForegroundColorAttributeName, value: textColor, range: NSRange(location: 0, length: text.length))
-        text.addAttribute(NSForegroundColorAttributeName, value: buttonColor, range: NSRange(location: 31, length: 3))
-        text.addAttribute(NSForegroundColorAttributeName, value: buttonColor, range: NSRange(location: 39, length: 14))
-        
-        label.attributedText = text
+        label.text = NSLocalizedString("Legal.SignUpAgreement", comment: "")
+        label.textColor = buttonColor
+        label.font = .systemFont(ofSize: 10, weight: UIFontWeightRegular)
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.5
         label.textAlignment = .center
         label.isUserInteractionEnabled = true
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -160,8 +158,8 @@ class SignUpView: UIView {
         NSLayoutConstraint.activate([
             termsLabel.heightAnchor.constraint(equalToConstant: 50),
             termsLabel.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor),
-            termsLabel.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor),
-            termsLabel.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor)
+            termsLabel.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -15),
+            termsLabel.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 15)
         ])
     }
     

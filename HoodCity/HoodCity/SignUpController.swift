@@ -21,9 +21,9 @@ class SignUpController: UIViewController {
     
     lazy var termsAlertController: UIAlertController = {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        alertController.addAction(UIAlertAction(title: "Read Terms and Conditions", style: .default, handler: self.readTermsAndConditions))
-        alertController.addAction(UIAlertAction(title: "Read Privacy Policy", style: .default, handler: self.readPrivacyPolicy))
-        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alertController.addAction(UIAlertAction(title: NSLocalizedString("Legal.TermsAndConditions", comment: ""), style: .default, handler: self.readTermsAndConditions))
+        alertController.addAction(UIAlertAction(title: NSLocalizedString("Legal.PrivacyPolicy", comment: ""), style: .default, handler: self.readPrivacyPolicy))
+        alertController.addAction(UIAlertAction(title: NSLocalizedString("SettingsController.SignoutAlert.Cancel", comment: ""), style: .cancel, handler: nil))
         
         return alertController
     }()
@@ -95,7 +95,7 @@ class SignUpController: UIViewController {
     func readTermsAndConditions(alertAction: UIAlertAction) {
         if let url = URL(string: termsAndConditionsURL) {
             let urlRequest = URLRequest(url: url)
-            let pdfController = PDFController(request: urlRequest, title: "Terms and Conditions")
+            let pdfController = PDFController(request: urlRequest, title: NSLocalizedString("Legal.TermsAndConditions", comment: ""))
             
             let navigationController = UINavigationController(rootViewController: pdfController)
             
@@ -107,7 +107,7 @@ class SignUpController: UIViewController {
         
         if let url = URL(string: privacyPolicyURL) {
             let urlRequest = URLRequest(url: url)
-            let pdfController = PDFController(request: urlRequest, title: "Privacy Policy")
+            let pdfController = PDFController(request: urlRequest, title: NSLocalizedString("Legal.PrivacyPolicy", comment: ""))
             
             let navigationController = UINavigationController(rootViewController: pdfController)
             
