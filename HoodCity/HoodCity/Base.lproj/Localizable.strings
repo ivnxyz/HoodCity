@@ -39,7 +39,7 @@ SettingsController.SignoutAlert.Cancel = "Cancel";
 
 // Events Controller
 
-EventsController.EmptyTableViewMessage = "No events :(";
+EventsController.EmptyTableViewMessage = "No events 😔";
 
 // SignUp View
 
